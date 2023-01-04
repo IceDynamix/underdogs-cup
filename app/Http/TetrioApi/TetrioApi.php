@@ -81,4 +81,10 @@ class TetrioApi
         // allow for 5 minutes until timeout because the dataset is huge
         return self::request("users/lists/league/all", [], 'users', 60 * 5);
     }
+
+    public static function getUserFromDiscordId(string $id)
+    {
+        // https://tetr.io/about/api/#userssearchquery
+        return self::request("users/search/$id", [], 'user', false);
+    }
 }

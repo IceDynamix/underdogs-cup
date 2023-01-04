@@ -8,11 +8,13 @@ use Tests\TestCase;
 
 class TetrioApiTest extends TestCase
 {
-    public function testRequestConnection() {
+    public function testRequestConnection()
+    {
         $this->assertNotNull(TetrioApi::getServerStatistics());
     }
 
-    public function testRequestCache() {
+    public function testRequestCache()
+    {
         $key = 'tetrio/general/stats?';
         Cache::forget($key);
         $this->assertNotNull(TetrioApi::getServerStatistics());
@@ -40,5 +42,13 @@ class TetrioApiTest extends TestCase
         // osk user id
         $user = TetrioApi::getUserNewsStream('5e32fc85ab319c2ab1beb07c');
         $this->assertNotNull($user);
+    }
+
+    public function testDiscordLookup()
+    {
+        // my discord id
+        $res = TetrioApi::getUserFromDiscordId('126806732889522176');
+        $this->assertNotNull($res);
+        $this->assertEquals('icedynamix', $res['username']);
     }
 }
