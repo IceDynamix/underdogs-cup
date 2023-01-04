@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 
 class TetrioApi
 {
-    private static function request(string $endpoint, array $query = [], ?string $defaultKey = null, int $maxTimeoutInSecs = 10)
+    private static function request(string $endpoint, array $query = [], ?string $defaultKey = null, bool $cache = true, int $maxTimeoutInSecs = 10)
     {
         $cacheKey = 'tetrio/' . $endpoint . '?' . implode('&', array_values($query)); // its good enough
 
@@ -33,11 +33,14 @@ class TetrioApi
                 return null;
             }
 
-            // tetrio delivers caching data with every successful request https://tetr.io/about/api/#cachedata
-            $cacheData = $json['cache'];
-            $cachedUntil = Carbon::createFromTimestampMsUTC($cacheData['cached_until']);
-            Cache::put($cacheKey, $response->body(), $cachedUntil);
-            Log::info("Cached request data to $cacheKey until $cachedUntil");
+            if ($cache) {
+                // tetrio delivers caching data with every successful request https://tetr.io/about/api/#cachedata
+                $cacheData = $json['cache'];
+                $cachedUntil = Carbon::createFromTimestampMsUTC($cacheData['cached_until']);
+                Cache::put($cacheKey, $response->body(), $cachedUntil);
+                Log::info("Cached request data to $cacheKey until $cachedUntil");
+            }
+
         }
 
         if ($json['data'] == null) return null;
@@ -76,15 +79,13 @@ class TetrioApi
     public static function getFullLeaderboardExport()
     {
         // https://tetr.io/about/api/#userlistsleagueall
-
-        // don't cache because this is only going to be accessed once anyway
-        // allow for 5 minutes until timeout because the dataset is huge
-        return self::request("users/lists/league/all", [], 'users', 60 * 5);
+        return self::request("users/lists/league/all", [], 'users', true, 60 * 5);
     }
 
     public static function getUserFromDiscordId(string $id)
     {
         // https://tetr.io/about/api/#userssearchquery
+        // don't cache, because this data will be accessed in real-time for connection
         return self::request("users/search/$id", [], 'user', false);
     }
 }

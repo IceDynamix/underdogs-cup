@@ -16,10 +16,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () { return view('welcome'); })->name('home');
 Route::get('/procedure', function () { return view('procedure'); })->name('procedure');
+Route::get('/connect', function () { return view('connect'); })->name('link');
 
 Route::controller(AuthController::class)
     ->group(function () {
         Route::get('login', 'login')->name('login');
         Route::post('logout', 'logout')->name('logout');
         Route::get('/auth/discord/callback', 'callback')->name('callback');
+
+        Route::post('connect', 'connect')->name('connect.post');
     });

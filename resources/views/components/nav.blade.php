@@ -23,22 +23,29 @@
         <div class="navbar-end">
             @auth
                 <span class="navbar-item">Logged in as {{auth()->user()->name}}</span>
-            @endauth
-            <div class="navbar-item">
-                <div class="buttons">
-                    @auth()
-                        <form action="{{route('logout')}}" method="POST">
-                            @csrf
-                            <button type="submit" class="button is-primary">
-                                <span class="has-text-weight-bold">Logout</span>
-                            </button>
-                        </form>
-                    @else
-                        <a class="button is-primary" href="{{route('login')}}">
-                            Log in with Discord
+
+                @if(auth()->user()->tetrio_user_id == null)
+                    <div class="navbar-item">
+                        <a href="{{route('link')}}" class="button is-info is-small">
+                            Link with TETR.IO
                         </a>
-                    @endauth
-                </div>
+                    </div>
+                @endif
+            @endauth
+
+            <div class="navbar-item">
+                @auth()
+                    <form action="{{route('logout')}}" method="POST">
+                        @csrf
+                        <button type="submit" class="button is-primary is-small">
+                            <span class="has-text-weight-bold">Logout</span>
+                        </button>
+                    </form>
+                @else
+                    <a class="button is-primary" href="{{route('login')}}">
+                        Log in with Discord
+                    </a>
+                @endauth
             </div>
         </div>
     </div>

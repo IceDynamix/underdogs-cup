@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Http\TetrioApi\TetrioApi;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -41,7 +42,15 @@ class User extends Authenticatable
     protected $casts = [
     ];
 
-    public function tetrio(): HasOne {
+    public function tetrio(): HasOne
+    {
         return $this->hasOne(TetrioUser::class);
+    }
+
+    public function getLinkedTetrio(): ?string
+    {
+        $res = TetrioApi::getUserFromDiscordId($this->id);
+        if ($res == null) return null;
+        return $res['_id'];
     }
 }

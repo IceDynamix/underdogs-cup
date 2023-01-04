@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('id')->primary();
             $table->string('name');
             $table->string('avatar');
-            $table->foreignIdFor(TetrioUser::class)->nullable();
+            $table->string('tetrio_user_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
