@@ -15,7 +15,7 @@
         <div class="navbar-start">
             <a class="navbar-item" href="{{ route('home') }}">Home</a>
             <a class="navbar-item">Underdogs Cup 17</a>
-            <a class="navbar-item">Match Procedure</a>
+            <a class="navbar-item" href="{{ route('procedure') }}">Match Procedure</a>
             <a class="navbar-item">Discord Server</a>
             <a class="navbar-item">Stream</a>
         </div>

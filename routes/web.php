@@ -14,9 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', function () { return view('welcome'); })->name('home');
+Route::get('/procedure', function () { return view('procedure'); })->name('procedure');
 
 Route::controller(AuthController::class)
     ->group(function () {
