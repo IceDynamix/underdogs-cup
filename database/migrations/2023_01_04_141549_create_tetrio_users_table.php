@@ -12,7 +12,6 @@ return new class extends Migration {
 
             $table->string('username');
             $table->string('country')->nullable();
-            $table->string('avatar_revision');
 
             $table->string('rank');
             $table->string('best_rank');

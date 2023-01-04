@@ -4,15 +4,17 @@ namespace App\Models;
 
 use App\Http\TetrioApi\TetrioApi;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class TetrioUser extends Model
 {
+    public $incrementing = false;
+
     protected $fillable = [
         'id',
         'username',
         'country',
-        'avatar_revision',
         'rank',
         'best_rank',
         'rating',
@@ -28,7 +30,6 @@ class TetrioUser extends Model
         return [
             'username' => $user['username'],
             'country' => $user['country'],
-            'avatar_revision' => $user['avatar_revision'],
             'rank' => $user['league']['rank'],
             'best_rank' => $user['league']['bestrank'],
             'rating' => $user['league']['rating'],
@@ -38,6 +39,10 @@ class TetrioUser extends Model
             'vs' => $user['league']['vs'],
             'games_played' => $user['league']['gamesplayed'],
         ];
+    }
+
+    public function discordUser(): BelongsTo {
+        return $this->belongsTo(User::class, 'id', 'tetrio_user_id');
     }
 
     public function snapshotUser(): HasOne
@@ -54,5 +59,16 @@ class TetrioUser extends Model
             ['id' => $tetrioUser['_id']],
             self::mapTetrioUserToDbFill($tetrioUser)
         );
+    }
+
+    public function avatarUrl(): string
+    {
+        // https://tetr.io/about/api/#usersuser
+        return "https://tetr.io/user-content/avatars/" . $this->id . ".jpg";
+    }
+
+    public function url(): string
+    {
+        return "https://ch.tetr.io/u/$this->username";
     }
 }

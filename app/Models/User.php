@@ -14,6 +14,8 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public $incrementing = false;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -44,7 +46,7 @@ class User extends Authenticatable
 
     public function tetrio(): HasOne
     {
-        return $this->hasOne(TetrioUser::class);
+        return $this->hasOne(TetrioUser::class, 'id', 'tetrio_user_id');
     }
 
     public function getLinkedTetrio(): ?string
@@ -52,5 +54,23 @@ class User extends Authenticatable
         $res = TetrioApi::getUserFromDiscordId($this->id);
         if ($res == null) return null;
         return $res['_id'];
+    }
+
+    public function username(): string
+    {
+        return $this->tetrio?->username ?? $this->name;
+    }
+
+    public function avatarUrl(): string
+    {
+        return $this->tetrio?->avatarUrl() ?? $this->avatar;
+    }
+
+    public function isConnected(): bool {
+        return $this->tetrio_user_id != null;
+    }
+
+    public function url(): string {
+        return $this->tetrio?->url() ?? '';
     }
 }

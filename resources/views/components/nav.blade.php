@@ -22,7 +22,14 @@
 
         <div class="navbar-end">
             @auth
-                <span class="navbar-item">Logged in as {{auth()->user()->name}}</span>
+                <div class="navbar-item">
+                    <figure class="image is48x48 p-2">
+                        <img src="{{auth()->user()->avatarUrl()}}" alt="Avatar" class="is-rounded">
+                    </figure>
+                    <a href="{{auth()->user()->url()}}">
+                        {{auth()->user()->name}}
+                    </a>
+                </div>
 
                 @if(auth()->user()->tetrio_user_id == null)
                     <div class="navbar-item">
