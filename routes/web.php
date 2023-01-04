@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TournamentsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () { return view('welcome'); })->name('home');
+Route::controller(TournamentsController::class)->group(function () {
+    Route::get('/', 'index')->name('home');
+});
+
 Route::get('/procedure', function () { return view('procedure'); })->name('procedure');
 Route::get('/connect', function () { return view('connect'); })->name('link');
 
