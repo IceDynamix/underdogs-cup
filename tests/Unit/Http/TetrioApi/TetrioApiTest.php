@@ -18,4 +18,18 @@ class TetrioApiTest extends TestCase
         $this->assertNotNull(TetrioApi::getServerStatistics());
         $this->assertTrue(Cache::has($key));
     }
+
+    public function testServerStatus()
+    {
+        $res = TetrioApi::getServerStatistics();
+        $this->assertNotNull($res);
+        $this->assertIsInt($res['usercount']);
+    }
+
+    public function testUserInfo()
+    {
+        $res = TetrioApi::getUserInfo('osk');
+        $this->assertNotNull($res);
+        $this->assertEquals('osk', $res['username']);
+    }
 }

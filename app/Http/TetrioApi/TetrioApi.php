@@ -10,7 +10,7 @@ use function PHPUnit\Framework\arrayHasKey;
 
 class TetrioApi
 {
-    private static function request(string $endpoint, array $query = [])
+    private static function request(string $endpoint, array $query = [], ?string $defaultKey = null)
     {
         $url = "https://ch.tetr.io/api/$endpoint";
 
@@ -31,7 +31,7 @@ class TetrioApi
 
         $json = $response->json();
 
-        if (!empty($json['error'])) {
+        if (!$json['success']) {
             $why = $json['error'];
             Log::error("Request to $url failed because '$why'");
             return null;
@@ -43,11 +43,21 @@ class TetrioApi
         Cache::put($cacheKey, $response->body(), $cachedUntil);
         Log::info("Cached request data to $cacheKey until $cachedUntil");
 
+        if ($defaultKey) {
+            return $json['data'][$defaultKey];
+        }
+
         return $json['data'];
     }
 
     public static function getServerStatistics()
     {
+        // https://tetr.io/about/api/#generalstats
         return self::request('general/stats');
+    }
+
+    public static function getUserInfo(string $lookup) {
+        // https://tetr.io/about/api/#usersuser
+        return self::request("users/$lookup", [], 'user');
     }
 }
