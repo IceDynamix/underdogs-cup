@@ -32,4 +32,13 @@ class TetrioApiTest extends TestCase
         $this->assertNotNull($res);
         $this->assertEquals('osk', $res['username']);
     }
+
+    public function testNewsStreams()
+    {
+        $global = TetrioApi::getGlobalNewsStream();
+        $this->assertNotNull($global);
+        // osk user id
+        $user = TetrioApi::getUserNewsStream('5e32fc85ab319c2ab1beb07c');
+        $this->assertNotNull($user);
+    }
 }

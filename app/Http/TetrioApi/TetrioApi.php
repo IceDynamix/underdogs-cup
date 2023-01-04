@@ -57,4 +57,19 @@ class TetrioApi
         // https://tetr.io/about/api/#usersuser
         return self::request("users/$lookup", [], 'user');
     }
+
+    private static function getNewsStream(string $stream, int $limit = 25)
+    {
+        // https://tetr.io/about/api/#newsstream
+        return self::request("news/$stream", ['limit' => $limit], 'news');
+    }
+
+    public static function getUserNewsStream(string $userId, int $limit = 25)
+    {
+        return self::getNewsStream("user_$userId", $limit);
+    }
+
+    public static function getGlobalNewsStream(int $limit = 25) {
+        return self::getNewsStream('global', $limit);
+    }
 }
