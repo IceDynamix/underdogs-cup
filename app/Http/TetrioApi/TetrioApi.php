@@ -6,26 +6,23 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use function PHPUnit\Framework\arrayHasKey;
 
 class TetrioApi
 {
     private static function request(string $endpoint, array $query = [], ?string $defaultKey = null)
     {
-        $url = "https://ch.tetr.io/api/$endpoint";
-
         $cacheKey = 'tetrio/' . $endpoint . '?' . implode('&', array_values($query)); // its good enough
 
         $json = Cache::get($cacheKey);
         if (!empty($json))
             return json_decode($json, true);
 
-        Log::info("Requesting from $url");
-        $response = Http::get($url, $query);
+        Log::info("Requesting from tetrio/$endpoint");
+        $response = Http::tetrio()->get($endpoint, $query);
 
         if ($response->failed()) {
             $status = $response->status();
-            Log::error("Request to $url failed with status $status");
+            Log::error("Request to $cacheKey failed with status $status");
             return null;
         }
 
@@ -33,7 +30,7 @@ class TetrioApi
 
         if (!$json['success']) {
             $why = $json['error'];
-            Log::error("Request to $url failed because '$why'");
+            Log::error("Request to $cacheKey failed because '$why'");
             return null;
         }
 

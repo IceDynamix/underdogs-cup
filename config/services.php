@@ -32,6 +32,6 @@ return [
     ],
 
     'tetrio' => [
-        'session-header' => env('TETRIO_SESSION_HEADER', 'underdogs-cup')
+        'session' => env('TETRIO_SESSION_HEADER', 'underdogs-cup')
     ]
 ];
