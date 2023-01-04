@@ -7,7 +7,20 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class TetrioUserSnapshot extends Model
 {
-    public function currentUser(): HasOne {
+    protected $fillable = [
+        'id',
+        'rank',
+        'best_rank',
+        'rating',
+        'rd',
+        'pps',
+        'apm',
+        'vs',
+        'games_played',
+    ];
+
+    public function currentUser(): HasOne
+    {
         return $this->hasOne(TetrioUser::class, 'id', 'id');
     }
 }

@@ -8,7 +8,7 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('tetrio_user_snapshots', function (Blueprint $table) {
-            $table->id();
+            $table->string('id')->primary();
 
             $table->string('rank');
             $table->string('best_rank');

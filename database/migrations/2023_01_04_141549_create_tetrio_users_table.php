@@ -8,7 +8,7 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('tetrio_users', function (Blueprint $table) {
-            $table->id();
+            $table->string('id')->primary();
 
             $table->string('username');
             $table->string('country')->nullable();
