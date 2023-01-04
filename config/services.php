@@ -31,4 +31,7 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'tetrio' => [
+        'session-header' => env('TETRIO_SESSION_HEADER', 'underdogs-cup')
+    ]
 ];
