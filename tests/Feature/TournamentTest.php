@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Http\Enums\TournamentStatus;
 use App\Models\Tournament;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -17,10 +18,12 @@ class TournamentTest extends TestCase
 
     public function testSeeIndex()
     {
-        $tournament = Tournament::factory()->create();
+        $name = 'ababa';
+        Tournament::factory()->create(['name' => $name]);
+
         $this->get('/tournaments')
             ->assertStatus(200)
-            ->assertSee($tournament->name);
+            ->assertSee($name);
     }
 
     public function testUserDoesntSeeCreateButton()
@@ -50,6 +53,46 @@ class TournamentTest extends TestCase
         $this->actingAs($this->admin)
             ->get('/tournaments/create')
             ->assertStatus(200);
+    }
+
+    public function testCreateSuccess()
+    {
+        $tournament = [
+            'id' => 'ababa',
+            'name' => 'ababa',
+            'status' => TournamentStatus::Upcoming->value,
+            'hidden' => false,
+        ];
+
+        $this
+            ->actingAs($this->admin)
+            ->post('tournaments', $tournament)
+            ->assertRedirectToRoute('tournaments.index');
+
+        $this->assertDatabaseHas('tournaments', $tournament);
+
+        $this->actingAs($this->user)
+            ->get('tournaments')
+            ->assertSee($tournament['name']);
+    }
+
+    public function testCreateFailDuplicate()
+    {
+        Tournament::factory()->create(['id' => 'ababa']);
+
+        $tournament = [
+            'id' => 'ababa',
+            'name' => 'ababa',
+            'status' => TournamentStatus::Upcoming->value,
+            'hidden' => false,
+        ];
+
+        $this
+            ->actingAs($this->admin)
+            ->post('tournaments', $tournament)
+            ->assertSessionHasErrors(['id']);
+
+        $this->assertDatabaseMissing('tournaments', $tournament);
     }
 
     protected function setUp(): void

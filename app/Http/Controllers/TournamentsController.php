@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TournamentCreateRequest;
 use App\Models\Tournament;
 use Illuminate\Http\Request;
 
@@ -17,13 +18,18 @@ class TournamentsController extends Controller
         return view('tournaments.index', ['tournaments' => Tournament::all()]);
     }
 
+    public function store(TournamentCreateRequest $request)
+    {
+        $validated = $request->validated();
+
+        Tournament::create($validated);
+
+        return redirect()->route('tournaments.index');
+    }
+
     public function create()
     {
         return view('tournaments.create');
-    }
-
-    public function store(Request $request)
-    {
     }
 
     public function show(Tournament $tournament)

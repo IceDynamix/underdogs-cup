@@ -10,6 +10,26 @@ class Tournament extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'id',
+        'name',
+        'bracket_url',
+        'status',
+        'hidden',
+        'description',
+        'reg_open_ts',
+        'reg_closed_ts',
+        'check_in_open_ts',
+        'check_in_closed_ts',
+        'tournament_start_ts',
+        'lower_reg_rank_cap',
+        'upper_reg_rank_cap',
+        'grace_rank_cap',
+        'min_games_played',
+        'max_rd',
+        'full_description',
+    ];
+
     protected $casts = [
         'lower_reg_rank_cap' => TetrioRank::class,
         'upper_reg_rank_cap' => TetrioRank::class,
