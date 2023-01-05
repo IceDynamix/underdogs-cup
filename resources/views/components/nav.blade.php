@@ -33,7 +33,7 @@
 
                 @if(auth()->user()->tetrio_user_id == null)
                     <div class="navbar-item">
-                        <a href="{{route('link')}}" class="button is-info is-small">
+                        <a href="{{route('connect')}}" class="button is-info is-small">
                             Link with TETR.IO
                         </a>
                     </div>

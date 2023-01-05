@@ -9,11 +9,6 @@ use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
-    public function login()
-    {
-        return Socialite::driver('discord')->scopes(['guilds'])->redirect();
-    }
-
     public function logout()
     {
         Auth::logout();
@@ -32,6 +27,16 @@ class AuthController extends Controller
         Auth::login($user, true);
 
         return redirect('/');
+    }
+
+    public function login()
+    {
+        return Socialite::driver('discord')->scopes(['guilds'])->redirect();
+    }
+
+    public function connectView()
+    {
+        return view('connect');
     }
 
     public function connect()

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TournamentsController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,22 +16,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::controller(TournamentsController::class)->group(function () {
-    Route::get('/', 'index')->name('home');
-});
+Route::resource('tournaments', TournamentsController::class)->only(['index']);
 
-Route::get('/procedure', function () {
-    return view('procedure');
-})->name('procedure');
-Route::get('/connect', function () {
-    return view('connect');
-})->name('link');
+Route::controller(HomeController::class)->group(function () {
+    Route::get('/', 'index')->name('home');
+    Route::get('/procedure', 'procedure')->name('procedure');
+});
 
 Route::controller(AuthController::class)
     ->group(function () {
         Route::get('login', 'login')->name('login');
         Route::post('logout', 'logout')->name('logout');
         Route::get('/auth/discord/callback', 'callback')->name('callback');
-
+        Route::get('/connect', 'connectView')->name('connect');
         Route::post('connect', 'connect')->name('connect.post');
     });
