@@ -10,6 +10,8 @@ class Tournament extends Model
 {
     use HasFactory;
 
+    public $incrementing = false;
+
     protected $fillable = [
         'id',
         'name',

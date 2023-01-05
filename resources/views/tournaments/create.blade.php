@@ -7,7 +7,7 @@
         <div class="container">
             <div class="content">
                 <h1>Create new tournament</h1>
-                <x-tournament.form :route="route('tournaments.store')" method="POST"/>
+                <x-tournament.form :route="route('tournaments.store')" method="POST" :tournament="null"/>
             </div>
         </div>
     </section>

@@ -6,93 +6,77 @@
 
     <div class="columns">
         <div class="column">
-            <x-form.input prop="id" title="Tournament ID (must be unique)" type="text"/>
+            {{LaraForm::text('id','Tournament ID (must be unique)', old('id', $tournament?->id))}}
         </div>
         <div class="column">
-            <x-form.input prop="name" title="Tournament name" type="text"/>
-        </div>
-    </div>
-
-    <div class="columns">
-        <div class="column">
-            <x-form.select prop="status" title="Tournament status"
-                           :items="TournamentStatus::cases()"/>
-
-            <x-form.input prop="bracket_url" title="Bracket URL" type="text"/>
-
-            <x-form.checkbox prop="hidden" title="Make tournament hidden" :value="false"/>
-        </div>
-        <div class="column">
-            <x-form.textarea prop="description" title="Tournament Description"
-                             placeholder="Tournament for lower ranked players"/>
+            {{LaraForm::text('name','Tournament name', old('name', $tournament?->name))}}
         </div>
     </div>
 
     <div class="columns">
         <div class="column">
-            <x-form.input prop="reg_open_ts" title="Registration open" type="datetime-local"/>
+            {{LaraForm::select('status','Tournament status', TournamentStatus::cases(), old('status', $tournament?->status))}}
+            {{LaraForm::text('bracket_url','Bracket URL', old('bracket_url', $tournament?->bracket_url))}}
+            {{LaraForm::checkbox('hidden','Make tournament hidden', old('hidden', $tournament?->hidden))}}
         </div>
         <div class="column">
-            <x-form.input prop="reg_close_ts" title="Registration close" type="datetime-local"/>
+            {{LaraForm::textarea('description','Short tournament description', old('description', $tournament?->description),
+            ['placeholder' => 'Tournament for lower ranked players'])}}
         </div>
     </div>
 
     <div class="columns">
         <div class="column">
-            <x-form.input prop="check_in_open_ts" title="Check-in open" type="datetime-local"/>
+            {{LaraForm::datetimeLocal('reg_open_ts','Registration open', old('reg_open_ts', $tournament?->reg_open_ts))}}
         </div>
         <div class="column">
-            <x-form.input prop="check_in_close_ts" title="Check-in close" type="datetime-local"/>
+            {{LaraForm::datetimeLocal('reg_close_ts','Registration close', old('reg_close_ts', $tournament?->reg_close_ts))}}
+        </div>
+    </div>
+
+    <div class="columns">
+        <div class="column">
+            {{LaraForm::datetimeLocal('check_in_open_ts','Check-in open', old('check_in_open_ts', $tournament?->check_in_open_ts))}}
+        </div>
+        <div class="column">
+            {{LaraForm::datetimeLocal('check_in_close_ts','Check-in close', old('check_in_close_ts', $tournament?->check_in_close_ts))}}
         </div>
     </div>
 
     <div class="field is-grouped">
         <div class="control">
-            <x-form.select
-                prop="lower_reg_rank_cap"
-                title="Lower rank cap"
-                :items="TetrioRank::cases()"
-                :selected="TetrioRank::D"/>
+            {{LaraForm::select('lower_reg_rank_cap','Lower rank cap', TetrioRank::cases(),
+            old('lower_reg_rank_cap', $tournament?->lower_reg_rank_cap), ['placeholder' => TetrioRank::D->value])}}
+
         </div>
         <div class="control">
-            <x-form.select
-                prop="upper_reg_rank_cap"
-                title="Upper rank cap"
-                :items="TetrioRank::cases()"
-                :selected="TetrioRank::SS"/>
+            {{LaraForm::select('upper_reg_rank_cap','Upper rank cap', TetrioRank::cases(),
+            old('upper_reg_rank_cap', $tournament?->upper_reg_rank_cap), ['placeholder' => TetrioRank::SS->value])}}
         </div>
         <div class="control">
-            <x-form.select
-                prop="grace_reg_rank_cap"
-                title="Grace rank cap (allowed to rank up to this during registration phase)"
-                :items="TetrioRank::cases()"
-                :selected="TetrioRank::U"/>
+            {{LaraForm::select('grace_rank_cap','Grace rank cap (players allowed to rank up to this rank during registration phase)', TetrioRank::cases(),
+            old('grace_rank_cap', $tournament?->grace_rank_cap), ['placeholder' => TetrioRank::U->value])}}
         </div>
     </div>
 
     <div class="columns">
         <div class="column">
-            <x-form.input prop="min_games_played" title="Min. ranked games played" type="number"
-                          value="0"/>
+            {{LaraForm::number('min_games_played','Min. req. ranked games played',
+            old('min_games_played', $tournament?->min_games_played ?? 0))}}
         </div>
         <div class="column">
-            <x-form.input prop="max_rd" title="Max. RD" type="number" value="100"/>
-
+            {{LaraForm::number('max_rd','Min. req. ranked games played',
+            old('max_rd', $tournament?->max_rd ?? 100))}}
         </div>
     </div>
 
-    @if ($errors->any())
-        @foreach ($errors->all() as $error)
-            <p class="help is-danger">
-                {{ $error }}
-            </p>
-        @endforeach
-    @endif
+    {{LaraForm::textarea('full_description','Full tournament description', old('full_description', $tournament?->full_description),
+            ['placeholder' => 'Markdown formatted thing'])}}
 
     <div class="field">
         <div class="control">
             <button type="submit" class="button is-primary">
-                Create
+                Save
             </button>
         </div>
     </div>

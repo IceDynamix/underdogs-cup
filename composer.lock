@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3a51adfcb8ac8a988d35678b83ef0b8b",
+    "content-hash": "f4250d2de42ed82b2aea3dc91f10bc4d",
     "packages": [
         {
             "name": "brick/math",
@@ -1736,6 +1736,78 @@
                 "source": "https://github.com/laravel/tinker/tree/v2.7.3"
             },
             "time": "2022-11-09T15:11:38+00:00"
+        },
+        {
+            "name": "laravelcollective/html",
+            "version": "v6.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/LaravelCollective/html.git",
+                "reference": "78c3cb516ac9e6d3d76cad9191f81d217302dea6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/LaravelCollective/html/zipball/78c3cb516ac9e6d3d76cad9191f81d217302dea6",
+                "reference": "78c3cb516ac9e6d3d76cad9191f81d217302dea6",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/http": "^6.0|^7.0|^8.0|^9.0",
+                "illuminate/routing": "^6.0|^7.0|^8.0|^9.0",
+                "illuminate/session": "^6.0|^7.0|^8.0|^9.0",
+                "illuminate/support": "^6.0|^7.0|^8.0|^9.0",
+                "illuminate/view": "^6.0|^7.0|^8.0|^9.0",
+                "php": ">=7.2.5"
+            },
+            "require-dev": {
+                "illuminate/database": "^6.0|^7.0|^8.0|^9.0",
+                "mockery/mockery": "~1.0",
+                "phpunit/phpunit": "~8.5|^9.5.10"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "6.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Collective\\Html\\HtmlServiceProvider"
+                    ],
+                    "aliases": {
+                        "Form": "Collective\\Html\\FormFacade",
+                        "Html": "Collective\\Html\\HtmlFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Collective\\Html\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Adam Engebretson",
+                    "email": "adam@laravelcollective.com"
+                },
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylorotwell@gmail.com"
+                }
+            ],
+            "description": "HTML and Form Builders for the Laravel Framework",
+            "homepage": "https://laravelcollective.com",
+            "support": {
+                "issues": "https://github.com/LaravelCollective/html/issues",
+                "source": "https://github.com/LaravelCollective/html"
+            },
+            "time": "2022-02-08T21:02:54+00:00"
         },
         {
             "name": "league/commonmark",
@@ -3484,6 +3556,73 @@
                 }
             ],
             "time": "2022-12-31T22:20:34+00:00"
+        },
+        {
+            "name": "shibuyakosuke/laravel-form-extend",
+            "version": "1.0.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ShibuyaKosuke/laravel-form-extend.git",
+                "reference": "9a22b428c66eba95dbf7789ae3e8c4a33d2b7a4f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ShibuyaKosuke/laravel-form-extend/zipball/9a22b428c66eba95dbf7789ae3e8c4a33d2b7a4f",
+                "reference": "9a22b428c66eba95dbf7789ae3e8c4a33d2b7a4f",
+                "shasum": ""
+            },
+            "require": {
+                "laravelcollective/html": "~5.0 | ~6.0",
+                "php": "^7.2.5 | ^7.3 | ^7.4 | ^8.0 | ^8.1"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.3 | ^1.4",
+                "orchestra/testbench": "^5.0 | ^6.0",
+                "phpunit/phpunit": "^8.0 | ^9.0",
+                "squizlabs/php_codesniffer": "^3.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "ShibuyaKosuke\\LaravelFormExtend\\Providers\\ServiceProvider"
+                    ],
+                    "aliases": {
+                        "LaraForm": "ShibuyaKosuke\\LaravelFormExtend\\Facades\\FormBuilder",
+                        "LaraHtml": "ShibuyaKosuke\\LaravelFormExtend\\Facades\\HtmlBuilder"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ShibuyaKosuke\\LaravelFormExtend\\": "src/",
+                    "ShibuyaKosuke\\LaravelFormExtend\\Test\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "ShibuyaKosuke",
+                    "email": "shibuya@imagenious.co.jp"
+                }
+            ],
+            "description": "Laravel 7+ form wrappers for Bootstrap and bulma.",
+            "keywords": [
+                "bootstrap",
+                "bootstrap 3",
+                "bootstrap 4",
+                "bulma",
+                "form",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/ShibuyaKosuke/laravel-form-extend/issues",
+                "source": "https://github.com/ShibuyaKosuke/laravel-form-extend/tree/1.0.7"
+            },
+            "time": "2022-06-29T09:55:47+00:00"
         },
         {
             "name": "symfony/console",
