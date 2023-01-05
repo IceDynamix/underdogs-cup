@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TournamentCreateRequest;
+use App\Http\Requests\TournamentEditRequest;
 use App\Models\Tournament;
-use Illuminate\Http\Request;
 
 class TournamentsController extends Controller
 {
@@ -29,7 +29,11 @@ class TournamentsController extends Controller
 
     public function create()
     {
-        return view('tournaments.create');
+        return view('tournaments.create', [
+            'action' => route('tournaments.store'),
+            'method' => 'POST',
+            'tournament' => new Tournament()
+        ]);
     }
 
     public function show(Tournament $tournament)
@@ -38,10 +42,19 @@ class TournamentsController extends Controller
 
     public function edit(Tournament $tournament)
     {
+        return view('tournaments.edit', [
+            'action' => route('tournaments.update', $tournament),
+            'method' => 'PUT',
+            'tournament' => $tournament
+        ]);
     }
 
-    public function update(Request $request, Tournament $tournament)
+    public function update(TournamentEditRequest $request, Tournament $tournament)
     {
+        $validated = $request->validated();
+        $tournament->update($validated);
+
+        return redirect()->route('tournaments.index');
     }
 
     public function destroy(Tournament $tournament)

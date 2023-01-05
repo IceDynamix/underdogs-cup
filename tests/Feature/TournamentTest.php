@@ -16,14 +16,13 @@ class TournamentTest extends TestCase
 
     private User $admin;
 
+    private Tournament $tournament;
+
     public function testSeeIndex()
     {
-        $name = 'ababa';
-        Tournament::factory()->create(['name' => $name]);
-
         $this->get('/tournaments')
             ->assertStatus(200)
-            ->assertSee($name);
+            ->assertSee($this->tournament->name);
     }
 
     public function testUserDoesntSeeCreateButton()
@@ -57,7 +56,7 @@ class TournamentTest extends TestCase
 
     public function testCreateSuccess()
     {
-        $tournament = [
+        $newTour = [
             'id' => 'ababa',
             'name' => 'ababa',
             'status' => TournamentStatus::Upcoming->value,
@@ -66,22 +65,20 @@ class TournamentTest extends TestCase
 
         $this
             ->actingAs($this->admin)
-            ->post('tournaments', $tournament)
+            ->post('tournaments', $newTour)
             ->assertRedirectToRoute('tournaments.index');
 
-        $this->assertDatabaseHas('tournaments', $tournament);
+        $this->assertDatabaseHas('tournaments', $newTour);
 
         $this->actingAs($this->user)
             ->get('tournaments')
-            ->assertSee($tournament['name']);
+            ->assertSee($newTour['name']);
     }
 
     public function testCreateFailDuplicate()
     {
-        Tournament::factory()->create(['id' => 'ababa']);
-
-        $tournament = [
-            'id' => 'ababa',
+        $newTour = [
+            'id' => $this->tournament->id,
             'name' => 'ababa',
             'status' => TournamentStatus::Upcoming->value,
             'hidden' => false,
@@ -89,10 +86,10 @@ class TournamentTest extends TestCase
 
         $this
             ->actingAs($this->admin)
-            ->post('tournaments', $tournament)
+            ->post('tournaments', $newTour)
             ->assertSessionHasErrors(['id']);
 
-        $this->assertDatabaseMissing('tournaments', $tournament);
+        $this->assertDatabaseMissing('tournaments', $newTour);
     }
 
     public function testCreateHidden()
@@ -107,6 +104,7 @@ class TournamentTest extends TestCase
         $this
             ->actingAs($this->admin)
             ->post('tournaments', $tournament)
+            ->assertSessionHasNoErrors()
             ->assertRedirectToRoute('tournaments.index');
 
         $this->actingAs($this->admin)
@@ -118,11 +116,67 @@ class TournamentTest extends TestCase
             ->assertDontSee($tournament['name']);
     }
 
+    public function testUserDoesntSeeEditButton()
+    {
+        $this->actingAs($this->user)
+            ->get('/tournaments')
+            ->assertStatus(200)
+            ->assertDontSee('Edit');
+    }
+
+    public function testAdminSeeEditButton()
+    {
+        $this->actingAs($this->admin)
+            ->get('/tournaments')
+            ->assertStatus(200)
+            ->assertSee('Edit');
+    }
+
+    public function testUserCantAccessEdit()
+    {
+        $this->actingAs($this->user)
+            ->get('/tournaments/'.$this->tournament->id.'/edit')
+            ->assertStatus(403);
+    }
+
+    public function testAdminCanAccessEdit()
+    {
+        $this->actingAs($this->admin)
+            ->get('/tournaments/'.$this->tournament->id.'/edit')
+            ->assertStatus(200);
+    }
+
+    public function testEditSuccess()
+    {
+        $oldName = $this->tournament->name;
+        $newName = 'newname';
+
+        $params = ['name' => $newName];
+
+        $this->actingAs($this->user)
+            ->get('tournaments')
+            ->assertDontSee($newName)
+            ->assertSee($oldName);
+
+        $this
+            ->actingAs($this->admin)
+            ->patch('/tournaments/'.$this->tournament->id, $params)
+            ->assertSessionHasNoErrors()
+            ->assertRedirectToRoute('tournaments.index');
+
+        $this->actingAs($this->user)
+            ->get('tournaments')
+            ->assertSee($newName)
+            ->assertDontSee($oldName);
+    }
+
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->user = User::factory()->create();
         $this->admin = User::factory()->create(['is_admin' => true]);
+
+        $this->tournament = Tournament::factory()->create();
     }
 }

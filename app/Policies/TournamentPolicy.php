@@ -22,9 +22,9 @@ class TournamentPolicy
         return true;
     }
 
-    public function view(User $user, Tournament $tournament): bool
+    public function view(?User $user, Tournament $tournament): bool
     {
-        return !$tournament->hidden || $user->is_admin;
+        return !$tournament->hidden;
     }
 
     public function create(User $user): bool

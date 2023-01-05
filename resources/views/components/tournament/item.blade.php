@@ -14,5 +14,9 @@
         @if($tournament->status == TournamentStatus::RegOpen)
             <a href="" class="button is-primary">Register</a>
         @endif
+
+        @can('update', $tournament)
+            <a href="{{route('tournaments.edit', $tournament)}}" class="button is-info">Edit</a>
+        @endcan
     </div>
 </div>

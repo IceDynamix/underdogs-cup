@@ -10,6 +10,7 @@ enum EnumHelper
         foreach ($cases as $case) {
             $arr[$case->value] = $case->name;
         }
+
         return $arr;
     }
 }
