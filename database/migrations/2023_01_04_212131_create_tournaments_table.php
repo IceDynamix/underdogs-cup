@@ -25,12 +25,12 @@ return new class extends Migration
             $table->dateTime('check_in_close_ts');
             $table->dateTime('tournament_start_ts');
 
-            $table->string('lower_reg_rank_cap')->default('z');
-            $table->string('upper_reg_rank_cap')->default('x');
-            $table->string('grace_rank_cap')->default('x');
+            $table->string('lower_reg_rank_cap')->nullable();
+            $table->string('upper_reg_rank_cap')->nullable();
+            $table->string('grace_rank_cap')->nullable();
 
-            $table->integer('min_games_played')->default(0);
-            $table->integer('max_rd')->default(100);
+            $table->integer('min_games_played')->nullable();
+            $table->integer('max_rd')->nullable();
 
             $table->timestamps();
         });

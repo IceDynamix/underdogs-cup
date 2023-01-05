@@ -22,4 +22,9 @@ enum TetrioRank: string
     case DPlus = 'd+';
     case D = 'd';
     case Unranked = 'z';
+
+    public function format(): string
+    {
+        return strtoupper($this->value);
+    }
 }

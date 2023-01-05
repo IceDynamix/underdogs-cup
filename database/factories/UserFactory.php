@@ -17,7 +17,7 @@ class UserFactory extends Factory
             'tetrio_user_id' => null,
             'avatar' => fake()->imageUrl(200, 200),
             'is_admin' => false,
-            'is_blacklisted' => false
+            'is_blacklisted' => false,
         ];
     }
 }

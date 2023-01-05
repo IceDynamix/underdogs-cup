@@ -22,7 +22,7 @@ class TetrioUserSnapshot extends Model
 
     protected $casts = [
         'rank' => TetrioRank::class,
-        'best_rank' => TetrioRank::class
+        'best_rank' => TetrioRank::class,
     ];
 
     public function currentUser(): HasOne

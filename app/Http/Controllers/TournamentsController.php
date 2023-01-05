@@ -9,7 +9,7 @@ class TournamentsController extends Controller
 {
     public function index()
     {
-        return view('home');
+        return view('tournaments.index', ['tournaments' => Tournament::all()]);
     }
 
     public function create()

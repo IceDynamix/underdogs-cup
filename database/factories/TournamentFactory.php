@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Http\Enums\TetrioRank;
 use App\Http\Enums\TournamentStatus;
 use App\Models\Tournament;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -25,9 +24,6 @@ class TournamentFactory extends Factory
             'check_in_open_ts' => Carbon::now(),
             'check_in_close_ts' => Carbon::now(),
             'tournament_start_ts' => Carbon::now(),
-            'lower_reg_rank_cap' => TetrioRank::Unranked,
-            'upper_reg_rank_cap' => TetrioRank::X,
-            'grace_rank_cap' => TetrioRank::X,
         ];
     }
 }

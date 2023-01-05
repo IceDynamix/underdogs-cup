@@ -28,7 +28,7 @@ class TetrioUser extends Model
 
     protected $casts = [
         'rank' => TetrioRank::class,
-        'best_rank' => TetrioRank::class
+        'best_rank' => TetrioRank::class,
     ];
 
     public static function updateOrCreateFromId(string $id): ?TetrioUser
