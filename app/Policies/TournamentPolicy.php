@@ -10,7 +10,14 @@ class TournamentPolicy
 {
     use HandlesAuthorization;
 
-    public function viewAny(User $user): bool
+    public function before(User $user, $ability)
+    {
+        if ($user->is_admin) {
+            return true;
+        }
+    }
+
+    public function viewAny(?User $user): bool
     {
         return true;
     }
@@ -22,26 +29,26 @@ class TournamentPolicy
 
     public function create(User $user): bool
     {
-        return $user->is_admin;
+        return false;
     }
 
     public function update(User $user, Tournament $tournament): bool
     {
-        return $user->is_admin;
+        return false;
     }
 
     public function delete(User $user, Tournament $tournament): bool
     {
-        return $user->is_admin;
+        return false;
     }
 
     public function restore(User $user, Tournament $tournament): bool
     {
-        return $user->is_admin;
+        return false;
     }
 
     public function forceDelete(User $user, Tournament $tournament): bool
     {
-        return $user->is_admin;
+        return false;
     }
 }

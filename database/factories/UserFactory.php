@@ -12,7 +12,7 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'id' => fake()->randomNumber(nbDigits: 18),
+            'id' => fake()->randomNumber(5),
             'name' => fake()->userName(),
             'tetrio_user_id' => null,
             'avatar' => fake()->imageUrl(200, 200),

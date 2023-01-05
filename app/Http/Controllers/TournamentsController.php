@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class TournamentsController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Tournament::class, 'tournament');
+    }
+
     public function index()
     {
         return view('tournaments.index', ['tournaments' => Tournament::all()]);
@@ -14,6 +19,7 @@ class TournamentsController extends Controller
 
     public function create()
     {
+        return view('tournaments.create');
     }
 
     public function store(Request $request)

@@ -12,7 +12,7 @@
         <a href="" class="button is-primary">Details</a>
 
         @if($tournament->status == TournamentStatus::RegOpen)
-            <a href="" class="button">Register</a>
+            <a href="" class="button is-primary">Register</a>
         @endif
     </div>
 </div>

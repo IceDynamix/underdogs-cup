@@ -1,3 +1,4 @@
+@php use App\Models\Tournament; @endphp
 <x-layout>
     <section class="hero is-info">
         <div class="hero-body">
@@ -15,6 +16,13 @@
         <div class="container">
             <div class="content">
                 <h1>Tournaments</h1>
+
+                @can('create', Tournament::class)
+                    <a href="{{route('tournaments.create')}}" class="button is-success">
+                        Create new tournament
+                    </a>
+                @endcan
+
                 @foreach($tournaments as $tournament)
                     <x-tournament.item :$tournament/>
                 @endforeach

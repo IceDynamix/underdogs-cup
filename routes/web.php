@@ -16,7 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('tournaments', TournamentsController::class)->only(['index']);
+Route::resource('tournaments', TournamentsController::class)
+    ->only(['index', 'create']);
 
 Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'index')->name('home');
