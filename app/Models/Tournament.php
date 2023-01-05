@@ -2,8 +2,14 @@
 
 namespace App\Models;
 
+use App\Http\Enums\TetrioRank;
 use Illuminate\Database\Eloquent\Model;
 
 class Tournament extends Model
 {
+    protected $casts = [
+        'lower_reg_rank_cap' => TetrioRank::class,
+        'upper_reg_rank_cap' => TetrioRank::class,
+        'grace_rank_cap' => TetrioRank::class,
+    ];
 }

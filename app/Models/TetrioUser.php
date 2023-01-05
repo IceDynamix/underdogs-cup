@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Enums\TetrioRank;
 use App\Http\TetrioApi\TetrioApi;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -24,6 +25,24 @@ class TetrioUser extends Model
         'vs',
         'games_played',
     ];
+
+    protected $casts = [
+        'rank' => TetrioRank::class,
+        'best_rank' => TetrioRank::class
+    ];
+
+    public static function updateOrCreateFromId(string $id): ?TetrioUser
+    {
+        $tetrioUser = TetrioApi::getUserInfo($id);
+        if ($tetrioUser == null) {
+            return null;
+        }
+
+        return TetrioUser::updateOrCreate(
+            ['id' => $tetrioUser['_id']],
+            self::mapTetrioUserToDbFill($tetrioUser)
+        );
+    }
 
     public static function mapTetrioUserToDbFill(array $user): array
     {
@@ -49,19 +68,6 @@ class TetrioUser extends Model
     public function snapshotUser(): HasOne
     {
         return $this->hasOne(TetrioUserSnapshot::class, 'id', 'id');
-    }
-
-    public static function updateOrCreateFromId(string $id): ?TetrioUser
-    {
-        $tetrioUser = TetrioApi::getUserInfo($id);
-        if ($tetrioUser == null) {
-            return null;
-        }
-
-        return TetrioUser::updateOrCreate(
-            ['id' => $tetrioUser['_id']],
-            self::mapTetrioUserToDbFill($tetrioUser)
-        );
     }
 
     public function avatarUrl(): string
