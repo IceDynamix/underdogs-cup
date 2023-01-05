@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Http\Enums\TetrioRank;
+use App\Http\Enums\TournamentStatus;
 use App\Models\Scopes\HiddenScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -37,6 +38,7 @@ class Tournament extends Model
         'lower_reg_rank_cap' => TetrioRank::class,
         'upper_reg_rank_cap' => TetrioRank::class,
         'grace_rank_cap' => TetrioRank::class,
+        'status' => TournamentStatus::class,
     ];
 
     protected static function boot()
@@ -54,15 +56,15 @@ class Tournament extends Model
         $hasUpperCap = $upper != null;
 
         if ($hasLowerCap && $hasUpperCap) {
-            return "$lower->format() - $upper->format()";
+            return $lower->format().' - '.$upper->format();
         }
 
         if ($hasLowerCap) {
-            return ">$lower->format() rank";
+            return '>'.$lower->format().' rank';
         }
 
         if ($hasUpperCap) {
-            return "<$upper->format() rank";
+            return '<'.$upper->format().' rank';
         }
 
         return 'No rank restriction';

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Http\Enums\TetrioRank;
 use App\Http\Enums\TournamentStatus;
 use App\Models\Tournament;
 use App\Models\User;
@@ -143,7 +144,7 @@ class TournamentTest extends TestCase
     {
         $this->actingAs($this->admin)
             ->get('/tournaments/'.$this->tournament->id.'/edit')
-            ->assertStatus(200);
+            ->assertOk();
     }
 
     public function testEditSuccess()
@@ -168,6 +169,94 @@ class TournamentTest extends TestCase
             ->get('tournaments')
             ->assertSee($newName)
             ->assertDontSee($oldName);
+    }
+
+    public function testView()
+    {
+        $this->get('tournaments/'.$this->tournament->id)
+            ->assertSee($this->tournament->name)
+            ->assertSee($this->tournament->status->name)
+            ->assertSee($this->tournament->description);
+    }
+
+    public function testViewHiddenNotFound()
+    {
+        $hidden = Tournament::factory()->create(['hidden' => true]);
+        $this->get('tournaments/'.$hidden->id)->assertNotFound();
+    }
+
+    public function testViewHiddenNoRankRestriction()
+    {
+        $tour = Tournament::factory()->create(
+            [
+                'lower_reg_rank_cap' => null,
+                'upper_reg_rank_cap' => null,
+            ]
+        );
+
+        $this->get('tournaments/'.$tour->id)->assertSee('No rank restriction');
+    }
+
+    public function testViewLowerRankRestriction()
+    {
+        $tour = Tournament::factory()->create(
+            [
+                'lower_reg_rank_cap' => TetrioRank::A,
+                'upper_reg_rank_cap' => null,
+            ]
+        );
+
+        $this->get('tournaments/'.$tour->id)->assertSee('>A');
+    }
+
+    public function testViewUpperRankRestriction()
+    {
+        $tour = Tournament::factory()->create(
+            [
+                'lower_reg_rank_cap' => null,
+                'upper_reg_rank_cap' => TetrioRank::A,
+            ]
+        );
+
+        $this->get('tournaments/'.$tour->id)->assertSee('<A');
+    }
+
+    public function testViewRankRange()
+    {
+        $tour = Tournament::factory()->create(
+            [
+                'lower_reg_rank_cap' => TetrioRank::A,
+                'upper_reg_rank_cap' => TetrioRank::S,
+            ]
+        );
+
+        $this->get('tournaments/'.$tour->id)->assertSee('A - S');
+    }
+
+    public function testViewSeeRegister()
+    {
+        $tour = Tournament::factory()->create(
+            [
+                'status' => TournamentStatus::RegOpen,
+            ]
+        );
+
+        $this->get('tournaments/'.$tour->id)
+            ->assertSee('Registrations open')
+            ->assertSee('Register');
+    }
+
+    public function testViewSeeCheckIn()
+    {
+        $tour = Tournament::factory()->create(
+            [
+                'status' => TournamentStatus::CheckInOpen,
+            ]
+        );
+
+        $this->get('tournaments/'.$tour->id)
+            ->assertSee('Check-ins open')
+            ->assertSee('Check-in');
     }
 
     protected function setUp(): void

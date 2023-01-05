@@ -2,7 +2,7 @@
 <div class="box">
     <h2>{{$tournament->name}}</h2>
     <div class="tags">
-        <x-tournament.status-tag :status="$tournament->status"/>
+        <span class="tag {{$tournament->status->cssClass()}}">{{$tournament->status->proper()}}</span>
         <span class="tag is-info">{{$tournament->rankRange()}}</span>
     </div>
 
@@ -13,6 +13,10 @@
 
         @if($tournament->status == TournamentStatus::RegOpen)
             <a href="" class="button is-primary">Register</a>
+        @endif
+
+        @if($tournament->status == TournamentStatus::CheckInOpen)
+            <a href="" class="button is-primary">Check-in</a>
         @endif
 
         @can('update', $tournament)

@@ -34,6 +34,7 @@ class TournamentEditRequest extends FormRequest
     public function authorize()
     {
         $tournament = $this->route('tournament');
+
         return $this->user()->can('update', $tournament);
     }
 }

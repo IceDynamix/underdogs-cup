@@ -32,7 +32,7 @@ class TournamentsController extends Controller
         return view('tournaments.create', [
             'action' => route('tournaments.store'),
             'method' => 'POST',
-            'tournament' => new Tournament()
+            'tournament' => new Tournament(),
         ]);
     }
 
@@ -46,7 +46,7 @@ class TournamentsController extends Controller
         return view('tournaments.edit', [
             'action' => route('tournaments.update', $tournament),
             'method' => 'PUT',
-            'tournament' => $tournament
+            'tournament' => $tournament,
         ]);
     }
 

@@ -17,7 +17,7 @@
 
     <div class="columns">
         <div class="column">
-            {{LaraForm::select('status','Tournament status', EnumHelper::enumToArray(TournamentStatus::cases()), old('status', $tournament->status))}}
+            {{LaraForm::select('status','Tournament status', EnumHelper::enumToArray(TournamentStatus::cases()), old('status', $tournament->status?->name))}}
             {{LaraForm::text('bracket_url','Bracket URL', old('bracket_url', $tournament->bracket_url))}}
             {{LaraForm::checkbox('hidden','Make tournament hidden', old('hidden', $tournament->hidden))}}
         </div>
@@ -66,11 +66,11 @@
 
     <div class="columns">
         <div class="column">
-            {{LaraForm::number('min_games_played','Min. req. ranked games played',
+            {{LaraForm::number('min_games_played','Min. required ranked games played to play',
             old('min_games_played', $tournament->min_games_played ?? 0))}}
         </div>
         <div class="column">
-            {{LaraForm::number('max_rd','Min. req. ranked games played',
+            {{LaraForm::number('max_rd','RD required to play',
             old('max_rd', $tournament->max_rd ?? 100))}}
         </div>
     </div>
