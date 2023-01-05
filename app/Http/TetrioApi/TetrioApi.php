@@ -28,7 +28,7 @@ class TetrioApi
 
             $json = $response->json();
 
-            if (! $json['success']) {
+            if (!$json['success']) {
                 $why = $json['error'];
                 Log::error("Request to $cacheKey failed because '$why'");
 

@@ -28,7 +28,7 @@ class UsersUpdateCommand extends Command
             $dbUser = TetrioUser::find($user['_id']);
 
             // only update users that already exist
-            if (! $dbUser) {
+            if (!$dbUser) {
                 continue;
             }
 

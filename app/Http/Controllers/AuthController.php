@@ -41,7 +41,7 @@ class AuthController extends Controller
 
     public function connect()
     {
-        if (! Auth::check()) {
+        if (!Auth::check()) {
             return redirect()
                 ->back()
                 ->withErrors(['msg' => 'Not logged in.']);
