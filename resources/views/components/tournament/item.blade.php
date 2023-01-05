@@ -9,7 +9,7 @@
     <p>{{$tournament->description}}</p>
 
     <div class="buttons">
-        <a href="" class="button is-primary">Details</a>
+        <a href="{{route('tournaments.show', $tournament)}}" class="button is-primary">Details</a>
 
         @if($tournament->status == TournamentStatus::RegOpen)
             <a href="" class="button is-primary">Register</a>

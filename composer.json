@@ -15,7 +15,8 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "martinbean/socialite-discord-provider": "^1.2",
-        "shibuyakosuke/laravel-form-extend": "^1.0"
+        "shibuyakosuke/laravel-form-extend": "^1.0",
+        "spatie/laravel-markdown": "^2.2"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

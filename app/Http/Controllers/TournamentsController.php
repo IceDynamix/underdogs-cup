@@ -38,6 +38,7 @@ class TournamentsController extends Controller
 
     public function show(Tournament $tournament)
     {
+        return view('tournaments.view', ['tournament' => $tournament]);
     }
 
     public function edit(Tournament $tournament)

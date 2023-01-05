@@ -25,7 +25,7 @@ class TournamentFactory extends Factory
             'check_in_open_ts' => Carbon::now(),
             'check_in_close_ts' => Carbon::now(),
             'tournament_start_ts' => Carbon::now(),
-            'full_description' => $this->faker->paragraphs(10, true),
+            'full_description' => "# Rules\n\nThis is my cool tournament with *cool* **Markdown** formatting. Includes `code` blocks and\n\n- unordered\n\n- lists\n\nI like markdown.",
         ];
     }
 }
