@@ -41,7 +41,8 @@ class TetrioUser extends Model
         ];
     }
 
-    public function discordUser(): BelongsTo {
+    public function discordUser(): BelongsTo
+    {
         return $this->belongsTo(User::class, 'id', 'tetrio_user_id');
     }
 
@@ -53,7 +54,9 @@ class TetrioUser extends Model
     public static function updateOrCreateFromId(string $id): ?TetrioUser
     {
         $tetrioUser = TetrioApi::getUserInfo($id);
-        if ($tetrioUser == null) return null;
+        if ($tetrioUser == null) {
+            return null;
+        }
 
         return TetrioUser::updateOrCreate(
             ['id' => $tetrioUser['_id']],
@@ -64,7 +67,7 @@ class TetrioUser extends Model
     public function avatarUrl(): string
     {
         // https://tetr.io/about/api/#usersuser
-        return "https://tetr.io/user-content/avatars/" . $this->id . ".jpg";
+        return 'https://tetr.io/user-content/avatars/'.$this->id.'.jpg';
     }
 
     public function url(): string

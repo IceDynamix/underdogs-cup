@@ -18,6 +18,7 @@ class UsersUpdateCommand extends Command
         $users = TetrioApi::getFullLeaderboardExport();
         if (empty($users)) {
             $this->error('Failed to get the leaderboard export');
+
             return;
         }
 
@@ -27,12 +28,14 @@ class UsersUpdateCommand extends Command
             $dbUser = TetrioUser::find($user['_id']);
 
             // only update users that already exist
-            if (!$dbUser) continue;
+            if (! $dbUser) {
+                continue;
+            }
 
             $dbUser->fill(TetrioUser::mapTetrioUserToDbFill($user));
             $this->info("Updated user $dbUser");
         }
 
-        $this->info("Finished updating users");
+        $this->info('Finished updating users');
     }
 }

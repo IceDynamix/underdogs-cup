@@ -18,17 +18,17 @@ class UsersSnapshotCommand extends Command
         $users = TetrioApi::getFullLeaderboardExport();
         if (empty($users)) {
             $this->error('Failed to get the leaderboard export');
+
             return;
         }
 
         $this->info('Deleting all snapshot entries');
         TetrioUserSnapshot::truncate();
 
-
         $this->info('Creating users');
 
         $count = 0;
-        $max = sizeof($users);
+        $max = count($users);
         foreach ($users as $user) {
             TetrioUserSnapshot::create([
                 'id' => $user['_id'],

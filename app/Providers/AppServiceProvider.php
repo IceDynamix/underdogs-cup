@@ -26,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Http::macro('tetrio', function () {
             $session = config()->get('services.tetrio.session');
+
             return Http::withHeaders(['X-Session-Header' => $session])
                 ->baseUrl('https://ch.tetr.io/api');
         });

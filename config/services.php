@@ -32,12 +32,12 @@ return [
     ],
 
     'tetrio' => [
-        'session' => env('TETRIO_SESSION_HEADER', 'underdogs-cup')
+        'session' => env('TETRIO_SESSION_HEADER', 'underdogs-cup'),
     ],
 
     'discord' => [
         'client_id' => env('DISCORD_CLIENT_ID'),
         'client_secret' => env('DISCORD_CLIENT_SECRET'),
-        'redirect' => '/auth/discord/callback'
-    ]
+        'redirect' => '/auth/discord/callback',
+    ],
 ];

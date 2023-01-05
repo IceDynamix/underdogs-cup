@@ -11,7 +11,7 @@ class TetrioApi
 {
     private static function request(string $endpoint, array $query = [], ?string $defaultKey = null, bool $cache = true, int $maxTimeoutInSecs = 10)
     {
-        $cacheKey = 'tetrio/' . $endpoint . '?' . implode('&', array_values($query)); // its good enough
+        $cacheKey = 'tetrio/'.$endpoint.'?'.implode('&', array_values($query)); // its good enough
 
         if (Cache::has($cacheKey)) {
             $json = json_decode(Cache::get($cacheKey), true);
@@ -22,14 +22,16 @@ class TetrioApi
             if ($response->failed()) {
                 $status = $response->status();
                 Log::error("Request to $cacheKey failed with status $status");
+
                 return null;
             }
 
             $json = $response->json();
 
-            if (!$json['success']) {
+            if (! $json['success']) {
                 $why = $json['error'];
                 Log::error("Request to $cacheKey failed because '$why'");
+
                 return null;
             }
 
@@ -40,11 +42,15 @@ class TetrioApi
                 Cache::put($cacheKey, $response->body(), $cachedUntil);
                 Log::info("Cached request data to $cacheKey until $cachedUntil");
             }
-
         }
 
-        if ($json['data'] == null) return null;
-        if ($defaultKey) return $json['data'][$defaultKey];
+        if ($json['data'] == null) {
+            return null;
+        }
+        if ($defaultKey) {
+            return $json['data'][$defaultKey];
+        }
+
         return $json['data'];
     }
 
@@ -79,7 +85,7 @@ class TetrioApi
     public static function getFullLeaderboardExport()
     {
         // https://tetr.io/about/api/#userlistsleagueall
-        return self::request("users/lists/league/all", [], 'users', true, 60 * 5);
+        return self::request('users/lists/league/all', [], 'users', true, 60 * 5);
     }
 
     public static function getUserFromDiscordId(string $id)

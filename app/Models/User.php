@@ -24,7 +24,7 @@ class User extends Authenticatable
     protected $fillable = [
         'id',
         'name',
-        'avatar'
+        'avatar',
     ];
 
     /**
@@ -52,7 +52,10 @@ class User extends Authenticatable
     public function getLinkedTetrio(): ?string
     {
         $res = TetrioApi::getUserFromDiscordId($this->id);
-        if ($res == null) return null;
+        if ($res == null) {
+            return null;
+        }
+
         return $res['_id'];
     }
 
@@ -66,11 +69,13 @@ class User extends Authenticatable
         return $this->tetrio?->avatarUrl() ?? $this->avatar;
     }
 
-    public function isConnected(): bool {
+    public function isConnected(): bool
+    {
         return $this->tetrio_user_id != null;
     }
 
-    public function url(): string {
+    public function url(): string
+    {
         return $this->tetrio?->url() ?? '';
     }
 }

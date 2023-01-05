@@ -19,8 +19,12 @@ Route::controller(TournamentsController::class)->group(function () {
     Route::get('/', 'index')->name('home');
 });
 
-Route::get('/procedure', function () { return view('procedure'); })->name('procedure');
-Route::get('/connect', function () { return view('connect'); })->name('link');
+Route::get('/procedure', function () {
+    return view('procedure');
+})->name('procedure');
+Route::get('/connect', function () {
+    return view('connect');
+})->name('link');
 
 Route::controller(AuthController::class)
     ->group(function () {
