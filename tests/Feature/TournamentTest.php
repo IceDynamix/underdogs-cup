@@ -176,7 +176,8 @@ class TournamentTest extends TestCase
         $this->get('tournaments/'.$this->tournament->id)
             ->assertSee($this->tournament->name)
             ->assertSee($this->tournament->status->name)
-            ->assertSee($this->tournament->description);
+            ->assertSee($this->tournament->description)
+            ->assertSee('Register');
     }
 
     public function testViewHiddenNotFound()
@@ -233,21 +234,11 @@ class TournamentTest extends TestCase
         $this->get('tournaments/'.$tour->id)->assertSee('A - S');
     }
 
-    public function testViewSeeRegister()
-    {
-        $tour = Tournament::factory()->create(
-            [
-                'status' => TournamentStatus::RegOpen,
-            ]
-        );
-
-        $this->get('tournaments/'.$tour->id)
-            ->assertSee('Registrations open')
-            ->assertSee('Register');
-    }
-
     public function testViewSeeCheckIn()
     {
+        $this->get('tournaments/'.$this->tournament->id)
+            ->assertDontSee('Check-in');
+
         $tour = Tournament::factory()->create(
             [
                 'status' => TournamentStatus::CheckInOpen,
