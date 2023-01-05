@@ -1,4 +1,4 @@
-@php use App\Http\Enums\TetrioRank;use App\Http\Enums\TournamentStatus; @endphp
+@php use App\Http\Enums\EnumHelper;use App\Http\Enums\TetrioRank;use App\Http\Enums\TournamentStatus; @endphp
 
 <form action="{{$route}}" method="POST">
     @csrf
@@ -15,7 +15,7 @@
 
     <div class="columns">
         <div class="column">
-            {{LaraForm::select('status','Tournament status', TournamentStatus::cases(), old('status', $tournament?->status))}}
+            {{LaraForm::select('status','Tournament status', EnumHelper::enumToArray(TournamentStatus::cases()), old('status', $tournament?->status))}}
             {{LaraForm::text('bracket_url','Bracket URL', old('bracket_url', $tournament?->bracket_url))}}
             {{LaraForm::checkbox('hidden','Make tournament hidden', old('hidden', $tournament?->hidden))}}
         </div>
@@ -45,17 +45,20 @@
 
     <div class="field is-grouped">
         <div class="control">
-            {{LaraForm::select('lower_reg_rank_cap','Lower rank cap', TetrioRank::cases(),
-            old('lower_reg_rank_cap', $tournament?->lower_reg_rank_cap), ['placeholder' => TetrioRank::D->value])}}
+            {{LaraForm::select('lower_reg_rank_cap','Lower rank cap',
+            EnumHelper::enumToArray(TetrioRank::cases()),
+            old('lower_reg_rank_cap', $tournament?->lower_reg_rank_cap), ['placeholder' => TetrioRank::D->name])}}
 
         </div>
         <div class="control">
-            {{LaraForm::select('upper_reg_rank_cap','Upper rank cap', TetrioRank::cases(),
-            old('upper_reg_rank_cap', $tournament?->upper_reg_rank_cap), ['placeholder' => TetrioRank::SS->value])}}
+            {{LaraForm::select('upper_reg_rank_cap','Upper rank cap',
+            EnumHelper::enumToArray(TetrioRank::cases()),
+            old('upper_reg_rank_cap', $tournament?->upper_reg_rank_cap), ['placeholder' => TetrioRank::SS->name])}}
         </div>
         <div class="control">
-            {{LaraForm::select('grace_rank_cap','Grace rank cap (players allowed to rank up to this rank during registration phase)', TetrioRank::cases(),
-            old('grace_rank_cap', $tournament?->grace_rank_cap), ['placeholder' => TetrioRank::U->value])}}
+            {{LaraForm::select('grace_rank_cap','Grace rank cap (players allowed to rank up to this rank during registration phase)',
+            EnumHelper::enumToArray(TetrioRank::cases()),
+            old('grace_rank_cap', $tournament?->grace_rank_cap), ['placeholder' => TetrioRank::U->name])}}
         </div>
     </div>
 
