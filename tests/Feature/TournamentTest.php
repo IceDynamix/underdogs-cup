@@ -95,6 +95,29 @@ class TournamentTest extends TestCase
         $this->assertDatabaseMissing('tournaments', $tournament);
     }
 
+    public function testCreateHidden()
+    {
+        $tournament = [
+            'id' => 'ababa',
+            'name' => 'ababa',
+            'status' => TournamentStatus::Upcoming->value,
+            'hidden' => true,
+        ];
+
+        $this
+            ->actingAs($this->admin)
+            ->post('tournaments', $tournament)
+            ->assertRedirectToRoute('tournaments.index');
+
+        $this->actingAs($this->admin)
+            ->get('tournaments')
+            ->assertSee($tournament['name']);
+
+        $this->actingAs($this->user)
+            ->get('tournaments')
+            ->assertDontSee($tournament['name']);
+    }
+
     protected function setUp(): void
     {
         parent::setUp();

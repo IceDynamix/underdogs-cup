@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Http\Enums\TetrioRank;
+use App\Models\Scopes\HiddenScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -37,6 +38,12 @@ class Tournament extends Model
         'upper_reg_rank_cap' => TetrioRank::class,
         'grace_rank_cap' => TetrioRank::class,
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope(new HiddenScope);
+    }
 
     public function rankRange(): string
     {
