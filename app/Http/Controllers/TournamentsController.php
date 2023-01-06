@@ -61,12 +61,12 @@ class TournamentsController extends Controller
         // FIXME
 
         if (array_key_exists('lower_reg_rank_cap',
-                $validated) && $validated['lower_reg_rank_cap'] == TetrioRank::Unranked) {
+            $validated) && $validated['lower_reg_rank_cap'] == TetrioRank::Unranked) {
             $validated['lower_reg_rank_cap'] = null;
         }
 
         if (array_key_exists('upper_reg_rank_cap',
-                $validated) && $validated['upper_reg_rank_cap'] == TetrioRank::Unranked) {
+            $validated) && $validated['upper_reg_rank_cap'] == TetrioRank::Unranked) {
             $validated['upper_reg_rank_cap'] = null;
         }
 
@@ -144,8 +144,8 @@ class TournamentsController extends Controller
             'tournament' => $tournament->load([
                 'participants' => function ($query) {
                     $query->orderBy('vs', 'desc');
-                }
-            ])
+                },
+            ]),
         ]);
     }
 }
