@@ -12,6 +12,11 @@ class RegistrationHelper
     {
         $errors = [];
 
+        if ($user->isRegisteredAt($tournament)) {
+            $errors[] = 'Already registered for this tournament';
+            return $errors;
+        }
+
         if ($tournament->status != TournamentStatus::RegOpen) {
             $errors[] = 'Nope.';
             return $errors;

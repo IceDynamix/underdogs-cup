@@ -78,4 +78,9 @@ class User extends Authenticatable
     {
         return $this->tetrio?->url() ?? '';
     }
+
+    public function isRegisteredAt(Tournament $tournament): bool
+    {
+        return $this->tetrio != null && $this->tetrio->isRegisteredAt($tournament);
+    }
 }

@@ -97,6 +97,6 @@ class TetrioUser extends Model
 
     public function isRegisteredAt(Tournament $tournament): bool
     {
-        return $this->registrations()->firstWhere(['tournament_id' => $tournament->id])->exists();
+        return $this->registrations()->firstWhere(['tournament_id' => $tournament->id]) != null;
     }
 }

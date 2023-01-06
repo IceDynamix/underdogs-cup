@@ -52,34 +52,36 @@
                             @endif
                         </ul>
 
-                        <p>
-                            Status:
-                            @if(auth()->user()->tetrio?->isRegisteredAt($tournament))
-                                <span class="tag is-success">Registered</span>
-                            @else
-                                <span class="tag is-danger">Not registered</span>
+                        @auth
+                            <p>
+                                Status:
+                                @if(auth()->user()->isRegisteredAt($tournament))
+                                    <span class="tag is-success">Registered</span>
+                                @else
+                                    <span class="tag is-danger">Not registered</span>
+                                @endif
+                            </p>
+
+                            @if(!auth()->user()->isRegisteredAt($tournament))
+                                <form action="{{route('tournaments.register.post', $tournament)}}" method="post">
+                                    @csrf
+                                    <button type="submit"
+                                            class="button is-success"
+                                            @if(sizeof($errors) > 0) disabled @endif
+                                    >
+                                        Register
+                                    </button>
+                                </form>
+                                @if(sizeof($errors) > 0)
+                                    <h2>Registration Errors</h2>
+                                    <ul>
+                                        @foreach($errors as $error)
+                                            <li class="has-text-danger">{{$error}}</li>
+                                        @endforeach
+                                    </ul>
+                                @endif
                             @endif
-                        </p>
-
-                        <form action="{{route('tournaments.register.post', $tournament)}}" method="post">
-                            @csrf
-                            <button type="submit"
-                                    class="button is-success"
-                                    @if(sizeof($errors) > 0) disabled @endif
-                            >
-                                Register
-                            </button>
-                        </form>
-
-                        @if(sizeof($errors) > 0)
-                            <h2>Registration Errors</h2>
-
-                            <ul>
-                                @foreach($errors as $error)
-                                    <li class="has-text-danger">{{$error}}</li>
-                                @endforeach
-                            </ul>
-                        @endif
+                        @endauth
                     </div>
                 </div>
             </div>

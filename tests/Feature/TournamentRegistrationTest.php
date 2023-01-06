@@ -132,6 +132,21 @@ class TournamentRegistrationTest extends TestCase
         ]));
     }
 
+    public function testDoubleRegistration()
+    {
+        $tournament = $this->tournament()->create();
+        $user = $this->okUser()->create();
+        $this->snapshot($user->tetrio, $tournament);
+
+        $this->actingAs($user)
+            ->post(route('tournaments.register.post', $tournament))
+            ->assertRedirectToRoute('tournaments.register', $tournament);
+
+        $this->actingAs($user)
+            ->post(route('tournaments.register.post', $tournament))
+            ->assertForbidden();
+    }
+
     protected function setUp(): void
     {
         parent::setUp();
