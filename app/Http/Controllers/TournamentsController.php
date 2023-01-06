@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\TetrioRank;
+use App\Helper\RegistrationHelper;
 use App\Http\Requests\TournamentCreateRequest;
 use App\Http\Requests\TournamentEditRequest;
 use App\Models\Tournament;
@@ -93,15 +94,23 @@ class TournamentsController extends Controller
     {
         $this->authorize('viewRegister', $tournament);
 
+        $user = auth()->user();
+
         return view('tournaments.register', [
             'tournament' => $tournament,
-            'tetrioUser' => auth()->user()->tetrio,
-            'snapshot' => auth()->user()->tetrio?->snapshotFor($tournament)
+            'tetrioUser' => $user->tetrio,
+            'snapshot' => $user->tetrio?->snapshotFor($tournament),
+            'errors' => RegistrationHelper::getRegistrationErrors($tournament, $user)
         ]);
     }
 
     public function register(Request $request, Tournament $tournament)
     {
         $this->authorize('register', $tournament);
+
+        $user = auth()->user();
+        if (RegistrationHelper::getRegistrationErrors($tournament, $user)) {
+            abort(403);
+        }
     }
 }
