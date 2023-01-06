@@ -23,6 +23,7 @@ Route::controller(TournamentsController::class)
     ->group(function () {
         Route::get('{tournament}/register', 'viewRegister')->name('register');
         Route::post('{tournament}/register', 'register')->name('register.post');
+        Route::post('{tournament}/unregister', 'unregister')->name('unregister');
     });
 
 Route::resource('tournaments', TournamentsController::class)

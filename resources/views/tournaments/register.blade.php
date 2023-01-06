@@ -80,6 +80,13 @@
                                         @endforeach
                                     </ul>
                                 @endif
+                            @else
+                                <form action="{{route('tournaments.unregister', $tournament)}}" method="post">
+                                    @csrf
+                                    <button type="submit" class="button is-danger">
+                                        Unregister
+                                    </button>
+                                </form>
                             @endif
                         @endauth
                     </div>

@@ -62,4 +62,9 @@ class TournamentPolicy
     {
         return $tournament->status == TournamentStatus::RegOpen;
     }
+
+    public function unregister(User $user, Tournament $tournament): bool
+    {
+        return $user->isRegisteredAt($tournament) && $tournament->status == TournamentStatus::RegOpen;
+    }
 }
