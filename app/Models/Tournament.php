@@ -62,7 +62,7 @@ class Tournament extends Model
         $hasUpperCap = $upper != null;
 
         if ($hasLowerCap && $hasUpperCap) {
-            return $lower->format().' - '.$upper->format();
+            return $lower->format().' to '.$upper->format().' rank';
         }
 
         if ($hasLowerCap) {

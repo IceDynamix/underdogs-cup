@@ -231,7 +231,7 @@ class TournamentTest extends TestCase
             ]
         );
 
-        $this->get('tournaments/'.$tour->id)->assertSee('A - S');
+        $this->get('tournaments/'.$tour->id)->assertSee('A to S');
     }
 
     protected function setUp(): void
