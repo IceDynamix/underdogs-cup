@@ -18,9 +18,11 @@
                 <h1>Tournaments</h1>
 
                 @can('create', Tournament::class)
-                    <a href="{{route('tournaments.create')}}" class="button is-success">
-                        Create new tournament
-                    </a>
+                    <p>
+                        <a href="{{route('tournaments.create')}}" class="button is-success">
+                            Create new tournament
+                        </a>
+                    </p>
                 @endcan
 
                 @foreach($tournaments as $tournament)
