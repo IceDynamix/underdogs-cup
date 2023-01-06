@@ -20,7 +20,7 @@ class TournamentRegistrationTest extends TestCase
 
     private Tournament $tournament;
 
-    public function testRegOpen()
+    public function testViewRegOpen()
     {
         $user = $this->okUser()->create();
         $tour = $this->tournament()->create(['status' => TournamentStatus::RegOpen]);
@@ -62,7 +62,7 @@ class TournamentRegistrationTest extends TestCase
             ->assertForbidden();
     }
 
-    public function testOk()
+    public function testRegOk()
     {
         $tournament = $this->tournament()->create();
         $user = $this->okUser()->create();
