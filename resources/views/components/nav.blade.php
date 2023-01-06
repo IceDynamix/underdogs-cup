@@ -1,3 +1,7 @@
+@php
+    use App\Models\Tournament;
+    $tournament = Tournament::latest()->first();
+@endphp
 <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
         <a class="navbar-item" href="{{ route('home') }}">
@@ -14,7 +18,9 @@
     <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
             <a class="navbar-item" href="{{ route('home') }}">Home</a>
-            <a class="navbar-item">Underdogs Cup 17</a>
+            @if($tournament)
+                <a class="navbar-item" href="{{route('tournaments.show', $tournament)}}">{{$tournament->name}}</a>
+            @endif
             <a class="navbar-item" href="{{ route('procedure') }}">Match Procedure</a>
             <a class="navbar-item">Discord Server</a>
             <a class="navbar-item">Stream</a>
