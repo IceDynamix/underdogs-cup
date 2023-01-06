@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Http\Enums\TetrioRank;
+use App\Enums\TetrioRank;
 use App\Models\TetrioUser;
 use Illuminate\Database\Eloquent\Factories\Factory;
 

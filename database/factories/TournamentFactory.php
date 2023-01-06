@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Http\Enums\TournamentStatus;
+use App\Enums\TournamentStatus;
 use App\Models\Tournament;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;

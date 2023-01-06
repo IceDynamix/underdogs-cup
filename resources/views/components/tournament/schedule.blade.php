@@ -1,5 +1,5 @@
 @php
-    use App\Http\Enums\TournamentStatus;use Carbon\Carbon;
+    use App\Enums\TournamentStatus;use Carbon\Carbon;
 
     $timestamps = [
         'Registration open' => [TournamentStatus::RegOpen, $tournament->reg_open_ts],

@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Http\Enums\TetrioRank;
+use App\Enums\TetrioRank;
 use PHPUnit\Framework\TestCase;
 
 class TetrioRankTest extends TestCase

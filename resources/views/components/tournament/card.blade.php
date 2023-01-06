@@ -1,4 +1,4 @@
-@php use App\Http\Enums\TetrioRank;use App\Http\Enums\TournamentStatus; @endphp
+@php use App\Enums\TournamentStatus; @endphp
 <div class="box">
     <h2>{{$tournament->name}}</h2>
     <div class="tags">

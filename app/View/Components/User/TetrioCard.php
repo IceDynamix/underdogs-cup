@@ -2,7 +2,7 @@
 
 namespace App\View\Components\User;
 
-use App\Http\Enums\TetrioRank;
+use App\Enums\TetrioRank;
 use App\Models\TetrioUser;
 use App\Models\TetrioUserSnapshot;
 use Carbon\Carbon;
@@ -38,7 +38,7 @@ class TetrioCard extends Component
         } else {
             $stats = $user;
         }
-        
+
         $this->snapshotUsed = $useSnapshot;
 
         $this->rank = $stats->rank;

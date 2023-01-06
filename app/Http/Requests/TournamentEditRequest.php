@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Enums\TetrioRank;
-use App\Http\Enums\TournamentStatus;
+use App\Enums\TetrioRank;
+use App\Enums\TournamentStatus;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Enum;
 

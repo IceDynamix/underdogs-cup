@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Http\Enums\TetrioRank;
-use App\Http\Enums\TournamentStatus;
+use App\Enums\TetrioRank;
+use App\Enums\TournamentStatus;
 use App\Models\Scopes\HiddenScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Http\Enums\TournamentStatus;
+use App\Enums\TournamentStatus;
 use App\Models\TetrioUser;
 use App\Models\Tournament;
 use App\Models\User;

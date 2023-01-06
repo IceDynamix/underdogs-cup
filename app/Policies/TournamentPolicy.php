@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Http\Enums\TournamentStatus;
+use App\Enums\TournamentStatus;
 use App\Models\Tournament;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;

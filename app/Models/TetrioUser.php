@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Http\Enums\TetrioRank;
+use App\Enums\TetrioRank;
 use App\Http\TetrioApi\TetrioApi;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

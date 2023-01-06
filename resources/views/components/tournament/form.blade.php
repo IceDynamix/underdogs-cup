@@ -1,4 +1,4 @@
-@php use App\Http\Enums\EnumHelper;use App\Http\Enums\TetrioRank;use App\Http\Enums\TournamentStatus; @endphp
+@php use App\Enums\EnumHelper;use App\Enums\TetrioRank;use App\Enums\TournamentStatus; @endphp
 
 <form action="{{$action}}" method="POST">
     @csrf

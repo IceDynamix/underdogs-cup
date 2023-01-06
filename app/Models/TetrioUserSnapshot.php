@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Http\Enums\TetrioRank;
+use App\Enums\TetrioRank;
 use Illuminate\Database\Eloquent\Model;
 
 class TetrioUserSnapshot extends Model
