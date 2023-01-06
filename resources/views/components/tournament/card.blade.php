@@ -11,17 +11,23 @@
     <div class="buttons">
         <a href="{{route('tournaments.show', $tournament)}}" class="button is-primary">Details</a>
 
-        <a href="{{route('tournaments.register', $tournament)}}" class="button is-warning"
-           @cannot('viewRegister', $tournament)
-               disabled
-            @endcannot
-        >
-            Register
-        </a>
-
         @if($tournament->status == TournamentStatus::CheckInOpen)
             <a href="" class="button is-warning">
                 Check-in
+            </a>
+        @else
+            <a href="{{route('tournaments.register', $tournament)}}" class="button is-warning"
+               @cannot('viewRegister', $tournament)
+                   disabled
+                @endcannot
+            >
+                Register
+            </a>
+        @endif
+
+        @if($tournament->participants->count() > 0)
+            <a href="{{route('')}}" class="button is-info">
+                Player List
             </a>
         @endif
 

@@ -137,4 +137,9 @@ class TournamentsController extends Controller
 
         return redirect()->route('tournaments.register', $tournament);
     }
+
+    public function participants(Tournament $tournament)
+    {
+
+    }
 }

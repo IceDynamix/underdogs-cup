@@ -24,6 +24,8 @@ Route::controller(TournamentsController::class)
         Route::get('{tournament}/register', 'viewRegister')->name('register');
         Route::post('{tournament}/register', 'register')->name('register.post');
         Route::post('{tournament}/unregister', 'unregister')->name('unregister');
+
+        Route::get('{tournament}/participants', 'participants')->name('participants');
     });
 
 Route::resource('tournaments', TournamentsController::class)

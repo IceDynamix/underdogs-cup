@@ -122,6 +122,9 @@ class TournamentRegistrationTest extends TestCase
         $user = $this->okUser()->create();
         $this->snapshot($user->tetrio, $tournament);
 
+        $this->get(route('tournaments.register', $tournament))
+            ->assertDontSee('Player List');
+
         $this->actingAs($user)
             ->post(route('tournaments.register.post', $tournament))
             ->assertRedirectToRoute('tournaments.register', $tournament);
@@ -130,6 +133,9 @@ class TournamentRegistrationTest extends TestCase
             'tetrio_user_id' => $user->tetrio->id,
             'tournament_id' => $tournament->id,
         ]));
+
+        $this->get(route('tournaments.register', $tournament))
+            ->assertSee('Player List');
     }
 
     public function testDoubleRegistration()
