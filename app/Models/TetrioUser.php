@@ -73,7 +73,6 @@ class TetrioUser extends Model
         return "https://ch.tetr.io/u/$this->username";
     }
 
-
     // for some reason making a regular relationship doesn't work so have this scuffed workaround instead
     public function snapshotFor(Tournament $tournament)
     {

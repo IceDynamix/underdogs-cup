@@ -14,16 +14,19 @@ class RegistrationHelper
 
         if ($user->isRegisteredAt($tournament)) {
             $errors[] = 'Already registered for this tournament';
+
             return $errors;
         }
 
         if ($tournament->status != TournamentStatus::RegOpen) {
             $errors[] = 'Nope.';
+
             return $errors;
         }
 
         if ($user->is_blacklisted) {
             $errors[] = 'You have placed top 3 in a previous Underdogs Cup before or have been blacklisted for other reasons. Please contact a staff member if you think this is an accident.';
+
             return $errors;
         }
 
@@ -31,6 +34,7 @@ class RegistrationHelper
 
         if ($tetrio == null) {
             $errors[] = 'TETR.IO account not linked';
+
             return $errors;
         }
 
@@ -38,6 +42,7 @@ class RegistrationHelper
 
         if ($user->tetrio->snapshotFor($tournament) == null) {
             $errors[] = 'You were unranked on tournament announcement';
+
             return $errors;
         }
 

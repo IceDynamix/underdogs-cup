@@ -61,12 +61,12 @@ class TournamentsController extends Controller
         // FIXME
 
         if (array_key_exists('lower_reg_rank_cap',
-                $validated) && $validated['lower_reg_rank_cap'] == TetrioRank::Unranked) {
+            $validated) && $validated['lower_reg_rank_cap'] == TetrioRank::Unranked) {
             $validated['lower_reg_rank_cap'] = null;
         }
 
         if (array_key_exists('upper_reg_rank_cap',
-                $validated) && $validated['upper_reg_rank_cap'] == TetrioRank::Unranked) {
+            $validated) && $validated['upper_reg_rank_cap'] == TetrioRank::Unranked) {
             $validated['upper_reg_rank_cap'] = null;
         }
 
@@ -101,7 +101,7 @@ class TournamentsController extends Controller
             'tournament' => $tournament,
             'tetrioUser' => $user->tetrio,
             'snapshot' => $user->tetrio?->snapshotFor($tournament),
-            'errors' => RegistrationHelper::getRegistrationErrors($tournament, $user)
+            'errors' => RegistrationHelper::getRegistrationErrors($tournament, $user),
         ]);
     }
 
@@ -116,8 +116,9 @@ class TournamentsController extends Controller
 
         TournamentRegistration::create([
             'tetrio_user_id' => $user->tetrio->id,
-            'tournament_id' => $tournament->id
+            'tournament_id' => $tournament->id,
         ]);
+
         return redirect()->route('tournaments.register', $tournament);
     }
 }

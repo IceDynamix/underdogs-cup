@@ -8,6 +8,6 @@ class TournamentRegistration extends Model
 {
     protected $fillable = [
         'tetrio_user_id',
-        'tournament_id'
+        'tournament_id',
     ];
 }

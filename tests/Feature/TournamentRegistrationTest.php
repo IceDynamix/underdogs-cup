@@ -128,7 +128,7 @@ class TournamentRegistrationTest extends TestCase
 
         $this->assertModelExists(TournamentRegistration::firstWhere([
             'tetrio_user_id' => $user->tetrio->id,
-            'tournament_id' => $tournament->id
+            'tournament_id' => $tournament->id,
         ]));
     }
 

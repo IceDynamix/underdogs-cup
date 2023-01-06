@@ -12,19 +12,29 @@ use Illuminate\View\Component;
 class TetrioCard extends Component
 {
     public bool $snapshotUsed;
+
     public TetrioUser $user;
+
     public string $username;
+
     public string $country;
 
-
     public TetrioRank $rank;
+
     public TetrioRank $bestRank;
+
     public float $rating;
+
     public float $rd;
+
     public float $apm;
+
     public float $pps;
+
     public float $vs;
+
     public int $gamesPlayed;
+
     public Carbon $datetime;
 
     public function __construct(TetrioUser $user, bool $useSnapshot = false, TetrioUserSnapshot $snapshot = null)
