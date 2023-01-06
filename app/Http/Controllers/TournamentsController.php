@@ -61,4 +61,14 @@ class TournamentsController extends Controller
     public function destroy(Tournament $tournament)
     {
     }
+
+    public function register(Tournament $tournament)
+    {
+        $this->authorize('register', $tournament);
+    }
+
+    public function apply(Tournament $tournament)
+    {
+        $this->authorize('register', $tournament);
+    }
 }

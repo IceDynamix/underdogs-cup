@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Http\Enums\TournamentStatus;
 use App\Models\Tournament;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -50,5 +51,10 @@ class TournamentPolicy
     public function forceDelete(User $user, Tournament $tournament): bool
     {
         return false;
+    }
+
+    public function register(User $user, Tournament $tournament): bool
+    {
+        return !$user->is_blacklisted && $tournament->status == TournamentStatus::RegOpen;
     }
 }

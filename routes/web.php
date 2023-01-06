@@ -16,6 +16,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::controller(TournamentsController::class)
+    ->prefix('tournaments')
+    ->name('tournaments.')
+    ->group(function () {
+        Route::get('{tournament}/register', 'register')->name('register');
+        Route::post('{tournament}/register', 'apply')->name('apply');
+    });
+
 Route::resource('tournaments', TournamentsController::class)
     ->only(['index', 'show', 'create', 'store', 'edit', 'update']);
 
