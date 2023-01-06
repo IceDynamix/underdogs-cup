@@ -11,10 +11,12 @@
                         <th>Seed</th>
                         <th>Player</th>
                         <th>Rank (Peak)</th>
-                        <th><abbr title="Tetra League Rating">TR</abbr></th>
-                        <th><abbr title="Versus Score (over the last 10 games)">VS</abbr></th>
-                        <th><abbr title="Pieces Per Second (over the last 10 games)">PPS</abbr></th>
-                        <th><abbr title="Attack Per Minute (over the last 10 games)">APM</abbr></th>
+                        <th><abbr title="Versus Score (over the last 10 games), seeding value">VS</abbr></th>
+                        <th class="is-hidden-mobile"><abbr title="Tetra League Rating">TR</abbr></th>
+                        <th class="is-hidden-touch"><abbr title="Pieces Per Second (over the last 10 games)">PPS</abbr>
+                        </th>
+                        <th class="is-hidden-touch"><abbr title="Attack Per Minute (over the last 10 games)">APM</abbr>
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -23,10 +25,10 @@
                             <td>{{$loop->iteration}}</td>
                             <td><a href="{{$tetrio->url()}}">{{$tetrio->username}}</a></td>
                             <td>{{$tetrio->rank->format()}} ({{$tetrio->best_rank->format()}})</td>
-                            <td>{{$tetrio->rating}}</td>
                             <td>{{$tetrio->vs}}</td>
-                            <td>{{$tetrio->pps}}</td>
-                            <td>{{$tetrio->apm}}</td>
+                            <td class="is-hidden-mobile">{{$tetrio->rating}}</td>
+                            <td class="is-hidden-touch">{{$tetrio->pps}}</td>
+                            <td class="is-hidden-touch">{{$tetrio->apm}}</td>
                         </tr>
                     @endforeach
                     </tbody>
