@@ -136,6 +136,9 @@ class TournamentRegistrationTest extends TestCase
 
         $this->get(route('tournaments.register', $tournament))
             ->assertSee('Player List');
+
+        $this->get(route('tournaments.participants', $tournament))
+            ->assertSee($user->tetrio->username);
     }
 
     public function testDoubleRegistration()

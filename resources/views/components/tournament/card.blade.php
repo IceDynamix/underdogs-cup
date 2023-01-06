@@ -26,7 +26,7 @@
         @endif
 
         @if($tournament->participants->count() > 0)
-            <a href="{{route('')}}" class="button is-info">
+            <a href="{{route('tournaments.participants', $tournament)}}" class="button is-info">
                 Player List
             </a>
         @endif

@@ -140,6 +140,12 @@ class TournamentsController extends Controller
 
     public function participants(Tournament $tournament)
     {
-
+        return view('tournaments.player-list', [
+            'tournament' => $tournament->load([
+                'participants' => function ($query) {
+                    $query->orderBy('vs', 'desc');
+                }
+            ])
+        ]);
     }
 }
