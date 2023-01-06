@@ -1,5 +1,6 @@
 @php use App\Models\Tournament; @endphp
 <x-layout>
+    <x-slot:title>Player List | {{$tournament->name}}</x-slot:title>
     <div class="container">
         <div class="content">
             <x-tournament.card :$tournament/>
