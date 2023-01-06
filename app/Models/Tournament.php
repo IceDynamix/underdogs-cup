@@ -39,6 +39,11 @@ class Tournament extends Model
         'upper_reg_rank_cap' => TetrioRank::class,
         'grace_rank_cap' => TetrioRank::class,
         'status' => TournamentStatus::class,
+        'reg_open_ts' => 'datetime',
+        'reg_closed_ts' => 'datetime',
+        'check_in_open_ts' => 'datetime',
+        'check_in_closed_ts' => 'datetime',
+        'tournament_start_ts' => 'datetime',
     ];
 
     protected static function boot()

@@ -24,7 +24,7 @@
                 @endcan
 
                 @foreach($tournaments as $tournament)
-                    <x-tournament.item :$tournament/>
+                    <x-tournament.card :$tournament/>
                 @endforeach
             </div>
         </div>

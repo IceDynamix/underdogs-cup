@@ -3,7 +3,8 @@
     <section class="section">
         <div class="container">
             <div class="content">
-                <x-tournament.item :$tournament/>
+                <x-tournament.card :$tournament/>
+                <x-tournament.schedule :$tournament/>
 
                 <x-markdown>
                     {{$tournament->full_description}}

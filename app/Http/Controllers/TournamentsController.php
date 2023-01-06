@@ -22,9 +22,9 @@ class TournamentsController extends Controller
     {
         $validated = $request->validated();
 
-        Tournament::create($validated);
+        $tournament = Tournament::create($validated);
 
-        return redirect()->route('tournaments.index');
+        return redirect()->route('tournaments.show', $tournament);
     }
 
     public function create()
@@ -55,7 +55,7 @@ class TournamentsController extends Controller
         $validated = $request->validated();
         $tournament->update($validated);
 
-        return redirect()->route('tournaments.index');
+        return redirect()->route('tournaments.show', $tournament);
     }
 
     public function destroy(Tournament $tournament)

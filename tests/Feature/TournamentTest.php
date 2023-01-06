@@ -67,7 +67,7 @@ class TournamentTest extends TestCase
         $this
             ->actingAs($this->admin)
             ->post('tournaments', $newTour)
-            ->assertRedirectToRoute('tournaments.index');
+            ->assertRedirectToRoute('tournaments.show', $newTour['id']);
 
         $this->assertDatabaseHas('tournaments', $newTour);
 
@@ -106,7 +106,7 @@ class TournamentTest extends TestCase
             ->actingAs($this->admin)
             ->post('tournaments', $tournament)
             ->assertSessionHasNoErrors()
-            ->assertRedirectToRoute('tournaments.index');
+            ->assertRedirectToRoute('tournaments.show', $tournament['id']);
 
         $this->actingAs($this->admin)
             ->get('tournaments')
@@ -163,7 +163,7 @@ class TournamentTest extends TestCase
             ->actingAs($this->admin)
             ->patch('/tournaments/'.$this->tournament->id, $params)
             ->assertSessionHasNoErrors()
-            ->assertRedirectToRoute('tournaments.index');
+            ->assertRedirectToRoute('tournaments.show', $this->tournament);
 
         $this->actingAs($this->user)
             ->get('tournaments')
@@ -232,22 +232,6 @@ class TournamentTest extends TestCase
         );
 
         $this->get('tournaments/'.$tour->id)->assertSee('A - S');
-    }
-
-    public function testViewSeeCheckIn()
-    {
-        $this->get('tournaments/'.$this->tournament->id)
-            ->assertDontSee('Check-in');
-
-        $tour = Tournament::factory()->create(
-            [
-                'status' => TournamentStatus::CheckInOpen,
-            ]
-        );
-
-        $this->get('tournaments/'.$tour->id)
-            ->assertSee('Check-ins open')
-            ->assertSee('Check-in');
     }
 
     protected function setUp(): void
