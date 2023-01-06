@@ -6,8 +6,6 @@ use App\Http\Enums\TetrioRank;
 use App\Http\TetrioApi\TetrioApi;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class TetrioUser extends Model
 {
@@ -63,16 +61,6 @@ class TetrioUser extends Model
         ];
     }
 
-    public function discordUser(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'id', 'tetrio_user_id', 'tetrio');
-    }
-
-    public function snapshotUser(): HasOne
-    {
-        return $this->hasOne(TetrioUserSnapshot::class, 'id', 'id');
-    }
-
     public function avatarUrl(): string
     {
         // https://tetr.io/about/api/#usersuser
@@ -82,5 +70,22 @@ class TetrioUser extends Model
     public function url(): string
     {
         return "https://ch.tetr.io/u/$this->username";
+    }
+
+
+    // for some reason making a regular relationship doesn't work so have this scuffed workaround instead
+    public function snapshotFor(Tournament $tournament)
+    {
+        return TetrioUserSnapshot::firstWhere(['user_id' => $this->id, 'tournament_id' => $tournament->id]);
+    }
+
+    public function updateFromApi()
+    {
+        $tetrioUser = TetrioApi::getUserInfo($this->id);
+        if ($tetrioUser == null) {
+            return null;
+        }
+
+        return $this->update(self::mapTetrioUserToDbFill($tetrioUser));
     }
 }

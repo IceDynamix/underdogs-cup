@@ -67,7 +67,11 @@ class TournamentsController extends Controller
     {
         $this->authorize('viewRegister', $tournament);
 
-        return view('tournaments.register', ['tournament' => $tournament]);
+        return view('tournaments.register', [
+            'tournament' => $tournament,
+            'tetrioUser' => auth()->user()->tetrio,
+            'snapshot' => auth()->user()->tetrio?->snapshotFor($tournament)
+        ]);
     }
 
     public function register(Request $request, Tournament $tournament)

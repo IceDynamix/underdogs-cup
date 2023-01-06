@@ -11,9 +11,11 @@ return new class extends Migration
         Schema::create('tournament_registrations', function (Blueprint $table) {
             $table->id();
 
-            $table->string('user_id');
-            $table->string('tournament_id');
+            $table->string('tetrio_user_id')->index();
+            $table->string('tournament_id')->index();
             $table->boolean('checked_in')->default(false);
+
+            $table->unique(['tetrio_user_id', 'tournament_id']);
 
             $table->timestamps();
         });

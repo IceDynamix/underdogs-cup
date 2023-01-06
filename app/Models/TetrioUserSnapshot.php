@@ -4,12 +4,12 @@ namespace App\Models;
 
 use App\Http\Enums\TetrioRank;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class TetrioUserSnapshot extends Model
 {
     protected $fillable = [
-        'id',
+        'user_id',
+        'tournament_id',
         'rank',
         'best_rank',
         'rating',
@@ -24,9 +24,4 @@ class TetrioUserSnapshot extends Model
         'rank' => TetrioRank::class,
         'best_rank' => TetrioRank::class,
     ];
-
-    public function currentUser(): HasOne
-    {
-        return $this->hasOne(TetrioUser::class, 'id', 'id');
-    }
 }

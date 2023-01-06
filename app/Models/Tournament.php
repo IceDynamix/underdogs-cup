@@ -78,6 +78,6 @@ class Tournament extends Model
 
     public function participants(): BelongsToMany
     {
-        return $this->belongsToMany(TetrioUser::class, 'tournament_registrations');
+        return $this->belongsToMany(TetrioUser::class, 'tournament_registrations', 'tournament_id', 'tetrio_user_id');
     }
 }
