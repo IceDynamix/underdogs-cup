@@ -66,6 +66,8 @@ class TournamentsController extends Controller
     public function viewRegister(Tournament $tournament)
     {
         $this->authorize('viewRegister', $tournament);
+
+        return view('tournaments.register', ['tournament' => $tournament]);
     }
 
     public function register(Request $request, Tournament $tournament)
