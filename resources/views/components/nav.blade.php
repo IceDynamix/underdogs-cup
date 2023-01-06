@@ -22,8 +22,12 @@
                 <a class="navbar-item" href="{{route('tournaments.show', $tournament)}}">{{$tournament->name}}</a>
             @endif
             <a class="navbar-item" href="{{ route('procedure') }}">Match Procedure</a>
-            <a class="navbar-item">Discord Server</a>
-            <a class="navbar-item">Stream</a>
+            @if(config('links.discord'))
+                <a class="navbar-item" href="{{ config('links.discord') }}">Discord Server</a>
+            @endif
+            @if(config('links.stream'))
+                <a class="navbar-item" href="{{ config('links.stream') }}">Stream</a>
+            @endif
         </div>
 
         <div class="navbar-end">
