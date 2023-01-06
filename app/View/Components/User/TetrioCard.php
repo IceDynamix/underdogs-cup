@@ -17,6 +17,7 @@ class TetrioCard extends Component
 
     public string $username;
 
+    public string $avatar;
     public string $country;
 
     public TetrioRank $rank;
@@ -42,6 +43,7 @@ class TetrioCard extends Component
         $this->user = $user;
         $this->username = $user->username;
         $this->country = $user->country;
+        $this->avatar = $user->avatarUrl();
 
         if ($useSnapshot) {
             $stats = $snapshot;

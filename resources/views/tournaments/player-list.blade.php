@@ -10,7 +10,7 @@
                     <tr>
                         <th>Seed</th>
                         <th>Player</th>
-                        <th>Rank (Peak)</th>
+                        <th>Peak Rank</th>
                         <th><abbr title="Versus Score (over the last 10 games), seeding value">VS</abbr></th>
                         <th class="is-hidden-mobile"><abbr title="Tetra League Rating">TR</abbr></th>
                         <th class="is-hidden-touch"><abbr title="Pieces Per Second (over the last 10 games)">PPS</abbr>
@@ -23,8 +23,21 @@
                     @foreach($tournament->participants as $tetrio)
                         <tr>
                             <td>{{$loop->iteration}}</td>
-                            <td><a href="{{$tetrio->url()}}">{{$tetrio->username}}</a></td>
-                            <td>{{$tetrio->rank->format()}} ({{$tetrio->best_rank->format()}})</td>
+                            <td>
+                                <span class="icon-text">
+                                    <span class="icon">
+                                        <img src="{{$tetrio->rank->img()}}" alt="Tetrio Rank">
+                                    </span>
+                                    <a href="{{$tetrio->url()}}">{{$tetrio->username}}</a>
+                                </span>
+                            </td>
+                            <td>
+                                <span class="icon-text">
+                                    <span class="icon">
+                                        <img src="{{$tetrio->best_rank->img()}}" alt="Tetrio Rank">
+                                    </span>
+                                </span>
+                            </td>
                             <td>{{$tetrio->vs}}</td>
                             <td class="is-hidden-mobile">{{$tetrio->rating}}</td>
                             <td class="is-hidden-touch">{{$tetrio->pps}}</td>

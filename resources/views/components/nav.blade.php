@@ -22,10 +22,17 @@
 
         <div class="navbar-end">
             @auth
-                <div class="navbar-item">
-                    <figure class="image is48x48 p-2">
+                <div class="navbar-item icon-text">
+                    <span class="icon">
                         <img src="{{auth()->user()->avatarUrl()}}" alt="Avatar" class="is-rounded">
-                    </figure>
+                    </span>
+
+                    @if(auth()->user()->tetrio)
+                        <span class="icon">
+                            <img src="{{auth()->user()->tetrio->rank->img()}}" alt="Tetrio Rank">
+                        </span>
+                    @endif
+
                     <a href="{{auth()->user()->url()}}">
                         {{auth()->user()->name}}
                     </a>

@@ -56,4 +56,9 @@ enum TetrioRank: string
 
         return array_search($this, $list);
     }
+
+    public function img(): string
+    {
+        return "https://tetr.io/res/league-ranks/$this->value.png";
+    }
 }
