@@ -44,12 +44,14 @@
             <div class="columns">
                 <div class="column">
                     <figure class="image">
-                        <img src="/images/connect_image_1.png" alt="Image showing where to link accounts">
+                        <img src="{{ Vite::asset('resources/images/connect_image_1.png') }}"
+                             alt="Image showing where to link accounts">
                     </figure>
                 </div>
                 <div class="column">
                     <figure class="image">
-                        <img src="/images/connect_image_2.png" alt="Image showing the 'display publicly' option">
+                        <img src="{{ Vite::asset('resources/images/connect_image_2.png') }}"
+                             alt="Image showing the 'display publicly' option">
                     </figure>
                 </div>
             </div>
