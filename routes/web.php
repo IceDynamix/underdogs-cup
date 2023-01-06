@@ -19,9 +19,10 @@ use Illuminate\Support\Facades\Route;
 Route::controller(TournamentsController::class)
     ->prefix('tournaments')
     ->name('tournaments.')
+    ->middleware('auth')
     ->group(function () {
-        Route::get('{tournament}/register', 'register')->name('register');
-        Route::post('{tournament}/register', 'apply')->name('apply');
+        Route::get('{tournament}/register', 'viewRegister')->name('register');
+        Route::post('{tournament}/register', 'register')->name('register.post');
     });
 
 Route::resource('tournaments', TournamentsController::class)
@@ -37,6 +38,6 @@ Route::controller(AuthController::class)
         Route::get('login', 'login')->name('login');
         Route::post('logout', 'logout')->name('logout');
         Route::get('/auth/discord/callback', 'callback')->name('callback');
-        Route::get('/connect', 'connectView')->name('connect');
+        Route::get('/connect', 'viewConnect')->name('connect');
         Route::post('connect', 'connect')->name('connect.post');
     });

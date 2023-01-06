@@ -4,12 +4,15 @@ namespace App\Models;
 
 use App\Http\Enums\TetrioRank;
 use App\Http\TetrioApi\TetrioApi;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class TetrioUser extends Model
 {
+    use HasFactory;
+
     public $incrementing = false;
 
     protected $fillable = [
@@ -62,7 +65,7 @@ class TetrioUser extends Model
 
     public function discordUser(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'id', 'tetrio_user_id');
+        return $this->belongsTo(User::class, 'id', 'tetrio_user_id', 'tetrio');
     }
 
     public function snapshotUser(): HasOne

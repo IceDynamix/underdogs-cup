@@ -34,7 +34,7 @@ class AuthController extends Controller
         return Socialite::driver('discord')->scopes(['guilds'])->redirect();
     }
 
-    public function connectView()
+    public function viewConnect()
     {
         return view('connect');
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TournamentCreateRequest;
 use App\Http\Requests\TournamentEditRequest;
 use App\Models\Tournament;
+use Illuminate\Http\Request;
 
 class TournamentsController extends Controller
 {
@@ -62,12 +63,12 @@ class TournamentsController extends Controller
     {
     }
 
-    public function register(Tournament $tournament)
+    public function viewRegister(Tournament $tournament)
     {
-        $this->authorize('register', $tournament);
+        $this->authorize('viewRegister', $tournament);
     }
 
-    public function apply(Tournament $tournament)
+    public function register(Request $request, Tournament $tournament)
     {
         $this->authorize('register', $tournament);
     }

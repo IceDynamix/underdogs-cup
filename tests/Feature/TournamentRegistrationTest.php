@@ -3,8 +3,11 @@
 namespace Tests\Feature;
 
 use App\Http\Enums\TournamentStatus;
+use App\Models\TetrioUser;
 use App\Models\Tournament;
 use App\Models\User;
+use Database\Factories\TournamentFactory;
+use Database\Factories\UserFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -12,29 +15,53 @@ class TournamentRegistrationTest extends TestCase
 {
     use RefreshDatabase;
 
-    private User $user;
-    private Tournament $closedTournament;
-    private Tournament $openTournament;
+    private Tournament $tournament;
 
     public function testRegOpen()
     {
-        $this->actingAs($this->user)
-            ->get(route('tournaments.register', $this->openTournament))
+        $user = $this->okUser()->create();
+        $tour = $this->tournament()->create(['status' => TournamentStatus::RegOpen]);
+
+        $this->get(route('tournaments.register', $tour))
+            ->assertRedirectToRoute('login');
+
+        $this->actingAs($user)
+            ->post(route('tournaments.register.post', $tour))
             ->assertOk();
 
-        $this->actingAs($this->user)
-            ->post(route('tournaments.apply', $this->openTournament))
-            ->assertOk();
-    }
+        $tour->update(['status' => TournamentStatus::RegClosed]);
 
-    public function testRegClosed()
-    {
-        $this->actingAs($this->user)
-            ->get(route('tournaments.register', $this->closedTournament))
+        $this->get(route('tournaments.register', $tour))
             ->assertForbidden();
 
-        $this->actingAs($this->user)
-            ->post(route('tournaments.apply', $this->closedTournament))
+        $this->actingAs($user)
+            ->post(route('tournaments.register.post', $tour))
+            ->assertForbidden();
+    }
+
+    public function testUserBlacklisted()
+    {
+        $blacklisted = $this->okUser()->create(['is_blacklisted' => true]);
+
+        $this->actingAs($blacklisted)
+            ->get(route('tournaments.register', $this->tournament))
+            ->assertOk();
+
+        $this->actingAs($blacklisted)
+            ->post(route('tournaments.register.post', $this->tournament))
+            ->assertForbidden();
+    }
+
+    public function testUserUnlinked()
+    {
+        $unlinked = $this->okUser()->create(['tetrio_user_id' => null]);
+
+        $this->actingAs($unlinked)
+            ->get(route('tournaments.register', $this->tournament))
+            ->assertOk();
+
+        $this->actingAs($unlinked)
+            ->post(route('tournaments.register.post', $this->tournament))
             ->assertForbidden();
     }
 
@@ -42,8 +69,19 @@ class TournamentRegistrationTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = User::factory()->create(['is_blacklisted' => false]);
-        $this->closedTournament = Tournament::factory()->create(['status' => TournamentStatus::Upcoming]);
-        $this->openTournament = Tournament::factory()->create(['status' => TournamentStatus::RegOpen]);
+        $this->tournament = $this->tournament()->create();
+    }
+
+    private function tournament(): TournamentFactory
+    {
+        return Tournament::factory()->state(['status' => TournamentStatus::RegOpen]);
+    }
+
+    private function okUser(): UserFactory
+    {
+        return User::factory()->state([
+            'is_blacklisted' => false,
+            'tetrio_user_id' => TetrioUser::factory()->create()->id,
+        ]);
     }
 }

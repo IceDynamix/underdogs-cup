@@ -7,6 +7,7 @@ use App\Http\Enums\TournamentStatus;
 use App\Models\Scopes\HiddenScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Tournament extends Model
 {
@@ -73,5 +74,10 @@ class Tournament extends Model
         }
 
         return 'No rank restriction';
+    }
+
+    public function participants(): BelongsToMany
+    {
+        return $this->belongsToMany(TetrioUser::class, 'tournament_registrations');
     }
 }

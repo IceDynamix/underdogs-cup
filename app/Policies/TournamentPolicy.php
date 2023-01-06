@@ -55,6 +55,11 @@ class TournamentPolicy
 
     public function register(User $user, Tournament $tournament): bool
     {
-        return !$user->is_blacklisted && $tournament->status == TournamentStatus::RegOpen;
+        return $this->viewRegister($user, $tournament) && !$user->is_blacklisted && $user->tetrio_user_id != null;
+    }
+
+    public function viewRegister(User $user, Tournament $tournament): bool
+    {
+        return $tournament->status == TournamentStatus::RegOpen;
     }
 }

@@ -14,7 +14,7 @@ class TournamentFactory extends Factory
     public function definition(): array
     {
         return [
-            'id' => $this->faker->word(),
+            'id' => $this->faker->unique()->word(),
             'name' => $this->faker->name(),
             'bracket_url' => $this->faker->url(),
             'status' => TournamentStatus::Upcoming,
