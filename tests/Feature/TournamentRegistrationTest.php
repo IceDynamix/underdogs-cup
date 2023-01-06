@@ -8,6 +8,7 @@ use App\Helper\RegistrationHelper;
 use App\Models\TetrioUser;
 use App\Models\TetrioUserSnapshot;
 use App\Models\Tournament;
+use App\Models\TournamentRegistration;
 use App\Models\User;
 use Database\Factories\TournamentFactory;
 use Database\Factories\UserFactory;
@@ -62,7 +63,7 @@ class TournamentRegistrationTest extends TestCase
             ->assertForbidden();
     }
 
-    public function testRegOk()
+    public function testErrorCheckRegOk()
     {
         $tournament = $this->tournament()->create();
         $user = $this->okUser()->create();
@@ -71,7 +72,7 @@ class TournamentRegistrationTest extends TestCase
         self::assertEmpty(RegistrationHelper::getRegistrationErrors($tournament, $user));
     }
 
-    public function testNoSnapshot()
+    public function testErrorCheckNoSnapshot()
     {
         $tournament = $this->tournament()->create();
         $user = $this->okUser()->create();
@@ -79,7 +80,7 @@ class TournamentRegistrationTest extends TestCase
         self::assertNotEmpty(RegistrationHelper::getRegistrationErrors($tournament, $user));
     }
 
-    public function testCurrentRankLow()
+    public function testErrorCheckCurrentRankLow()
     {
         $tournament = $this->tournament()->create(['lower_reg_rank_cap' => TetrioRank::S]);
         $user = $this->okUser(['rank' => TetrioRank::A])->create();
@@ -88,7 +89,7 @@ class TournamentRegistrationTest extends TestCase
         self::assertNotEmpty(RegistrationHelper::getRegistrationErrors($tournament, $user));
     }
 
-    public function testCurrentRankHigh()
+    public function testErrorCheckCurrentRankHigh()
     {
         $tournament = $this->tournament()->create(['upper_reg_rank_cap' => TetrioRank::S]);
         $user = $this->okUser(['rank' => TetrioRank::SPlus])->create();
@@ -97,7 +98,7 @@ class TournamentRegistrationTest extends TestCase
         self::assertNotEmpty(RegistrationHelper::getRegistrationErrors($tournament, $user));
     }
 
-    public function testRegistrationRankLow()
+    public function testErrorCheckRegistrationRankLow()
     {
         $tournament = $this->tournament()->create(['lower_reg_rank_cap' => TetrioRank::S]);
         $user = $this->okUser(['rank' => TetrioRank::S])->create();
@@ -106,13 +107,29 @@ class TournamentRegistrationTest extends TestCase
         self::assertNotEmpty(RegistrationHelper::getRegistrationErrors($tournament, $user));
     }
 
-    public function testRegistrationRankHigh()
+    public function testErrorCheckRegistrationRankHigh()
     {
         $tournament = $this->tournament()->create(['upper_reg_rank_cap' => TetrioRank::S]);
         $user = $this->okUser(['rank' => TetrioRank::S])->create();
         $this->snapshot($user->tetrio, $tournament, ['rank' => TetrioRank::SPlus]);
 
         self::assertNotEmpty(RegistrationHelper::getRegistrationErrors($tournament, $user));
+    }
+
+    public function testRegOk()
+    {
+        $tournament = $this->tournament()->create();
+        $user = $this->okUser()->create();
+        $this->snapshot($user->tetrio, $tournament);
+
+        $this->actingAs($user)
+            ->post(route('tournaments.register.post', $tournament))
+            ->assertRedirectToRoute('tournaments.register', $tournament);
+
+        $this->assertModelExists(TournamentRegistration::firstWhere([
+            'tetrio_user_id' => $user->tetrio->id,
+            'tournament_id' => $tournament->id
+        ]));
     }
 
     protected function setUp(): void

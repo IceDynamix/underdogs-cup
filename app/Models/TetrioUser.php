@@ -6,6 +6,7 @@ use App\Enums\TetrioRank;
 use App\Http\TetrioApi\TetrioApi;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class TetrioUser extends Model
 {
@@ -87,5 +88,15 @@ class TetrioUser extends Model
         }
 
         return $this->update(self::mapTetrioUserToDbFill($tetrioUser));
+    }
+
+    public function registrations(): HasMany
+    {
+        return $this->hasMany(TournamentRegistration::class, 'tetrio_user_id');
+    }
+
+    public function isRegisteredAt(Tournament $tournament): bool
+    {
+        return $this->registrations()->firstWhere(['tournament_id' => $tournament->id])->exists();
     }
 }

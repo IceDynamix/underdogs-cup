@@ -7,6 +7,7 @@ use App\Helper\RegistrationHelper;
 use App\Http\Requests\TournamentCreateRequest;
 use App\Http\Requests\TournamentEditRequest;
 use App\Models\Tournament;
+use App\Models\TournamentRegistration;
 use Illuminate\Http\Request;
 
 class TournamentsController extends Controller
@@ -112,5 +113,11 @@ class TournamentsController extends Controller
         if (RegistrationHelper::getRegistrationErrors($tournament, $user)) {
             abort(403);
         }
+
+        TournamentRegistration::create([
+            'tetrio_user_id' => $user->tetrio->id,
+            'tournament_id' => $tournament->id
+        ]);
+        return redirect()->route('tournaments.register', $tournament);
     }
 }

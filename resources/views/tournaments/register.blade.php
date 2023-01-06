@@ -52,9 +52,17 @@
                             @endif
                         </ul>
 
-                        <p>Status: <span class="tag is-danger">Not registered</span></p>
+                        <p>
+                            Status:
+                            @if(auth()->user()->tetrio?->isRegisteredAt($tournament))
+                                <span class="tag is-success">Registered</span>
+                            @else
+                                <span class="tag is-danger">Not registered</span>
+                            @endif
+                        </p>
 
                         <form action="{{route('tournaments.register.post', $tournament)}}" method="post">
+                            @csrf
                             <button type="submit"
                                     class="button is-success"
                                     @if(sizeof($errors) > 0) disabled @endif
