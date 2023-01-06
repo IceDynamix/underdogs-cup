@@ -27,4 +27,33 @@ enum TetrioRank: string
     {
         return strtoupper($this->value);
     }
+
+    public function rank(): int
+    {
+        if ($this == TetrioRank::Unranked) {
+            return -1;
+        }
+
+        $list = [
+            TetrioRank::D,
+            TetrioRank::DPlus,
+            TetrioRank::CMinus,
+            TetrioRank::CPlus,
+            TetrioRank::C,
+            TetrioRank::BMinus,
+            TetrioRank::B,
+            TetrioRank::BPlus,
+            TetrioRank::AMinus,
+            TetrioRank::A,
+            TetrioRank::APlus,
+            TetrioRank::SMinus,
+            TetrioRank::S,
+            TetrioRank::SPlus,
+            TetrioRank::SS,
+            TetrioRank::U,
+            TetrioRank::X,
+        ];
+
+        return array_search($this, $list);
+    }
 }
