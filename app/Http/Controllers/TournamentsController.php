@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Enums\TetrioRank;
 use App\Http\Requests\TournamentCreateRequest;
 use App\Http\Requests\TournamentEditRequest;
 use App\Models\Tournament;
@@ -54,6 +55,31 @@ class TournamentsController extends Controller
     public function update(TournamentEditRequest $request, Tournament $tournament)
     {
         $validated = $request->validated();
+
+        // FIXME
+
+        if (array_key_exists('lower_reg_rank_cap',
+                $validated) && $validated['lower_reg_rank_cap'] == TetrioRank::Unranked) {
+            $validated['lower_reg_rank_cap'] = null;
+        }
+
+        if (array_key_exists('upper_reg_rank_cap',
+                $validated) && $validated['upper_reg_rank_cap'] == TetrioRank::Unranked) {
+            $validated['upper_reg_rank_cap'] = null;
+        }
+
+        if (array_key_exists('grace_rank_cap', $validated) && $validated['grace_rank_cap'] == TetrioRank::Unranked) {
+            $validated['grace_rank_cap'] = null;
+        }
+
+        if (array_key_exists('min_games_played', $validated) && $validated['min_games_played'] == 0) {
+            $validated['min_games_played'] = null;
+        }
+
+        if (array_key_exists('max_rd', $validated) && $validated['max_rd'] == 100) {
+            $validated['max_rd'] = null;
+        }
+
         $tournament->update($validated);
 
         return redirect()->route('tournaments.show', $tournament);

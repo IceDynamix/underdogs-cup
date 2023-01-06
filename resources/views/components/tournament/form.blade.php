@@ -49,18 +49,18 @@
         <div class="control">
             {{LaraForm::select('lower_reg_rank_cap','Lower rank cap',
             EnumHelper::enumToArray(TetrioRank::cases()),
-            old('lower_reg_rank_cap', $tournament->lower_reg_rank_cap), ['placeholder' => TetrioRank::D->name])}}
+            old('lower_reg_rank_cap', $tournament->lower_reg_rank_cap?->value ?? TetrioRank::Unranked->value))}}
 
         </div>
         <div class="control">
             {{LaraForm::select('upper_reg_rank_cap','Upper rank cap',
             EnumHelper::enumToArray(TetrioRank::cases()),
-            old('upper_reg_rank_cap', $tournament->upper_reg_rank_cap), ['placeholder' => TetrioRank::SS->name])}}
+            old('upper_reg_rank_cap', $tournament->upper_reg_rank_cap?->value ?? TetrioRank::Unranked->value))}}
         </div>
         <div class="control">
             {{LaraForm::select('grace_rank_cap','Grace rank cap (players allowed to rank up to this rank during registration phase)',
             EnumHelper::enumToArray(TetrioRank::cases()),
-            old('grace_rank_cap', $tournament->grace_rank_cap), ['placeholder' => TetrioRank::U->name])}}
+            old('grace_rank_cap', $tournament->grace_rank_cap?->value ?? TetrioRank::Unranked->value))}}
         </div>
     </div>
 
