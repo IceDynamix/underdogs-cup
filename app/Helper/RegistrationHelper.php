@@ -24,6 +24,11 @@ class RegistrationHelper
             return $errors;
         }
 
+        if ($user->is_admin) {
+            // Early return because admin is da boss
+            return $errors;
+        }
+
         if ($user->is_blacklisted) {
             $errors[] = 'You have placed top 3 in a previous Underdogs Cup before or have been blacklisted for other reasons. Please contact a staff member if you think this is an accident.';
 
