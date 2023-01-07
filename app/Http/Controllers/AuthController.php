@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\DiscordApi\DiscordApi;
 use App\Models\TetrioUser;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -19,9 +20,16 @@ class AuthController extends Controller
     public function callback()
     {
         $discord = Socialite::driver('discord')->user();
+        if (config('services.discord.guild_id')) {
+            $inGuild = DiscordApi::userIsInGuild($discord->token);
+        } else {
+            $inGuild = true;
+        }
+
         $user = User::updateOrCreate(['id' => $discord->getId()], [
             'name' => $discord->getName(),
             'avatar' => $discord->getAvatar(),
+            'is_in_discord' => $inGuild
         ]);
 
         Auth::login($user, true);
