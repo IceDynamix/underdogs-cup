@@ -37,5 +37,9 @@ class AppServiceProvider extends ServiceProvider
         Http::macro('discord', function () {
             return Http::baseUrl('https://discord.com/api/v10');
         });
+
+        Http::macro('bot', function () {
+            return Http::baseUrl(config()->get('services.discord.bot_url'));
+        });
     }
 }
