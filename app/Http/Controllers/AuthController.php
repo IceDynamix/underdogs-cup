@@ -29,7 +29,7 @@ class AuthController extends Controller
         $user = User::updateOrCreate(['id' => $discord->getId()], [
             'name' => $discord->getName(),
             'avatar' => $discord->getAvatar(),
-            'is_in_discord' => $inGuild
+            'is_in_discord' => $inGuild,
         ]);
 
         Auth::login($user, true);
