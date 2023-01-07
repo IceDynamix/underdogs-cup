@@ -39,7 +39,8 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Http::macro('bot', function () {
-            return Http::baseUrl('http://localhost:'.config()->get('services.discord.bot_port'));
+            return Http::baseUrl('http://localhost:'.config()->get('services.discord.bot_port'))
+                ->timeout(2);
         });
     }
 }

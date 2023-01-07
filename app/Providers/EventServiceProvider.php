@@ -4,9 +4,11 @@ namespace App\Providers;
 
 use App\Events\UserRegisteredEvent;
 use App\Events\UserUnregisteredEvent;
+use Exception;
 use Http;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Log;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -25,17 +27,27 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         Event::listen(function (UserRegisteredEvent $event) {
-            Http::bot()->post('/registered', [
-                'user' => $event->user->load('tetrio'),
-                'tournament' => $event->tournament
-            ]);
+            try {
+                Http::bot()->post('/registered', [
+                    'user' => $event->user->load('tetrio'),
+                    'tournament' => $event->tournament
+                ]);
+            } catch (Exception $e) {
+                // TODO: implement queue for failed notifs
+                Log::error($e);
+            }
         });
 
         Event::listen(function (UserUnregisteredEvent $event) {
-            Http::bot()->post('/unregistered', [
-                'user' => $event->user->load('tetrio'),
-                'tournament' => $event->tournament
-            ]);
+            try {
+                Http::bot()->post('/unregistered', [
+                    'user' => $event->user->load('tetrio'),
+                    'tournament' => $event->tournament
+                ]);
+            } catch (Exception $e) {
+                // TODO: implement queue for failed notifs
+                Log::error($e);
+            }
         });
     }
 
