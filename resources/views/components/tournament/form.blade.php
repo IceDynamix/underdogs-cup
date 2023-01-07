@@ -44,30 +44,31 @@
         <div class="column">
             {{LaraForm::datetimeLocal('check_in_close_ts','Check-in close', old('check_in_close_ts', $tournament->check_in_close_ts))}}
         </div>
-    </div>
-
-    <div class="field is-grouped">
-        <div class="control">
-            {{LaraForm::select('lower_reg_rank_cap','Lower rank cap',
-            EnumHelper::enumToArray(TetrioRank::cases()),
-            old('lower_reg_rank_cap', $tournament->lower_reg_rank_cap?->value ?? TetrioRank::Unranked->value))}}
-
-        </div>
-        <div class="control">
-            {{LaraForm::select('upper_reg_rank_cap','Upper rank cap',
-            EnumHelper::enumToArray(TetrioRank::cases()),
-            old('upper_reg_rank_cap', $tournament->upper_reg_rank_cap?->value ?? TetrioRank::Unranked->value))}}
-        </div>
-        <div class="control">
-            {{LaraForm::select('grace_rank_cap','Grace rank cap (players allowed to rank up to this rank during registration phase)',
-            EnumHelper::enumToArray(TetrioRank::cases()),
-            old('grace_rank_cap', $tournament->grace_rank_cap?->value ?? TetrioRank::Unranked->value))}}
+        <div class="column">
+            {{LaraForm::datetimeLocal('tournament_start_ts','Tournament Start', old('tournament_start_ts', $tournament->tournament_start_ts))}}
         </div>
     </div>
 
     <div class="columns">
         <div class="column">
-            {{LaraForm::number('min_games_played','Min. required ranked games played to play',
+            {{LaraForm::select('lower_reg_rank_cap','Lower rank cap',
+            EnumHelper::enumToArray(TetrioRank::cases()),
+            old('lower_reg_rank_cap', $tournament->lower_reg_rank_cap?->value ?? TetrioRank::Unranked->value))}}
+
+        </div>
+        <div class="column">
+            {{LaraForm::select('upper_reg_rank_cap','Upper rank cap',
+            EnumHelper::enumToArray(TetrioRank::cases()),
+            old('upper_reg_rank_cap', $tournament->upper_reg_rank_cap?->value ?? TetrioRank::Unranked->value))}}
+        </div>
+        <div class="column">
+            {{LaraForm::select('grace_rank_cap','Grace rank cap',
+            EnumHelper::enumToArray(TetrioRank::cases()),
+            old('grace_rank_cap', $tournament->grace_rank_cap?->value ?? TetrioRank::Unranked->value))}}
+            <p class="help">Players allowed to rank up to this rank until start of tournament</p>
+        </div>
+        <div class="column">
+            {{LaraForm::number('min_games_played','Min. play ranked games played',
             old('min_games_played', $tournament->min_games_played ?? 0))}}
         </div>
         <div class="column">
