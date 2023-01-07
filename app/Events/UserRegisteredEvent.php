@@ -11,6 +11,7 @@ class UserRegisteredEvent
     use Dispatchable;
 
     public User $user;
+
     public Tournament $tournament;
 
     public function __construct(User $user, Tournament $tournament)

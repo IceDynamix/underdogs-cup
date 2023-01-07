@@ -30,7 +30,7 @@ class EventServiceProvider extends ServiceProvider
             try {
                 Http::bot()->post('/registered', [
                     'user' => $event->user->load('tetrio'),
-                    'tournament' => $event->tournament
+                    'tournament' => $event->tournament,
                 ]);
             } catch (Exception $e) {
                 // TODO: implement queue for failed notifs
@@ -42,7 +42,7 @@ class EventServiceProvider extends ServiceProvider
             try {
                 Http::bot()->post('/unregistered', [
                     'user' => $event->user->load('tetrio'),
-                    'tournament' => $event->tournament
+                    'tournament' => $event->tournament,
                 ]);
             } catch (Exception $e) {
                 // TODO: implement queue for failed notifs
