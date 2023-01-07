@@ -79,6 +79,13 @@
                     @auth
                         <p>
                             Status:
+                            
+                            @if(auth()->user()->is_in_discord)
+                                <span class="tag is-success">In Discord Server</span>
+                            @else
+                                <span class="tag is-danger">Not in Discord Server</span>
+                            @endif
+
                             @if(auth()->user()->isRegisteredAt($tournament))
                                 <span class="tag is-success">Registered</span>
                             @else
