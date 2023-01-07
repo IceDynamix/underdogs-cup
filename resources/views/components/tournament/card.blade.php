@@ -4,6 +4,9 @@
     <div class="tags">
         <span class="tag {{$tournament->status->cssClass()}}">{{$tournament->status->proper()}}</span>
         <span class="tag is-info">{{$tournament->rankRange()}}</span>
+        @if($tournament->hidden)
+            <span class="tag is-warning">Hidden</span>
+        @endif
     </div>
 
     <p>{{$tournament->description}}</p>
