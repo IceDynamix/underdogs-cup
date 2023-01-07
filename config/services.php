@@ -40,6 +40,6 @@ return [
         'client_secret' => env('DISCORD_CLIENT_SECRET'),
         'redirect' => '/auth/discord/callback',
         'guild_id' => env('DISCORD_GUILD_ID'),
-        'bot_url' => env('DISCORD_BOT_URL')
+        'bot_port' => env('DISCORD_BOT_PORT')
     ],
 ];
