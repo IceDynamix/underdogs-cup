@@ -10,6 +10,7 @@ use App\Http\Requests\TournamentCreateRequest;
 use App\Http\Requests\TournamentEditRequest;
 use App\Models\Tournament;
 use App\Models\TournamentRegistration;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TournamentsController extends Controller
@@ -60,35 +61,24 @@ class TournamentsController extends Controller
     {
         $validated = $request->validated();
 
-        // FIXME
+        $tournament->name = $validated['name'];
+        $tournament->bracket_url = $validated['bracket_url'];
+        $tournament->status = $validated['status'];
+        $tournament->is_hidden = $validated['is_hidden'] ?? false;
+        $tournament->description = $validated['description'];
+        $tournament->reg_open_ts = Carbon::parse($validated['reg_open_ts'] ?? null);
+        $tournament->reg_close_ts = Carbon::parse($validated['reg_close_ts'] ?? null);
+        $tournament->check_in_open_ts = Carbon::parse($validated['check_in_open_ts'] ?? null);
+        $tournament->check_in_close_ts = Carbon::parse($validated['check_in_close_ts'] ?? null);
+        $tournament->tournament_start_ts = Carbon::parse($validated['tournament_start_ts'] ?? null);
+        $tournament->lower_reg_rank_cap = $this->ifThenNull($validated['lower_reg_rank_cap'], TetrioRank::D);
+        $tournament->upper_reg_rank_cap = $this->ifThenNull($validated['upper_reg_rank_cap'], TetrioRank::X);
+        $tournament->grace_rank_cap = $this->ifThenNull($validated['grace_rank_cap'], TetrioRank::X);
+        $tournament->min_games_played = $this->ifThenNull($validated['min_games_played'], 0);
+        $tournament->max_rd = $this->ifThenNull($validated['max_rd'], 100);
+        $tournament->full_description = $validated['full_description'];
 
-        if (!array_key_exists('hidden', $validated)) {
-            $validated['hidden'] = false;
-        }
-
-        if (array_key_exists('lower_reg_rank_cap',
-                $validated) && $validated['lower_reg_rank_cap'] == TetrioRank::Unranked) {
-            $validated['lower_reg_rank_cap'] = null;
-        }
-
-        if (array_key_exists('upper_reg_rank_cap',
-                $validated) && $validated['upper_reg_rank_cap'] == TetrioRank::Unranked) {
-            $validated['upper_reg_rank_cap'] = null;
-        }
-
-        if (array_key_exists('grace_rank_cap', $validated) && $validated['grace_rank_cap'] == TetrioRank::Unranked) {
-            $validated['grace_rank_cap'] = null;
-        }
-
-        if (array_key_exists('min_games_played', $validated) && $validated['min_games_played'] == 0) {
-            $validated['min_games_played'] = null;
-        }
-
-        if (array_key_exists('max_rd', $validated) && $validated['max_rd'] == 100) {
-            $validated['max_rd'] = null;
-        }
-
-        $tournament->update($validated);
+        $tournament->save();
 
         return redirect()->route('tournaments.show', $tournament);
     }
@@ -157,5 +147,10 @@ class TournamentsController extends Controller
                 },
             ]),
         ]);
+    }
+
+    private function ifThenNull($val, $if)
+    {
+        return $val == $if ? null : $val;
     }
 }

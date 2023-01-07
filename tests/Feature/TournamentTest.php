@@ -61,7 +61,7 @@ class TournamentTest extends TestCase
             'id' => 'ababa',
             'name' => 'ababa',
             'status' => TournamentStatus::Upcoming->value,
-            'hidden' => false,
+            'is_hidden' => false,
         ];
 
         $this
@@ -82,7 +82,7 @@ class TournamentTest extends TestCase
             'id' => $this->tournament->id,
             'name' => 'ababa',
             'status' => TournamentStatus::Upcoming->value,
-            'hidden' => false,
+            'is_hidden' => false,
         ];
 
         $this
@@ -99,7 +99,7 @@ class TournamentTest extends TestCase
             'id' => 'ababa',
             'name' => 'ababa',
             'status' => TournamentStatus::Upcoming->value,
-            'hidden' => true,
+            'is_hidden' => true,
         ];
 
         $this
@@ -182,11 +182,11 @@ class TournamentTest extends TestCase
 
     public function testViewHiddenNotFound()
     {
-        $hidden = Tournament::factory()->create(['hidden' => true]);
+        $hidden = Tournament::factory()->create(['is_hidden' => true]);
         $this->get('tournaments/'.$hidden->id)->assertNotFound();
     }
 
-    public function testViewHiddenNoRankRestriction()
+    public function testViewNoRankRestriction()
     {
         $tour = Tournament::factory()->create(
             [

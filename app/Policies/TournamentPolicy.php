@@ -25,7 +25,7 @@ class TournamentPolicy
 
     public function view(?User $user, Tournament $tournament): bool
     {
-        return !$tournament->hidden;
+        return !$tournament->is_hidden;
     }
 
     public function create(User $user): bool

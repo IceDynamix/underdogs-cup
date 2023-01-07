@@ -18,7 +18,7 @@ class TournamentFactory extends Factory
             'name' => $this->faker->name(),
             'bracket_url' => $this->faker->url(),
             'status' => TournamentStatus::Upcoming,
-            'hidden' => false,
+            'is_hidden' => false,
             'description' => $this->faker->text(),
             'reg_open_ts' => Carbon::now(),
             'reg_close_ts' => Carbon::now(),

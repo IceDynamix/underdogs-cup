@@ -20,7 +20,7 @@ class Tournament extends Model
         'name',
         'bracket_url',
         'status',
-        'hidden',
+        'is_hidden',
         'description',
         'reg_open_ts',
         'reg_closed_ts',

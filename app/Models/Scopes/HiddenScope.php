@@ -11,7 +11,7 @@ class HiddenScope implements Scope
     public function apply(Builder $builder, Model $model)
     {
         if (!auth()->user()?->is_admin) {
-            $builder->where('hidden', false);
+            $builder->where('is_hidden', false);
         }
     }
 }
