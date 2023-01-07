@@ -26,14 +26,14 @@ class EventServiceProvider extends ServiceProvider
     {
         Event::listen(function (UserRegisteredEvent $event) {
             Http::bot()->post('/registered', [
-                'user' => $event->user->with('tetrio'),
+                'user' => $event->user->load('tetrio'),
                 'tournament' => $event->tournament
             ]);
         });
 
         Event::listen(function (UserUnregisteredEvent $event) {
             Http::bot()->post('/unregistered', [
-                'user' => $event->user->with('tetrio'),
+                'user' => $event->user->load('tetrio'),
                 'tournament' => $event->tournament
             ]);
         });
