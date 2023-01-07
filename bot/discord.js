@@ -33,11 +33,15 @@ const orThrow = (thing, msg) => {
 };
 
 const guild = () => orThrow(bot.guilds.cache.get(guildId), "Guild not found");
+const channel = () => orThrow(guild().channels.cache.get(channelId), "Channel not found");
 const member = async (id) => orThrow(await guild().members.fetch(id), "Member not found");
 
-const setNickname = async (userId, nickname) => (await member(userId)).setNickname(nickname, 'Registration');
-const giveRole = async userId => (await member(userId)).roles.add(roleId);
-const takeRole = async userId => (await member(userId)).roles.remove(roleId);
+const setNickname = async (userId, nickname) => (await member(userId)).setNickname(nickname, 'Registration')
+    .catch(() => log("Failed to change nickname"));
+const giveRole = async userId => (await member(userId)).roles.add(roleId)
+    .catch(() => log("Failed to add role"));
+const takeRole = async userId => (await member(userId)).roles.remove(roleId)
+    .catch(() => log("Failed to take role"));
 
 const log = async msg => channel().send(msg);
 
