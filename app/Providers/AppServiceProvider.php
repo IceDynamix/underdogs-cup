@@ -33,5 +33,9 @@ class AppServiceProvider extends ServiceProvider
             return Http::withHeaders(['X-Session-Header' => $session])
                 ->baseUrl('https://ch.tetr.io/api');
         });
+
+        Http::macro('discord', function () {
+            return Http::baseUrl('https://discord.com/api/v10');
+        });
     }
 }
