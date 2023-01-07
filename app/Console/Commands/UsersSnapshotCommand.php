@@ -15,7 +15,7 @@ class UsersSnapshotCommand extends Command
 
     public function handle()
     {
-        $tournament = Tournament::findOrFail($this->argument('tournamentId'));
+        $tournament = Tournament::withoutGlobalScopes()->findOrFail($this->argument('tournamentId'));
 
         $this->info('Fetching leaderboard');
         $users = TetrioApi::getFullLeaderboardExport();
@@ -26,7 +26,10 @@ class UsersSnapshotCommand extends Command
         }
 
         $this->info('Deleting all snapshot entries');
-        TetrioUserSnapshot::truncate();
+        TetrioUserSnapshot::where('tournament_id', $tournament->id)
+            ->each(function ($item, $key) {
+                $item->delete();
+            });
 
         $this->info('Creating users');
 
