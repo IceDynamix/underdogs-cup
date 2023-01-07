@@ -4,8 +4,15 @@ const token = process.env.DISCORD_TOKEN;
 const guildId = process.env.DISCORD_GUILD_ID;
 const clientId = process.env.DISCORD_CLIENT_ID;
 const roleId = process.env.DISCORD_ROLE_ID;
+const channelId = process.env.DISCORD_LOG_CHANNEL_ID;
 
-const inviteUrl = [`https://discord.com/api/oauth2/authorize?client_id=${clientId}`, "permissions=335544320", "scope=guilds%20bot", `guild_id=${guildId}`, "disable_guild_select=true"].join("&");
+const inviteUrl = [
+    `https://discord.com/api/oauth2/authorize?client_id=${clientId}`,
+    "permissions=402655232", // manage roles, manage nicknames, send messages
+    "scope=guilds%20bot",
+    `guild_id=${guildId}`,
+    "disable_guild_select=true"
+].join("&");
 
 const bot = new Client({intents: [GatewayIntentBits.Guilds]});
 
@@ -32,4 +39,6 @@ const setNickname = async (userId, nickname) => (await member(userId)).setNickna
 const giveRole = async userId => (await member(userId)).roles.add(roleId);
 const takeRole = async userId => (await member(userId)).roles.remove(roleId);
 
-module.exports = {bot, setNickname, giveRole, takeRole};
+const log = async msg => channel().send(msg);
+
+module.exports = {bot, setNickname, giveRole, takeRole, log};
