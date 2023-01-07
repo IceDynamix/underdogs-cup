@@ -80,6 +80,14 @@ class TournamentRegistrationTest extends TestCase
         self::assertNotEmpty(RegistrationHelper::getRegistrationErrors($tournament, $user));
     }
 
+    public function testErrorCheckNotInDiscord()
+    {
+        $tournament = $this->tournament()->create();
+        $user = $this->okUser()->create(['is_in_discord' => false]);
+
+        self::assertNotEmpty(RegistrationHelper::getRegistrationErrors($tournament, $user));
+    }
+
     public function testErrorCheckCurrentRankLow()
     {
         $tournament = $this->tournament()->create(['lower_reg_rank_cap' => TetrioRank::S]);
@@ -173,6 +181,7 @@ class TournamentRegistrationTest extends TestCase
         return User::factory()->state([
             'is_blacklisted' => false,
             'tetrio_user_id' => TetrioUser::factory()->create($tetrioAttrs)->id,
+            'is_in_discord' => true,
         ]);
     }
 

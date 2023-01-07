@@ -20,6 +20,10 @@
                     <ul>
                         <li><a href="{{route('connect')}}">TETR.IO account linked</a></li>
                         <li>
+                            Join the <a href="{{config('links.discord')}}">Discord Server</a> and stay until the
+                            conclusion of the tournament
+                        </li>
+                        <li>
                             Not have placed in the top 3 of a previous Underdogs Cup before (or been blacklisted for
                             other reasons)
                         </li>

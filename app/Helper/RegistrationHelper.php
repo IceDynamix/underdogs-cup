@@ -30,6 +30,12 @@ class RegistrationHelper
             return $errors;
         }
 
+        if (!$user->is_in_discord) {
+            $errors[] = 'You have not joined the Discord server yet. Please join the Discord server, logout and login again.';
+
+            return $errors;
+        }
+
         $tetrio = $user->tetrio;
 
         if ($tetrio == null) {
