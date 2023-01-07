@@ -1,0 +1,12 @@
+{
+  "name": "underdogs-cup_bot",
+  "version": "1.0.0",
+  "description": "Handles username changes and role changes",
+  "main": "index.js",
+  "scripts": {
+    "run": "node index.js"
+  },
+  "keywords": [],
+  "author": "IceDynamix",
+  "license": "MIT"
+}
