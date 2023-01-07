@@ -20,7 +20,7 @@
             {{LaraForm::select('status','Tournament status',
                 EnumHelper::enumToArray(TournamentStatus::cases()), old('status', $tournament->status->value))}}
             {{LaraForm::text('bracket_url','Bracket URL', old('bracket_url', $tournament->bracket_url))}}
-            {{LaraForm::checkbox('hidden','Make tournament hidden', old('hidden', $tournament->hidden))}}
+            {{LaraForm::checkbox('hidden','Make tournament hidden', 1, old('hidden', $tournament->hidden))}}
         </div>
         <div class="column">
             {{LaraForm::textarea('description','Short tournament description', old('description', $tournament->description),

@@ -62,6 +62,10 @@ class TournamentsController extends Controller
 
         // FIXME
 
+        if (!array_key_exists('hidden', $validated)) {
+            $validated['hidden'] = false;
+        }
+
         if (array_key_exists('lower_reg_rank_cap',
                 $validated) && $validated['lower_reg_rank_cap'] == TetrioRank::Unranked) {
             $validated['lower_reg_rank_cap'] = null;
