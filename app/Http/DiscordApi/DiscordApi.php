@@ -12,7 +12,7 @@ class DiscordApi
         $guildId = config('services.discord.guild_id');
 
         foreach ($guilds as $guild) {
-            if ($guild->id == $guildId) {
+            if ($guild['id'] == $guildId) {
                 return true;
             }
         }
