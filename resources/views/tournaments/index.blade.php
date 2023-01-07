@@ -25,9 +25,11 @@
                     </p>
                 @endcan
 
-                @foreach($tournaments as $tournament)
+                @forelse($tournaments as $tournament)
                     <x-tournament.card :$tournament/>
-                @endforeach
+                @empty
+                    <p>No tournaments yet...</p>
+                @endforelse
             </div>
         </div>
     </section>
