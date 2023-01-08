@@ -63,10 +63,10 @@ class TournamentsController extends Controller
         $validated = $request->validated();
 
         $tournament->name = $validated['name'];
-        $tournament->bracket_url = $validated['bracket_url'] ?? "";
+        $tournament->bracket_url = $validated['bracket_url'] ?? '';
         $tournament->status = $validated['status'] ?? TournamentStatus::Upcoming;
         $tournament->is_hidden = $validated['is_hidden'] ?? false;
-        $tournament->description = $validated['description'] ?? "";
+        $tournament->description = $validated['description'] ?? '';
         $tournament->reg_open_ts = Carbon::parse($validated['reg_open_ts'] ?? null);
         $tournament->reg_close_ts = Carbon::parse($validated['reg_close_ts'] ?? null);
         $tournament->check_in_open_ts = Carbon::parse($validated['check_in_open_ts'] ?? null);
@@ -77,7 +77,7 @@ class TournamentsController extends Controller
         $tournament->grace_rank_cap = $this->ifThenNull($validated['grace_rank_cap'] ?? null, TetrioRank::X);
         $tournament->min_games_played = $this->ifThenNull($validated['min_games_played'] ?? null, 0);
         $tournament->max_rd = $this->ifThenNull($validated['max_rd'] ?? null, 100);
-        $tournament->full_description = $validated['full_description'] ?? "";
+        $tournament->full_description = $validated['full_description'] ?? '';
 
         $tournament->save();
 
