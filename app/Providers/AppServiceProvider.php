@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\ServiceProvider;
+use URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -42,5 +43,9 @@ class AppServiceProvider extends ServiceProvider
             return Http::baseUrl('http://localhost:'.config()->get('services.discord.bot_port'))
                 ->timeout(2);
         });
+
+        if ($this->app->environment('production')) {
+            URL::forceScheme('https');
+        }
     }
 }
