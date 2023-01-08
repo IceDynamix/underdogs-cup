@@ -1,5 +1,7 @@
 # Underdogs Cup
 
+[![wakatime](https://wakatime.com/badge/user/4309168b-a627-4970-ba6b-7f0ac10393d4/project/e9fad033-b109-4dbb-a164-4e3a8d6c0d8e.svg)](https://wakatime.com/badge/user/4309168b-a627-4970-ba6b-7f0ac10393d4/project/e9fad033-b109-4dbb-a164-4e3a8d6c0d8e)
+
 ## structure
 
 - `./app` contains app logic
