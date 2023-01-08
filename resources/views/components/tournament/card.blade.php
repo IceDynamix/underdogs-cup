@@ -7,6 +7,12 @@
         @if($tournament->is_hidden)
             <span class="tag is-warning">Hidden</span>
         @endif
+        @if($tournament->participants->count() > 0)
+            <span class="tag is-gray">
+                {{$tournament->participants->count()}}
+                {{Str::plural('participant', $tournament->participants->count())}}
+            </span>
+        @endif
     </div>
 
     <p>{{$tournament->description}}</p>
