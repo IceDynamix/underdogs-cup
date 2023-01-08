@@ -19,13 +19,13 @@ use Illuminate\Support\Facades\Route;
 Route::controller(TournamentsController::class)
     ->prefix('tournaments')
     ->name('tournaments.')
-    ->middleware('auth')
     ->group(function () {
-        Route::get('{tournament}/register', 'viewRegister')->name('register');
-        Route::post('{tournament}/register', 'register')->name('register.post');
-        Route::post('{tournament}/unregister', 'unregister')->name('unregister');
-
         Route::get('{tournament}/participants', 'participants')->name('participants');
+        Route::middleware('auth')->group(function () {
+            Route::get('{tournament}/register', 'viewRegister')->name('register');
+            Route::post('{tournament}/register', 'register')->name('register.post');
+            Route::post('{tournament}/unregister', 'unregister')->name('unregister');
+        });
     });
 
 Route::resource('tournaments', TournamentsController::class)
