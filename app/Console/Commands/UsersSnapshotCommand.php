@@ -26,10 +26,7 @@ class UsersSnapshotCommand extends Command
         }
 
         $this->info('Deleting all snapshot entries');
-        TetrioUserSnapshot::where('tournament_id', $tournament->id)
-            ->each(function ($item, $key) {
-                $item->delete();
-            });
+        TetrioUserSnapshot::where('tournament_id', $tournament->id)->delete();
 
         $this->info('Creating users');
 
