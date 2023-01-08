@@ -19,7 +19,7 @@ class RegistrationHelper
         }
 
         if ($tournament->status != TournamentStatus::RegOpen) {
-            $errors[] = 'Nope.';
+            $errors[] = 'Registrations are closed right now.';
 
             return $errors;
         }

@@ -24,17 +24,10 @@ class TournamentRegistrationTest extends TestCase
     public function testViewRegOpen()
     {
         $user = $this->okUser()->create();
-        $tour = $this->tournament()->create(['status' => TournamentStatus::RegOpen]);
 
         $this->actingAs($user)
-            ->get(route('tournaments.register', $tour))
+            ->get(route('tournaments.register', $this->tournament))
             ->assertOk();
-
-        $tour->update(['status' => TournamentStatus::RegClosed]);
-
-        $this->actingAs($user)
-            ->get(route('tournaments.register', $tour))
-            ->assertForbidden();
     }
 
     public function testUserBlacklisted()

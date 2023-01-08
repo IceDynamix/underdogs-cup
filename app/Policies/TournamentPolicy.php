@@ -60,7 +60,7 @@ class TournamentPolicy
 
     public function viewRegister(User $user, Tournament $tournament): bool
     {
-        return $tournament->status == TournamentStatus::RegOpen;
+        return true;
     }
 
     public function unregister(User $user, Tournament $tournament): bool
