@@ -19,7 +19,7 @@ class TetrioCard extends Component
 
     public string $avatar;
 
-    public string $country;
+    public ?string $country;
 
     public TetrioRank $rank;
 
