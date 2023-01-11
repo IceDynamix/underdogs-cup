@@ -10,8 +10,12 @@ async function setupSubscribes() {
         const username = user.tetrio.username;
         try {
             await discord.log(`:green_square: | User <@${user.id}> \`${username}\` registered for tournament ${tournament.name}`);
-            await discord.setNickname(user.id, username);
-            await discord.giveRole(user.id);
+            try {
+                await discord.setNickname(user.id, username);
+                await discord.giveRole(user.id);
+            } catch (e) {
+                console.log(`User ${user.id} not member of server`);
+            }
         } catch (err) {
             console.error(err);
         }
@@ -31,7 +35,13 @@ async function setupSubscribes() {
 
                 await discord.dm(user.id, msg);
             }
-            await discord.takeRole(user.id);
+
+            try {
+                await discord.takeRole(user.id);
+            } catch (e) {
+                console.log(`User ${user.id} not member of server anymore`);
+            }
+            
         } catch (err) {
             console.error(err);
         }

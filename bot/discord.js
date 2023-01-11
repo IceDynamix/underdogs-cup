@@ -53,7 +53,7 @@ const dm = async (id, msg) => {
         await bot.users.send(id, msg);
         console.log(`Sent message to user ${id}: ${msg}`);
     } catch (err) {
-        console.error(err);
+        console.log(`Failed to send message to user ${id}`);
     }
 }
 
