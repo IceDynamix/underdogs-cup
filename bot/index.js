@@ -35,8 +35,8 @@ async function setupMemberTracking(setKey) {
 
     // Synchronize members set on startup by creating the set from scratch
     await redis.del(setKey);
-    await redis.executeIsolated(async c => discord.guild()
-        .members.cache.each(async m => await c.sAdd(setKey, m.id)));
+    const members = await discord.guild().members.fetch();
+    await redis.executeIsolated(async c => members.each(async m => await c.sAdd(setKey, m.id)));
 
     const count = await redis.sCard(setKey);
     console.log(`Synchronized Discord members set with ${count} members`);
