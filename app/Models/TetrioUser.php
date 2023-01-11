@@ -6,6 +6,7 @@ use App\Enums\TetrioRank;
 use App\Http\TetrioApi\TetrioApi;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class TetrioUser extends Model
@@ -60,6 +61,11 @@ class TetrioUser extends Model
             'vs' => $user['league']['vs'] ?? 0,
             'games_played' => $user['league']['gamesplayed'] ?? 0,
         ];
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'id', 'tetrio_user_id');
     }
 
     public function avatarUrl(): string

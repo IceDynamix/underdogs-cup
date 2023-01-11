@@ -8,20 +8,12 @@ use App\Models\User;
 
 class RegistrationHelper
 {
-    public static function getRegistrationErrors(Tournament $tournament, User $user)
+    public static function getRegistrationErrors(Tournament $tournament, User $user, bool $recheck = false)
     {
         $errors = [];
 
-        if ($user->isRegisteredAt($tournament)) {
+        if (!$recheck && $user->isRegisteredAt($tournament)) {
             $errors[] = 'Already registered for this tournament';
-
-            return $errors;
-        }
-
-        if ($tournament->status != TournamentStatus::RegOpen) {
-            $errors[] = 'Registrations are closed right now.';
-
-            return $errors;
         }
 
         if ($user->is_admin) {
@@ -29,10 +21,12 @@ class RegistrationHelper
             return $errors;
         }
 
+        if (!$recheck && $tournament->status != TournamentStatus::RegOpen) {
+            $errors[] = 'Registrations are closed right now.';
+        }
+
         if ($user->is_blacklisted) {
             $errors[] = 'You have placed top 3 in a previous Underdogs Cup before or have been blacklisted for other reasons. Please contact a staff member if you think this is an accident.';
-
-            return $errors;
         }
 
         if (!$user->is_in_discord) {
