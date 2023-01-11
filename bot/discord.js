@@ -14,7 +14,7 @@ const inviteUrl = [
     "disable_guild_select=true"
 ].join("&");
 
-const bot = new Client({intents: [GatewayIntentBits.Guilds]});
+const bot = new Client({intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers]});
 
 bot.once(Events.ClientReady, c => {
     if (!c.guilds.cache.has(guildId)) {
@@ -25,7 +25,7 @@ bot.once(Events.ClientReady, c => {
     console.log(`Ready! Logged in as ${c.user.tag}`);
 });
 
-bot.login(token);
+const login = async () => await bot.login(token);
 
 const orThrow = (thing, msg) => {
     if (thing) return thing;
@@ -43,6 +43,9 @@ const giveRole = async userId => (await member(userId)).roles.add(roleId)
 const takeRole = async userId => (await member(userId)).roles.remove(roleId)
     .catch(() => log("Failed to take role"));
 
-const log = async msg => channel().send(msg);
+const log = async msg => {
+    await channel().send(msg);
+    console.log(`Logged message: ${msg}`);
+}
 
-module.exports = {bot, setNickname, giveRole, takeRole, log};
+module.exports = {bot, setNickname, giveRole, takeRole, log, guild, login};

@@ -16,6 +16,7 @@ php8.1, db of choice,
 
 - set `.env` from `.env.example`, check at the very bottom
     - discord client/secret required, token only if you want to use discord bot
+    - requires guild members privileged intent
 - `composer install`
 - `php artisan key:generate`
 - `php artisan migrate`, use `--seed` if you're working locally to create a test tournament
