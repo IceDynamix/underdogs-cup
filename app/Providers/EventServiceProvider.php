@@ -4,11 +4,9 @@ namespace App\Providers;
 
 use App\Events\UserRegisteredEvent;
 use App\Events\UserUnregisteredEvent;
-use Exception;
-use Http;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redis;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -27,27 +25,11 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         Event::listen(function (UserRegisteredEvent $event) {
-            try {
-                Http::bot()->post('/registered', [
-                    'user' => $event->user->load('tetrio'),
-                    'tournament' => $event->tournament,
-                ]);
-            } catch (Exception $e) {
-                // TODO: implement queue for failed notifs
-                Log::error($e);
-            }
+            Redis::publish('register', json_encode(['user' => $event->user, 'tournament' => $event->tournament]));
         });
 
         Event::listen(function (UserUnregisteredEvent $event) {
-            try {
-                Http::bot()->post('/unregistered', [
-                    'user' => $event->user->load('tetrio'),
-                    'tournament' => $event->tournament,
-                ]);
-            } catch (Exception $e) {
-                // TODO: implement queue for failed notifs
-                Log::error($e);
-            }
+            Redis::publish('unregister', json_encode(['user' => $event->user, 'tournament' => $event->tournament]));
         });
     }
 
