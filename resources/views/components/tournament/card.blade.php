@@ -25,11 +25,7 @@
                 Check-in
             </a>
         @else
-            <a href="{{route('tournaments.register', $tournament)}}" class="button is-warning"
-               @cannot('viewRegister', $tournament)
-                   disabled
-                @endcannot
-            >
+            <a href="{{route('tournaments.register', $tournament)}}" class="button is-warning">
                 Register
             </a>
         @endif
