@@ -50,42 +50,49 @@ class RegistrationHelper
         }
 
         if ($tournament->lower_reg_rank_cap) {
-            if ($tournament->lower_reg_rank_cap->rank() > $snapshot->rank->rank()) {
+            if ($snapshot->rank->rank() < $tournament->lower_reg_rank_cap->rank()) {
                 $errors[] = 'Your rank was too low on tournament announcement.';
             }
 
-            if ($tournament->lower_reg_rank_cap->rank() > $tetrio->rank->rank()) {
+            if ($tetrio->rank->rank() < $tournament->lower_reg_rank_cap->rank()) {
                 $errors[] = 'Your current rank is too low.';
             }
         }
 
         if ($tournament->upper_reg_rank_cap) {
-            if ($tournament->upper_reg_rank_cap->rank() < $snapshot->rank->rank()) {
+            if ($snapshot->rank->rank() > $tournament->upper_reg_rank_cap->rank()) {
                 $errors[] = 'Your rank was too high on tournament announcement.';
             }
 
-            if ($tournament->upper_reg_rank_cap->rank() < $tetrio->rank->rank()) {
-                $errors[] = 'Your current rank is too high.';
+            if (!$tournament->grace_rank_cap) {
+                if ($tetrio->best_rank->rank() > $tournament->upper_reg_rank_cap->rank()) {
+                    $errors[] = 'Your peak rank is too high.';
+                }
+            }
+        }
+
+        if ($tournament->grace_rank_cap) {
+            if ($snapshot->best_rank->rank() >= $tournament->grace_rank_cap->rank()) {
+                $errors[] = 'Your peak rank before tournament announcement was too high.';
+            }
+
+            if ($tetrio->best_rank->rank() > $tournament->grace_rank_cap->rank()) {
+                $errors[] = 'Your peak rank is too high.';
             }
         }
 
         if ($tournament->min_games_played) {
-            if ($tournament->min_games_played < $snapshot->games_played) {
+            if ($snapshot->games_played > $tournament->min_games_played) {
                 $errors[] = 'You did not have enough games played on tournament announcement.';
             }
         }
 
         if ($tournament->max_rd) {
-            if ($tournament->max_rd < $snapshot->rd) {
+            if ($snapshot->rd > $tournament->max_rd) {
                 $errors[] = 'Your rating deviation was too high on tournament announcement.';
             }
         }
 
-        if ($tournament->grace_rank_cap) {
-            if ($tournament->grace_rank_cap->rank() < $tetrio->best_rank->rank()) {
-                $errors[] = 'Your peak rank is too high.';
-            }
-        }
 
         return $errors;
     }
