@@ -65,7 +65,7 @@
                                     <span class="icon">
                                         <img src="{{$tournament->grace_rank_cap->img()}}" alt="Grace rank">
                                     </span>
-                                    <span>rank before</span>
+                                    <span>rank before tournament announcement</span>
                                 </span>
                             </li>
                             <li>
@@ -83,7 +83,7 @@
                     @auth
                         <p>
                             Status:
-                            
+
                             @if(auth()->user()->is_in_discord)
                                 <span class="tag is-success">In Discord Server</span>
                             @else
