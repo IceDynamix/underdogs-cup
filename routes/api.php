@@ -20,10 +20,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('users', fn() => User::all());
+Route::get('users', fn () => User::all());
 
 Route::prefix('tournaments')->group(function () {
-    Route::get('/', fn() => Tournament::all());
-    Route::get('/{tournament}', fn(Tournament $tournament) => $tournament->load('participants'));
+    Route::get('/', fn () => Tournament::all());
+    Route::get('/{tournament}', fn (Tournament $tournament) => $tournament->load('participants'));
 });
-

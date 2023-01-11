@@ -88,9 +88,10 @@ class User extends Authenticatable
 
     public function updateIsInDiscord()
     {
-        $inDiscord = Redis::sismember("discord:members", $this->id);
+        $inDiscord = Redis::sismember('discord:members', $this->id);
         $this->is_in_discord = $inDiscord;
         $this->save();
+
         return $inDiscord;
     }
 }
