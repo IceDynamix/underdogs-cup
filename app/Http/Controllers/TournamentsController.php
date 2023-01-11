@@ -93,6 +93,7 @@ class TournamentsController extends Controller
         $this->authorize('viewRegister', $tournament);
 
         $user = auth()->user();
+        $user->updateIsInDiscord();
 
         return view('tournaments.register', [
             'tournament' => $tournament,
