@@ -18,10 +18,19 @@ async function setupSubscribes() {
     });
 
     await subscribe("unregister", async function (msg) {
-        const {user, tournament} = JSON.parse(msg);
+        const {user, tournament, reasons} = JSON.parse(msg);
         const username = user.tetrio.username;
         try {
-            await discord.log(`:red_square: | User <@${user.id}> \`${username}\` unregistered from tournament ${tournament.name}`);
+            await discord.log(`:red_square: | User <@${user.id}> \`${username}\` unregistered from tournament ${tournament.name} with reasons: ${reasons.join(' ')}`);
+            if (reasons.length > 0) {
+                const msg = [
+                    `You have been unregistered from ${tournament.name} for following reasons:`,
+                    reasons.map(r => `- ${r}`).join('\n'),
+                    `If you think this is an error, please contact a staff member.`
+                ].join("\n\n");
+
+                await discord.dm(user.id, msg);
+            }
             await discord.takeRole(user.id);
         } catch (err) {
             console.error(err);

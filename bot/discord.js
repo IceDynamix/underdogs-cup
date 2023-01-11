@@ -48,4 +48,13 @@ const log = async msg => {
     console.log(`Logged message: ${msg}`);
 }
 
-module.exports = {bot, setNickname, giveRole, takeRole, log, guild, login};
+const dm = async (id, msg) => {
+    try {
+        await bot.users.send(id, msg);
+        console.log(`Sent message to user ${id}: ${msg}`);
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+module.exports = {bot, setNickname, giveRole, takeRole, log, guild, login, dm};
