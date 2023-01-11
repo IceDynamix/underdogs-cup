@@ -8,7 +8,7 @@ use App\Models\User;
 
 class RegistrationHelper
 {
-    public static function getRegistrationErrors(Tournament $tournament, User $user, bool $recheck = false)
+    public static function getRegistrationErrors(Tournament $tournament, User $user, bool $recheck = false): array
     {
         $errors = [];
 

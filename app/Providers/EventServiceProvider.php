@@ -29,7 +29,11 @@ class EventServiceProvider extends ServiceProvider
         });
 
         Event::listen(function (UserUnregisteredEvent $event) {
-            Redis::publish('unregister', json_encode(['user' => $event->user, 'tournament' => $event->tournament]));
+            Redis::publish('unregister', json_encode([
+                'user' => $event->user,
+                'tournament' => $event->tournament,
+                'reasons' => $event->reasons
+            ]));
         });
     }
 

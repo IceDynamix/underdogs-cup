@@ -43,7 +43,7 @@ class TournamentCheckUnregisterJob implements ShouldQueue
                             'tournament_id' => $tournament->id,
                         ])->delete();
 
-                        UserUnregisteredEvent::dispatch($user, $tournament);
+                        UserUnregisteredEvent::dispatch($user, $tournament, $errors);
                     }
                 });
 
