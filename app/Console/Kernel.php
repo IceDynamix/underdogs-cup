@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('users:update')->everySixHours();
         $schedule->command('tournament:check-unregister')->hourly();
     }
 
