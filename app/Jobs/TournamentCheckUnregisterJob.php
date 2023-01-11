@@ -34,8 +34,7 @@ class TournamentCheckUnregisterJob implements ShouldQueue
                     $user->updateIsInDiscord();
 
                     $errors = RegistrationHelper::getRegistrationErrors($tournament, $user, true);
-
-                    info($errors);
+                    
                     // "Already registered" error is always included
                     if (sizeof($errors) > 0) {
                         TournamentRegistration::firstWhere([
