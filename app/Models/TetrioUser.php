@@ -104,4 +104,9 @@ class TetrioUser extends Model
     {
         return $this->registrations()->firstWhere(['tournament_id' => $tournament->id]) != null;
     }
+
+    public function blacklistEntries()
+    {
+        return $this->hasMany(PlayerBlacklistEntry::class, 'tetrio_id', 'id');
+    }
 }
