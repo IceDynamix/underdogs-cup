@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\PlayerBlacklistEntriesController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TournamentsController;
@@ -44,3 +45,12 @@ Route::controller(AuthController::class)
         Route::get('/connect', 'viewConnect')->name('connect');
         Route::post('connect', 'connect')->name('connect.post');
     });
+
+Route::prefix('admin')
+    ->middleware('is_admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::resource('blacklist', PlayerBlacklistEntriesController::class)
+            ->only(['index']);
+    });
+
