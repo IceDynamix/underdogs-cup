@@ -28,6 +28,9 @@
             @if(config('links.stream'))
                 <a class="navbar-item" href="{{ config('links.stream') }}">Stream</a>
             @endif
+            @if(auth()->user()?->is_admin)
+                <a class="navbar-item" href="{{ route('admin.index') }}">Admin</a>
+            @endif
         </div>
 
         <div class="navbar-end">

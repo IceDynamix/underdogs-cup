@@ -50,6 +50,7 @@ Route::prefix('admin')
     ->middleware('is_admin')
     ->name('admin.')
     ->group(function () {
+        Route::get('/', fn() => view('admin.index'))->name('index');
         Route::resource('blacklist', PlayerBlacklistEntriesController::class)
             ->only(['index']);
     });
