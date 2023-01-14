@@ -9,7 +9,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class PlayerBlacklistEntry extends Model
 {
     use HasFactory;
-    
+
+    protected $casts = [
+        'until' => 'datetime'
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(TetrioUser::class, 'tetrio_id', 'id');
@@ -18,10 +22,5 @@ class PlayerBlacklistEntry extends Model
     public function admin(): BelongsTo
     {
         return $this->belongsTo(User::class, 'admin_id', 'id');
-    }
-
-    public function isActive(): bool
-    {
-        return $this->until->isFuture();
     }
 }

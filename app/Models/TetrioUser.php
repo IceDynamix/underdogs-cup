@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Enums\TetrioRank;
 use App\Http\TetrioApi\TetrioApi;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -105,8 +107,17 @@ class TetrioUser extends Model
         return $this->registrations()->firstWhere(['tournament_id' => $tournament->id]) != null;
     }
 
-    public function blacklistEntries()
+    public function blacklistEntries(): HasMany
     {
         return $this->hasMany(PlayerBlacklistEntry::class, 'tetrio_id', 'id');
+    }
+
+    public function isBlacklisted(): bool
+    {
+        return $this->blacklistEntries()
+                ->where(function (Builder $query) {
+                    $query->where('until', '>', Carbon::now())
+                        ->orWhere('until', null);
+                })->first() != null;
     }
 }
