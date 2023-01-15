@@ -10,6 +10,12 @@ class PlayerBlacklistEntry extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'tetrio_id',
+        'until',
+        'admin_id',
+        'reason'
+    ];
     protected $casts = [
         'until' => 'datetime'
     ];

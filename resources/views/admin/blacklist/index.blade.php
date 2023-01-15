@@ -35,7 +35,7 @@
                 </tbody>
             </table>
             @can('create', $entry)
-                <button class="button is-success">Add</button>
+                <a class="button is-success" href="{{route('admin.blacklist.create')}}">Add</a>
             @endcan
         </div>
     </div>
