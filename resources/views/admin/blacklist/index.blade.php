@@ -1,5 +1,6 @@
 @php use App\Models\PlayerBlacklistEntry; @endphp
 <x-layout>
+    <x-slot:title>Player Blacklist | Admin</x-slot:title>
     <div class="container">
         <div class="content">
             <h1>Player Blacklist</h1>

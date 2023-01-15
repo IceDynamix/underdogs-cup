@@ -1,4 +1,5 @@
 <x-layout>
+    <x-slot:title>Add Blacklist | Admin</x-slot:title>
     <div class="container">
         <div class="content">
             <h1>Add new blacklist entry</h1>
