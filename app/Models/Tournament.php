@@ -45,6 +45,7 @@ class Tournament extends Model
         'check_in_open_ts' => 'datetime',
         'check_in_closed_ts' => 'datetime',
         'tournament_start_ts' => 'datetime',
+        'is_hidden' => 'boolean',
     ];
 
     protected static function boot()

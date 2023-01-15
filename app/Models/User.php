@@ -36,6 +36,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'remember_token',
+        'is_admin',
     ];
 
     /**
@@ -44,6 +45,7 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
+        'is_in_discord' => 'boolean',
     ];
 
     public function tetrio(): HasOne
@@ -84,6 +86,11 @@ class User extends Authenticatable
     public function isRegisteredAt(Tournament $tournament): bool
     {
         return $this->tetrio != null && $this->tetrio->isRegisteredAt($tournament);
+    }
+
+    public function isCheckedInFor(Tournament $tournament): bool
+    {
+        return $this->tetrio != null && $this->tetrio->isCheckedInFor($tournament);
     }
 
     public function updateIsInDiscord()
