@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Helper\RegistrationHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PlayerBlacklistEntryCreateRequest;
 use App\Models\PlayerBlacklistEntry;
 use App\Models\TetrioUser;
+use App\Repositories\RegistrationRepository;
 use Illuminate\Http\Request;
 
 class PlayerBlacklistEntriesController extends Controller
@@ -41,7 +41,7 @@ class PlayerBlacklistEntriesController extends Controller
 
         $tetrio = TetrioUser::updateOrCreateFromId($validated['tetrio_id']);
         foreach ($tetrio->registrations as $reg) {
-            RegistrationHelper::unregister($reg,
+            RegistrationRepository::unregister($reg,
                 ["You have been manually removed from the tournament. If you think this is an error, please contact staff."]);
         }
 

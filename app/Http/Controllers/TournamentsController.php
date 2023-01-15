@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\Enums\TetrioRank;
 use App\Enums\TournamentStatus;
 use App\Events\UserRegisteredEvent;
-use App\Helper\RegistrationHelper;
 use App\Http\Requests\TournamentCreateRequest;
 use App\Http\Requests\TournamentEditRequest;
 use App\Models\Tournament;
 use App\Models\TournamentRegistration;
+use App\Repositories\RegistrationRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -98,7 +98,7 @@ class TournamentsController extends Controller
             'tournament' => $tournament,
             'tetrioUser' => $user->tetrio,
             'snapshot' => $user->tetrio?->snapshotFor($tournament),
-            'errors' => RegistrationHelper::getRegistrationErrors($tournament, $user),
+            'errors' => RegistrationRepository::getRegistrationErrors($tournament, $user),
         ]);
     }
 
@@ -107,7 +107,7 @@ class TournamentsController extends Controller
         $this->authorize('register', $tournament);
 
         $user = auth()->user();
-        if (RegistrationHelper::getRegistrationErrors($tournament, $user)) {
+        if (RegistrationRepository::getRegistrationErrors($tournament, $user)) {
             abort(403);
         }
 
@@ -131,7 +131,7 @@ class TournamentsController extends Controller
             ->where('tournament_id', $tournament->id)
             ->first();
 
-        RegistrationHelper::unregister($reg);
+        RegistrationRepository::unregister($reg);
 
         return redirect()->route('tournaments.register', $tournament);
     }

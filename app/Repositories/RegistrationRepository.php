@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Helper;
+namespace App\Repositories;
 
 use App\Enums\TournamentStatus;
 use App\Events\UserUnregisteredEvent;
@@ -8,7 +8,7 @@ use App\Models\Tournament;
 use App\Models\TournamentRegistration;
 use App\Models\User;
 
-class RegistrationHelper
+class RegistrationRepository
 {
     public static function getRegistrationErrors(Tournament $tournament, User $user, bool $recheck = false): array
     {

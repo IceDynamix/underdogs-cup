@@ -3,10 +3,9 @@
 namespace App\Jobs;
 
 use App\Enums\TournamentStatus;
-use App\Events\UserUnregisteredEvent;
-use App\Helper\RegistrationHelper;
 use App\Models\Tournament;
 use App\Models\TournamentRegistration;
+use App\Repositories\RegistrationRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -33,16 +32,16 @@ class TournamentCheckUnregisterJob implements ShouldQueue
                     $user = $tetrioUser->user;
                     $user->updateIsInDiscord();
 
-                    $errors = RegistrationHelper::getRegistrationErrors($tournament, $user, true);
-                    
+                    $errors = RegistrationRepository::getRegistrationErrors($tournament, $user, true);
+
                     // "Already registered" error is always included
                     if (sizeof($errors) > 0) {
-                        TournamentRegistration::firstWhere([
+                        $reg = TournamentRegistration::firstWhere([
                             'tetrio_user_id' => $user->tetrio->id,
                             'tournament_id' => $tournament->id,
-                        ])->delete();
+                        ]);
 
-                        UserUnregisteredEvent::dispatch($user, $tournament, $errors);
+                        RegistrationRepository::unregister($reg, $errors);
                     }
                 });
 

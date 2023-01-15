@@ -4,12 +4,12 @@ namespace Tests\Feature;
 
 use App\Enums\TetrioRank;
 use App\Enums\TournamentStatus;
-use App\Helper\RegistrationHelper;
 use App\Models\TetrioUser;
 use App\Models\TetrioUserSnapshot;
 use App\Models\Tournament;
 use App\Models\TournamentRegistration;
 use App\Models\User;
+use App\Repositories\RegistrationRepository;
 use Database\Factories\TournamentFactory;
 use Database\Factories\UserFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -62,7 +62,7 @@ class TournamentRegistrationTest extends TestCase
         $user = $this->okUser()->create();
         $this->snapshot($user->tetrio, $tournament);
 
-        self::assertEmpty(RegistrationHelper::getRegistrationErrors($tournament, $user));
+        self::assertEmpty(RegistrationRepository::getRegistrationErrors($tournament, $user));
     }
 
     public function testErrorCheckNoSnapshot()
@@ -70,7 +70,7 @@ class TournamentRegistrationTest extends TestCase
         $tournament = $this->tournament()->create();
         $user = $this->okUser()->create();
 
-        self::assertNotEmpty(RegistrationHelper::getRegistrationErrors($tournament, $user));
+        self::assertNotEmpty(RegistrationRepository::getRegistrationErrors($tournament, $user));
     }
 
     public function testErrorCheckNotInDiscord()
@@ -78,7 +78,7 @@ class TournamentRegistrationTest extends TestCase
         $tournament = $this->tournament()->create();
         $user = $this->okUser()->create(['is_in_discord' => false]);
 
-        self::assertNotEmpty(RegistrationHelper::getRegistrationErrors($tournament, $user));
+        self::assertNotEmpty(RegistrationRepository::getRegistrationErrors($tournament, $user));
     }
 
     public function testErrorCheckCurrentRankLow()
@@ -87,7 +87,7 @@ class TournamentRegistrationTest extends TestCase
         $user = $this->okUser(['rank' => TetrioRank::A])->create();
         $this->snapshot($user->tetrio, $tournament);
 
-        self::assertNotEmpty(RegistrationHelper::getRegistrationErrors($tournament, $user));
+        self::assertNotEmpty(RegistrationRepository::getRegistrationErrors($tournament, $user));
     }
 
     public function testErrorCheckCurrentRankHigh()
@@ -96,7 +96,7 @@ class TournamentRegistrationTest extends TestCase
         $user = $this->okUser(['rank' => TetrioRank::SPlus])->create();
         $this->snapshot($user->tetrio, $tournament);
 
-        self::assertNotEmpty(RegistrationHelper::getRegistrationErrors($tournament, $user));
+        self::assertNotEmpty(RegistrationRepository::getRegistrationErrors($tournament, $user));
     }
 
     public function testErrorCheckRegistrationRankLow()
@@ -105,7 +105,7 @@ class TournamentRegistrationTest extends TestCase
         $user = $this->okUser(['rank' => TetrioRank::S])->create();
         $this->snapshot($user->tetrio, $tournament, ['rank' => TetrioRank::A]);
 
-        self::assertNotEmpty(RegistrationHelper::getRegistrationErrors($tournament, $user));
+        self::assertNotEmpty(RegistrationRepository::getRegistrationErrors($tournament, $user));
     }
 
     public function testErrorCheckRegistrationRankHigh()
@@ -114,7 +114,7 @@ class TournamentRegistrationTest extends TestCase
         $user = $this->okUser(['rank' => TetrioRank::S])->create();
         $this->snapshot($user->tetrio, $tournament, ['rank' => TetrioRank::SPlus]);
 
-        self::assertNotEmpty(RegistrationHelper::getRegistrationErrors($tournament, $user));
+        self::assertNotEmpty(RegistrationRepository::getRegistrationErrors($tournament, $user));
     }
 
     public function testRegOk()
