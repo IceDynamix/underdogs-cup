@@ -107,6 +107,12 @@ class TetrioUser extends Model
         return $this->registrations()->firstWhere(['tournament_id' => $tournament->id]) != null;
     }
 
+    public function isCheckedInFor(Tournament $tournament): bool
+    {
+        $reg = $this->registrations()->firstWhere(['tournament_id' => $tournament->id]);
+        return $reg != null && $reg->checked_in;
+    }
+
     public function blacklistEntries(): HasMany
     {
         return $this->hasMany(PlayerBlacklistEntry::class, 'tetrio_id', 'id');
