@@ -3,7 +3,9 @@
 namespace App\Helper;
 
 use App\Enums\TournamentStatus;
+use App\Events\UserUnregisteredEvent;
 use App\Models\Tournament;
+use App\Models\TournamentRegistration;
 use App\Models\User;
 
 class RegistrationHelper
@@ -95,5 +97,14 @@ class RegistrationHelper
 
 
         return $errors;
+    }
+
+    public static function unregister(TournamentRegistration $registration, array $reasons = []): ?bool
+    {
+        $result = $registration->delete();
+        if ($result) {
+            UserUnregisteredEvent::dispatch($registration->user->user, $registration->tournament, $reasons);
+        }
+        return $result;
     }
 }

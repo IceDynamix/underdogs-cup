@@ -18,7 +18,7 @@ class UserUnregisteredEvent
 
     public function __construct(User $user, Tournament $tournament, array $reasons = [])
     {
-        $this->user = $user;
+        $this->user = $user->load('tetrio');
         $this->tournament = $tournament;
         $this->reasons = $reasons;
     }

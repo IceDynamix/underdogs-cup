@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Enums\TetrioRank;
 use App\Enums\TournamentStatus;
 use App\Events\UserRegisteredEvent;
-use App\Events\UserUnregisteredEvent;
 use App\Helper\RegistrationHelper;
 use App\Http\Requests\TournamentCreateRequest;
 use App\Http\Requests\TournamentEditRequest;
@@ -126,16 +125,13 @@ class TournamentsController extends Controller
     {
         $this->authorize('unregister', $tournament);
 
-        $user = auth()->user();
+        $reg = auth()->user()
+            ->tetrio
+            ->registrations
+            ->where('tournament_id', $tournament->id)
+            ->first();
 
-        $reg = TournamentRegistration::firstWhere([
-            'tetrio_user_id' => $user->tetrio->id,
-            'tournament_id' => $tournament->id,
-        ]);
-
-        $reg->delete();
-
-        UserUnregisteredEvent::dispatch($user, $tournament);
+        RegistrationHelper::unregister($reg);
 
         return redirect()->route('tournaments.register', $tournament);
     }
