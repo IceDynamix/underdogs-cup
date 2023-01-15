@@ -32,7 +32,7 @@ class PlayerBlacklistEntriesPolicy
 
     public function delete(User $user, PlayerBlacklistEntry $playerBlacklistEntry): bool
     {
-        return false;
+        return $user->is_admin && $playerBlacklistEntry->isActive();
     }
 
     public function restore(User $user, PlayerBlacklistEntry $playerBlacklistEntry): bool

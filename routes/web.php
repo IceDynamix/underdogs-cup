@@ -52,6 +52,6 @@ Route::prefix('admin')
     ->group(function () {
         Route::get('/', fn() => view('admin.index'))->name('index');
         Route::resource('blacklist', PlayerBlacklistEntriesController::class)
-            ->only(['index', 'create', 'store']);
+            ->only(['index', 'create', 'store', 'destroy']);
     });
 

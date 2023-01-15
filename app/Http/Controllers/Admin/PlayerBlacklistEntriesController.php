@@ -12,7 +12,7 @@ class PlayerBlacklistEntriesController extends Controller
 
     public function __construct()
     {
-        $this->authorizeResource(PlayerBlacklistEntry::class, 'entry');
+        $this->authorizeResource(PlayerBlacklistEntry::class, 'blacklist');
     }
 
     public function index()
@@ -40,28 +40,21 @@ class PlayerBlacklistEntriesController extends Controller
         return redirect()->route('admin.blacklist.index');
     }
 
-    public
-    function show(
-        PlayerBlacklistEntry $playerBlacklistEntry
-    ) {
+    public function show(PlayerBlacklistEntry $blacklist)
+    {
     }
 
-    public
-    function edit(
-        PlayerBlacklistEntry $playerBlacklistEntry
-    ) {
+    public function edit(PlayerBlacklistEntry $blacklist)
+    {
     }
 
-    public
-    function update(
-        Request $request,
-        PlayerBlacklistEntry $playerBlacklistEntry
-    ) {
+    public function update(Request $request, PlayerBlacklistEntry $blacklist)
+    {
     }
 
-    public
-    function destroy(
-        PlayerBlacklistEntry $playerBlacklistEntry
-    ) {
+    public function destroy(PlayerBlacklistEntry $blacklist)
+    {
+        $blacklist->delete();
+        return redirect()->route('admin.blacklist.index');
     }
 }

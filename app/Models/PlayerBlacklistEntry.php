@@ -29,4 +29,9 @@ class PlayerBlacklistEntry extends Model
     {
         return $this->belongsTo(User::class, 'admin_id', 'id');
     }
+
+    public function isActive(): bool
+    {
+        return $this->until == null || $this->until->isFuture();
+    }
 }
