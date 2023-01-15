@@ -17,10 +17,17 @@ return new class extends Migration {
 
             $table->timestamps();
         });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('is_blacklisted');
+        });
     }
 
     public function down()
     {
         Schema::dropIfExists('player_blacklist_entries');
+        Schema::table('users', function (Blueprint $table) {
+            $table->boolean('is_blacklisted')->default(false);
+        });
     }
 };
