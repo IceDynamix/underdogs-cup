@@ -27,10 +27,6 @@ class RegistrationRepository
             $errors[] = 'Registrations are closed right now.';
         }
 
-        if ($user->is_blacklisted) {
-            $errors[] = 'You have placed top 3 in a previous Underdogs Cup before or have been blacklisted for other reasons. Please contact a staff member if you think this is an accident.';
-        }
-
         if (!$user->is_in_discord) {
             $errors[] = 'You have not joined the Discord server yet. Please join the Discord server and refresh the page.';
         }
@@ -41,6 +37,10 @@ class RegistrationRepository
             $errors[] = 'TETR.IO account not linked';
 
             return $errors;
+        }
+
+        if ($user->tetrio->isBlacklisted()) {
+            $errors[] = 'You have placed top 3 in a previous Underdogs Cup before or have been blacklisted for other reasons. Please contact a staff member if you think this is an accident.';
         }
 
         $snapshot = $user->tetrio->snapshotFor($tournament);
