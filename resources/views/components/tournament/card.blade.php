@@ -41,5 +41,9 @@
         @can('update', $tournament)
             <a href="{{route('tournaments.edit', $tournament)}}" class="button is-info">Edit</a>
         @endcan
+
+        @if($tournament->bracket_url)
+            <a href="{{$tournament->bracket_url}}" class="button is-info">Bracket</a>
+        @endif
     </div>
 </div>
