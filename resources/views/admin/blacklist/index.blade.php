@@ -15,10 +15,10 @@
                 @forelse($blacklistEntries as $entry)
                     <tr>
                         <td>{{$entry->user->username}}</td>
-                        <td>{{$entry->created_at->diffForHumans()}}, {{$entry->created_at}}</td>
+                        <td>{{$entry->created_at}}, {{$entry->created_at->diffForHumans()}}</td>
                         <td>
                             @if($entry->until)
-                                {{$entry->until?->diffForHumans()}}, {{$entry->until}}
+                                {{$entry->until}}, {{$entry->until?->diffForHumans()}}
                             @else
                                 -
                             @endif
