@@ -30,22 +30,22 @@
 
     <div class="columns">
         <div class="column">
-            {{LaraForm::datetimeLocal('reg_open_ts','Registration open', old('reg_open_ts', $tournament->reg_open_ts))}}
+            {{LaraForm::datetimeLocal('reg_open_ts','Registration open (UTC)', old('reg_open_ts', $tournament->reg_open_ts))}}
         </div>
         <div class="column">
-            {{LaraForm::datetimeLocal('reg_close_ts','Registration close', old('reg_close_ts', $tournament->reg_close_ts))}}
+            {{LaraForm::datetimeLocal('reg_close_ts','Registration close (UTC)', old('reg_close_ts', $tournament->reg_close_ts))}}
         </div>
     </div>
 
     <div class="columns">
         <div class="column">
-            {{LaraForm::datetimeLocal('check_in_open_ts','Check-in open', old('check_in_open_ts', $tournament->check_in_open_ts))}}
+            {{LaraForm::datetimeLocal('check_in_open_ts','Check-in open (UTC)', old('check_in_open_ts', $tournament->check_in_open_ts))}}
         </div>
         <div class="column">
-            {{LaraForm::datetimeLocal('check_in_close_ts','Check-in close', old('check_in_close_ts', $tournament->check_in_close_ts))}}
+            {{LaraForm::datetimeLocal('check_in_close_ts','Check-in close (UTC)', old('check_in_close_ts', $tournament->check_in_close_ts))}}
         </div>
         <div class="column">
-            {{LaraForm::datetimeLocal('tournament_start_ts','Tournament Start', old('tournament_start_ts', $tournament->tournament_start_ts))}}
+            {{LaraForm::datetimeLocal('tournament_start_ts','Tournament start (UTC)', old('tournament_start_ts', $tournament->tournament_start_ts))}}
         </div>
     </div>
 

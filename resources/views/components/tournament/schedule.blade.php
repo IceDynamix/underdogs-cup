@@ -6,7 +6,7 @@
         'Registration close' => [TournamentStatus::RegClosed, $tournament->reg_close_ts],
         'Check-in open' => [TournamentStatus::CheckInOpen, $tournament->check_in_open_ts],
         'Check-in close' => [TournamentStatus::CheckInClosed, $tournament->check_in_close_ts],
-        'Tournament Start' => [TournamentStatus::Ongoing, $tournament->tournament_start_ts]
+        'Tournament start' => [TournamentStatus::Ongoing, $tournament->tournament_start_ts]
     ];
 @endphp
 
@@ -22,10 +22,10 @@
                     </td>
                     <td>
                         <span class="tag is-info @if($tournament->status != $status) is-light @endif">
-                            {{Carbon::parse($ts)->format('D, d M Y H:i')}} UTC
+                            {{$ts->format('D, d M Y H:i')}} UTC
                         </span>
                         <span class="tag is-gray">
-                            {{Carbon::parse($ts)->diffForHumans()}}
+                            {{$ts->diffForHumans(['parts' => 2])}}
                         </span>
                     </td>
                 </tr>
