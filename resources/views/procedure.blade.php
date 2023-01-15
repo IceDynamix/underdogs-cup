@@ -24,7 +24,7 @@
                 a streamed match, please stand by and wait for staff instructions.
             </p>
             <p>
-                Refer to: <a href="/#communication">Communication</a>
+                Refer to the Communication in the rules.
             </p>
 
             <h3 id="creating-the-room">3. Creating the room</h3>
@@ -43,13 +43,9 @@
 
             <h3 id="playing-the-match">4. Playing the match</h3>
             <p>
-                This should be the easiest part, it's what you came for in the end! Please refer to following rule
-                sections when necessary:
+                This should be the easiest part, it's what you came for in the end! Please refer to the Warmup and
+                Disconnect rule sections in the tournament rules when necessary.
             </p>
-            <ul>
-                <li><a href="/#warmup">Warmup</a></li>
-                <li><a href="/#disconnect">Disconnect</a></li>
-            </ul>
 
             <h3 id="posting-your-match-results">5. Reporting your match results</h3>
             <p>
