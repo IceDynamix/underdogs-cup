@@ -10,8 +10,7 @@ class AdminMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        $user = Auth::user();
-        if (empty($user) || !$user->is_admin) {
+        if (!Auth::user()?->is_admin) {
             abort(403);
         }
 
