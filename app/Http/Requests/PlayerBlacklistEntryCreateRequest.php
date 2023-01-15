@@ -13,7 +13,7 @@ class PlayerBlacklistEntryCreateRequest extends FormRequest
         return [
             'tetrio_id' => 'required',
             'until' => 'date|nullable',
-            'reason' => 'required|min:5'
+            'reason' => 'required|min:5',
         ];
     }
 

@@ -95,7 +95,6 @@ class RegistrationRepository
             }
         }
 
-
         return $errors;
     }
 
@@ -105,6 +104,7 @@ class RegistrationRepository
         if ($result) {
             UserUnregisteredEvent::dispatch($registration->user->user, $registration->tournament, $reasons);
         }
+
         return $result;
     }
 }

@@ -35,7 +35,7 @@ class TournamentCheckUnregisterJob implements ShouldQueue
                     $errors = RegistrationRepository::getRegistrationErrors($tournament, $user, true);
 
                     // "Already registered" error is always included
-                    if (sizeof($errors) > 0) {
+                    if (count($errors) > 0) {
                         $reg = TournamentRegistration::firstWhere([
                             'tetrio_user_id' => $user->tetrio->id,
                             'tournament_id' => $tournament->id,

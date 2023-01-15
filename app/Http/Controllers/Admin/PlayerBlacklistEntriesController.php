@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 
 class PlayerBlacklistEntriesController extends Controller
 {
-
     public function __construct()
     {
         $this->authorizeResource(PlayerBlacklistEntry::class, 'blacklist');
@@ -20,6 +19,7 @@ class PlayerBlacklistEntriesController extends Controller
     public function index()
     {
         $blacklistEntries = PlayerBlacklistEntry::orderByDesc('created_at')->get();
+
         return view('admin.blacklist.index', compact('blacklistEntries'));
     }
 
@@ -36,13 +36,13 @@ class PlayerBlacklistEntriesController extends Controller
             'tetrio_id' => $validated['tetrio_id'],
             'until' => $validated['until'],
             'admin_id' => auth()->user()->id,
-            'reason' => $validated['reason']
+            'reason' => $validated['reason'],
         ]);
 
         $tetrio = TetrioUser::updateOrCreateFromId($validated['tetrio_id']);
         foreach ($tetrio->registrations as $reg) {
             RegistrationRepository::unregister($reg,
-                ["You have been manually removed from the tournament. If you think this is an error, please contact staff."]);
+                ['You have been manually removed from the tournament. If you think this is an error, please contact staff.']);
         }
 
         return redirect()->route('admin.blacklist.index');
@@ -63,6 +63,7 @@ class PlayerBlacklistEntriesController extends Controller
     public function destroy(PlayerBlacklistEntry $blacklist)
     {
         $blacklist->delete();
+
         return redirect()->route('admin.blacklist.index');
     }
 }

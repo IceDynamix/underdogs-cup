@@ -32,7 +32,7 @@ class EventServiceProvider extends ServiceProvider
             Redis::publish('unregister', json_encode([
                 'user' => $event->user,
                 'tournament' => $event->tournament,
-                'reasons' => $event->reasons
+                'reasons' => $event->reasons,
             ]));
         });
     }

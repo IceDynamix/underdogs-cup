@@ -14,10 +14,11 @@ class PlayerBlacklistEntry extends Model
         'tetrio_id',
         'until',
         'admin_id',
-        'reason'
+        'reason',
     ];
+
     protected $casts = [
-        'until' => 'datetime'
+        'until' => 'datetime',
     ];
 
     public function user(): BelongsTo
