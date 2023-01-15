@@ -22,10 +22,10 @@
                     </td>
                     <td>
                         <span class="tag is-info @if($tournament->status != $status) is-light @endif">
-                            {{$ts->format('D, d M Y H:i')}} UTC
+                            {{Carbon::parse($ts)->format('D, d M Y H:i')}} UTC
                         </span>
                         <span class="tag is-gray">
-                            {{$ts->diffForHumans(['parts' => 2])}}
+                            {{Carbon::parse($ts)->diffForHumans(['parts' => 2])}}
                         </span>
                     </td>
                 </tr>
