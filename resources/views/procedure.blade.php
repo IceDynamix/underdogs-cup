@@ -19,7 +19,8 @@
             <p>
                 Look for your opponent's Discord and ping them accordingly in the<code>#find-your-opponent</code>channel.
                 Their Discord username should be the same as their Tetr.io username. If a player does not reply
-                within 10 minutes, please refer to <a href="/#no-show">No-Show</a>. If your match has been chosen as
+                within 10 minutes, please open a new post in the <code>#tournament-help</code> forum channel and tag it
+                as "Missing opponent". If your match has been chosen as
                 a streamed match, please stand by and wait for staff instructions.
             </p>
             <p>
@@ -50,24 +51,43 @@
                 <li><a href="/#disconnect">Disconnect</a></li>
             </ul>
 
-            <h3 id="posting-your-match-results">5. Posting your match results</h3>
+            <h3 id="posting-your-match-results">5. Reporting your match results</h3>
             <p>
-                Once your match has concluded, make sure to send a screenshot of your match results into the <code>#match-results</code>
+                We are now using the UC parasite Discord Bot to report match results.
+            </p>
+
+            <p>
+                Once your match has concluded, use the <code>/report</code> command in the <code>#match-reports</code>
                 channel.
             </p>
+
+            <img src="https://cdn.discordapp.com/attachments/746479190739648584/1064276495033450556/image.png"
+                 alt="/report command">
+
             <p>
-                You can make a screenshot on Windows 10 with the <code>Win+Shift+S</code>shortcut. This opens up the
-                new
-                snipping tool, which you can use to select an area to screenshot. The screenshot will be copied into
-                your
-                clipboard and can be pasted into Discord to post with <code>Ctrl+V</code>.
+                Submit the form by filling in the modal with the scores.</p>
+
+            <img src="https://cdn.discordapp.com/attachments/746479190739648584/1064276546346553394/image.png"
+                 alt="Command modal">
+
+            <p>Once you receive your confirmation message, you can continue in the tournament!</p>
+
+            <img src="https://cdn.discordapp.com/attachments/746479190739648584/1064276650092679258/image.png"
+                 alt="Confirmation message">
+
+            <p>
+                Only the first reported match result will be accepted, so only one person needs to report it. Any match
+                reports for that match after the first one will be rejected.
             </p>
-            <video
-                src="https://cdn.discordapp.com/attachments/737379286725427250/969806005594619995/opera_2022-04-30_05-42-24.mp4"
-                controls></video>
+
             <p>
-                Staff has to enter all results into Challonge manually, which can introduce delays in the early
-                stages of the tournament.
+                <b>If your match is FT7, do <i>not</i> submit your match result yet until top 8. We will make it
+                    abundantly clear when you start FT7 matches, every early match should be FT5.</b>
+            </p>
+
+            <p>
+                If there has been an incorrect match report, please open a new post in the <code>#tournament-help</code>
+                forum channel and tag it as "Wrong Match Result". Staff will take care of the result.
             </p>
 
             <h3 id="repeat-the-process">6. Repeat the process</h3>
