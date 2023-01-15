@@ -25,4 +25,5 @@ Route::get('users', fn() => User::all());
 Route::prefix('tournaments')->group(function () {
     Route::get('/', fn() => Tournament::all());
     Route::get('/{tournament}', fn(Tournament $tournament) => $tournament->load('participants.user'));
+    Route::get('/{tournament}/checkedin', fn(Tournament $tournament) => $tournament->checkedIn()->with('user')->get());
 });
