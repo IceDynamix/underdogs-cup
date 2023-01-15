@@ -147,6 +147,28 @@ class TournamentsController extends Controller
         ]);
     }
 
+    public function viewCheckIn(Tournament $tournament)
+    {
+        $this->authorize('viewCheckIn', $tournament);
+
+        $checkInList = $tournament->checkedIn()->get();
+
+        return view('tournaments.check-in', compact('tournament', 'checkInList'));
+    }
+
+    public function checkIn(Tournament $tournament)
+    {
+        $this->authorize('checkIn', $tournament);
+
+        $reg = auth()->user()->tetrio->registrations
+            ->firstWhere('tournament_id', $tournament->id);
+
+        $reg->checked_in = !$reg->checked_in;
+        $reg->save();
+
+        return redirect()->back();
+    }
+
     private function ifThenNull($val, $if)
     {
         return $val == $if ? null : $val;

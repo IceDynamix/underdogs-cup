@@ -26,6 +26,8 @@ Route::controller(TournamentsController::class)
             Route::get('{tournament}/register', 'viewRegister')->name('register');
             Route::post('{tournament}/register', 'register')->name('register.post');
             Route::post('{tournament}/unregister', 'unregister')->name('unregister');
+            Route::get('{tournament}/checkin', 'viewCheckIn')->name('check-in');
+            Route::post('{tournament}/checkin', 'checkIn')->name('check-in.post');
         });
     });
 
@@ -50,7 +52,7 @@ Route::prefix('admin')
     ->middleware('is_admin')
     ->name('admin.')
     ->group(function () {
-        Route::get('/', fn () => view('admin.index'))->name('index');
+        Route::get('/', fn() => view('admin.index'))->name('index');
         Route::resource('blacklist', PlayerBlacklistEntriesController::class)
             ->only(['index', 'create', 'store', 'destroy']);
     });

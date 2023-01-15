@@ -60,11 +60,21 @@ class TournamentPolicy
 
     public function viewRegister(User $user, Tournament $tournament): bool
     {
-        return true;
+        return $this->view($user, $tournament);
     }
 
     public function unregister(User $user, Tournament $tournament): bool
     {
         return $user->isRegisteredAt($tournament) && $tournament->status == TournamentStatus::RegOpen;
+    }
+
+    public function viewCheckIn(User $user, Tournament $tournament): bool
+    {
+        return $this->view($user, $tournament) && $tournament->status == TournamentStatus::CheckInOpen;
+    }
+
+    public function checkIn(User $user, Tournament $tournament): bool
+    {
+        return $this->viewCheckIn($user, $tournament) && $user->tetrio->isRegisteredAt($tournament);
     }
 }
