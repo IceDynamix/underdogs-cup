@@ -32,14 +32,15 @@ class PlayerBlacklistEntriesController extends Controller
     {
         $validated = $request->validated();
 
+        $tetrio = TetrioUser::updateOrCreateFromId($validated['tetrio_id']);
+
         PlayerBlacklistEntry::create([
-            'tetrio_id' => $validated['tetrio_id'],
+            'tetrio_id' => $tetrio->id,
             'until' => $validated['until'],
             'admin_id' => auth()->user()->id,
             'reason' => $validated['reason'],
         ]);
 
-        $tetrio = TetrioUser::updateOrCreateFromId($validated['tetrio_id']);
         foreach ($tetrio->registrations as $reg) {
             RegistrationRepository::unregister($reg,
                 ['You have been manually removed from the tournament. If you think this is an error, please contact staff.']);

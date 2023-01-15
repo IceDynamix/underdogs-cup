@@ -7,7 +7,7 @@
             <form action="{{route('admin.blacklist.store')}}" method="POST">
                 @csrf
 
-                {{LaraForm::text('tetrio_id','Tetrio user ID', old('tetrio_id'))}}
+                {{LaraForm::text('tetrio_id','Tetrio User ID or username', old('tetrio_id'))}}
                 {{LaraForm::datetimeLocal('until','Blacklisted until (leave blank for indefinite)', old('until'))}}
                 {{LaraForm::text('reason','Reason', old('reason'))}}
 
