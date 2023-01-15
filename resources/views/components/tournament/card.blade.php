@@ -20,15 +20,17 @@
     <div class="buttons">
         <a href="{{route('tournaments.show', $tournament)}}" class="button is-primary">Details</a>
 
-        @if($tournament->status == TournamentStatus::CheckInOpen)
-            <a href="" class="button is-warning">
-                Check-in
-            </a>
-        @else
+        @can('viewRegister', $tournament)
             <a href="{{route('tournaments.register', $tournament)}}" class="button is-warning">
                 Register
             </a>
-        @endif
+        @endcan
+
+        @can('viewCheckIn', $tournament)
+            <a href="{{route('tournaments.check-in', $tournament)}}" class="button is-success">
+                Check-in
+            </a>
+        @endcan
 
         @if($tournament->participants->count() > 0)
             <a href="{{route('tournaments.participants', $tournament)}}" class="button is-info">
