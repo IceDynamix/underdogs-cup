@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Enums\TetrioRank;
 use App\Enums\TournamentStatus;
+use App\Models\PlayerBlacklistEntry;
 use App\Models\TetrioUser;
 use App\Models\TetrioUserSnapshot;
 use App\Models\Tournament;
@@ -32,7 +33,8 @@ class TournamentRegistrationTest extends TestCase
 
     public function testUserBlacklisted()
     {
-        $blacklisted = $this->okUser()->create(['is_blacklisted' => true]);
+        $blacklisted = $this->okUser()->create();
+        PlayerBlacklistEntry::factory()->create(['tetrio_id' => $blacklisted->id]);
 
         $this->actingAs($blacklisted)
             ->get(route('tournaments.register', $this->tournament))
@@ -172,7 +174,6 @@ class TournamentRegistrationTest extends TestCase
     private function okUser(array $tetrioAttrs = []): UserFactory
     {
         return User::factory()->state([
-            'is_blacklisted' => false,
             'tetrio_user_id' => TetrioUser::factory()->create($tetrioAttrs)->id,
             'is_in_discord' => true,
         ]);

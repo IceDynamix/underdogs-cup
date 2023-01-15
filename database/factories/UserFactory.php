@@ -18,7 +18,6 @@ class UserFactory extends Factory
             'tetrio_user_id' => TetrioUser::factory(),
             'avatar' => fake()->imageUrl(200, 200),
             'is_admin' => false,
-            'is_blacklisted' => false,
         ];
     }
 }
