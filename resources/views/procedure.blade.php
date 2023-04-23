@@ -34,10 +34,10 @@
             </p>
             <ul>
                 <li>Matches until top 8:
-                    <code>/set meta.match.ft=5;game.options.gincrease=0.0035;game.options.gmargin=7200</code>
+                    <code>/set options.presets=tetra league;match.ft=5;options.garbagemargin=7200;</code>
                 </li>
                 <li>Matches after top 8:
-                    <code>/set meta.match.ft=7;game.options.gincrease=0.0035;game.options.gmargin=7200</code>
+                    <code>/set options.presets=tetra league;options.garbagemargin=7200;</code>
                 </li>
             </ul>
 
