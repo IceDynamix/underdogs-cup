@@ -88,6 +88,7 @@ class Tournament extends Model
         return $this->participants()
             ->whereHas('registrations', function (Builder $query) {
                 $query->where('checked_in', true);
-            });
+            })
+            ->orderBy('vs', 'desc');
     }
 }
