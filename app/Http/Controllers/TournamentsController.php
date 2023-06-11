@@ -22,7 +22,7 @@ class TournamentsController extends Controller
 
     public function index()
     {
-        return view('tournaments.index', ['tournaments' => Tournament::all()]);
+        return view('tournaments.index', ['tournaments' => Tournament::orderBy('created_at', 'desc')->get()]);
     }
 
     public function store(TournamentCreateRequest $request)
