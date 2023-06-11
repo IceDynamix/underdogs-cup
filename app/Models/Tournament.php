@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Enums\TetrioRank;
 use App\Enums\TournamentStatus;
 use App\Models\Scopes\HiddenScope;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -80,15 +79,14 @@ class Tournament extends Model
 
     public function participants(): BelongsToMany
     {
-        return $this->belongsToMany(TetrioUser::class, 'tournament_registrations', 'tournament_id', 'tetrio_user_id');
+        return $this->belongsToMany(TetrioUser::class, 'tournament_registrations', 'tournament_id', 'tetrio_user_id')
+            ->withPivot('checked_in');
     }
 
-    public function checkedIn()
+    public function checkedIn(): BelongsToMany
     {
         return $this->participants()
-            ->whereHas('registrations', function (Builder $query) {
-                $query->where('checked_in', true);
-            })
+            ->wherePivot('checked_in', true)
             ->orderBy('vs', 'desc');
     }
 }
